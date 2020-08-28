@@ -1,0 +1,55 @@
+name: Fetch frontend, bygg og deploy 
+
+on: [push, workflow_dispatch]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.sha }}
+
+jobs:
+  bygg:
+    name: Hent frontend-kode og bygg
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - run: yarn install
+      - run: yarn build
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: bygg.yml
+          branch: master
+          name: tiltak-refusjon
+          repo: navikt/tiltak-refusjon
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq tiltak-refusjon.zip -d .
+      - uses: satackey/action-docker-layer-caching@v0.0.8
+        with:
+          key: docker-cache-{hash}
+          restore-keys: |
+            docker-cache-
+      - name: Bygg, tag og push Docker-image
+        run: |
+          docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
+          echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u $GITHUB_REPOSITORY --password-stdin
+          docker push $IMAGE_BASE
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais.yml
+          PRINT_PAYLOAD: true
