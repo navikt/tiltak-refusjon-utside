@@ -20,10 +20,11 @@ const options = (api) => ({
         const pathFromApi = (urlFromApi.pathname === '/' ? '' : urlFromApi.pathname);
 
         const urlFromRequest = url.parse(req.originalUrl);
-        const pathFromRequest = urlFromRequest.pathname.replace(`/${api.path}/`, '/');
+        const regExp = new RegExp(`^.*/${api.path}/`);
+        const pathFromRequest = urlFromRequest.pathname.replace(regExp, '/');
 
         const queryString = urlFromRequest.query;
-        const newPath = (pathFromApi ? pathFromApi : '') + (pathFromRequest ? pathFromRequest : '') + (queryString ? '?' + queryString : '');
+        const newPath = (pathFromApi ?? '') + (pathFromRequest ?? '') + (queryString ? '?' + queryString : '');
 
         console.log(`Proxying request from '${req.originalUrl}' to '${stripTrailingSlash(urlFromApi.href)}${newPath}'`);
         return newPath;
