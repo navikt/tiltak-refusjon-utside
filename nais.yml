@@ -28,9 +28,9 @@ spec:
     - name: DECORATOR_STYLING
       value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
     - name: DOWNSTREAM_API_PATH
-      value: api
+      value: /tiltak-refusjon/api
     - name: DOWNSTREAM_API_URL
-      value: http://tiltak-refusjon-api
+      value: http://tiltak-refusjon-api/tiltak-refusjon-api
   accessPolicy:
     outbound:
       rules:
