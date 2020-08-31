@@ -1,7 +1,7 @@
-import config from './config';
 import express from 'express';
 import path from 'path';
-import reverseProxy from "./proxy/reverse-proxy";
+
+const proxy = require('http-proxy-middleware');
 
 const router = express.Router();
 
@@ -28,7 +28,12 @@ const setup = () => {
         // req.logOut();
     });
 
-    reverseProxy.setup(router);
+    router.use("/api", proxy({
+        changeOrigin: true,
+        target: process.env.API_URL || 'http://localhost:8080',
+        pathRewrite: {"^/tiltak-refusjon/api": "/tiltak-refusjon-api"},
+        xfwd: true,
+    }));
 
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));
