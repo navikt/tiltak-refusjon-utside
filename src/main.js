@@ -17,11 +17,7 @@ async function startApp()  {
         server.set("views", path.join(__dirname, "../build"));
 
         // setup routes
-        server.use("/tiltak-refusjon", routes.setup());
-
-        server.get('/test', (req, res) => {
-            res.send('heihei fra main');
-        });
+        server.use("/", routes.setup());
 
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));

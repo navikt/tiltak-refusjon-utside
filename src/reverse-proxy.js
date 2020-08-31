@@ -15,7 +15,7 @@ const setup = (router) => {
         //     ))
         // },
         proxyReqPathResolver: req => {
-            return req.originalUrl.replace("/tiltak-refusjon/api", "/tiltak-refusjon-api");
+            return req.originalUrl.replace("/api", "/tiltak-refusjon-api");
         }
     }));
 };

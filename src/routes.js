@@ -30,10 +30,6 @@ const setup = () => {
 
     reverseProxy.setup(router);
 
-    router.get('/tet', (req, res) => {
-        res.send('heihei fra routes');
-    });
-
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));
 
