@@ -1,16 +1,16 @@
 import express from 'express';
 import path from 'path';
 
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import reverseProxy from "./reverse-proxy";
 
 const router = express.Router();
 
 const ensureAuthenticated = async (req, res, next) => {
-    if (req.headers.cookie.includes("selvbetjening-idtoken")) {
+    // if (req.headers.cookie.includes("selvbetjening-idtoken")) {
         next();
-    } else {
-        res.redirect('/tiltak-refusjon/login');
-    }
+    // } else {
+    //     res.redirect('/tiltak-refusjon/login');
+    // }
 };
 
 const setup = () => {
@@ -27,18 +27,12 @@ const setup = () => {
     router.get('/logout', (req, res) => {
         // req.logOut();
     });
-    
+
+    reverseProxy.setup(router);
+
     router.get('/tet', (req, res) => {
         res.send('heihei fra routes');
     });
-    
-
-    router.use("/api", createProxyMiddleware({
-        changeOrigin: true,
-        target: process.env.API_URL || 'http://localhost:8080',
-        pathRewrite: {"^/tiltak-refusjon/api": "/tiltak-refusjon-api"},
-        xfwd: true,
-    }));
 
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));
