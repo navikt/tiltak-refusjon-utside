@@ -20,7 +20,7 @@ const options = (api) => ({
         const pathFromApi = (urlFromApi.pathname === '/' ? '' : urlFromApi.pathname);
 
         const urlFromRequest = url.parse(req.originalUrl);
-        const pathFromRequest = urlFromRequest.pathname.replace(`/${api.path}/`, '/');
+        const pathFromRequest = urlFromRequest.pathname.replace(`${config.contextPath}/${api.path}/`, '/');
 
         const queryString = urlFromRequest.query;
         const newPath = (pathFromApi ?? '') + (pathFromRequest ?? '') + (queryString ? '?' + queryString : '');

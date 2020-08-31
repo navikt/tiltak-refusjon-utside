@@ -30,7 +30,7 @@ async function startApp()  {
         server.set("views", path.join(__dirname, "../build"));
 
         // setup routes
-        server.use('/tiltak-refusjon', routes.setup());
+        server.use(config.contextPath, routes.setup());
 
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {
