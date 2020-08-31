@@ -19,7 +19,7 @@ const setup = () => {
     router.get('/isReady', (req, res) => res.send('Ready'));
 
     router.get('/login', (req, res) => {
-        console.log("login")
+        res.redirect(process.env.LOGINSERVICE_URL);
     });
 
     router.use(ensureAuthenticated);
