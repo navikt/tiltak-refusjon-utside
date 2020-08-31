@@ -19,6 +19,7 @@ async function startApp()  {
         // setup routes
         server.use("/tiltak-refusjon", routes.setup());
 
+        const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {
         console.error('Error during start-up', error);
