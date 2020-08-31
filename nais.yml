@@ -12,11 +12,11 @@ spec:
   ingresses:
     - https://tiltak-refusjon.dev.nav.no
   liveness:
-    path: /tiltak-refusjon/isAlive
-    initialDelay: 30
+    path: /isAlive
+    initialDelay: 10
   readiness:
-    path: /tiltak-refusjon/isReady
-    initialDelay: 30
+    path: /isReady
+    initialDelay: 10
   replicas:
     min: 1
     max: 1
