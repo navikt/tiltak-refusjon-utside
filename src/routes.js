@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 
-import proxy from 'http-proxy-middleware';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ const setup = () => {
         // req.logOut();
     });
 
-    router.use("/api", proxy({
+    router.use("/api", createProxyMiddleware({
         changeOrigin: true,
         target: process.env.API_URL || 'http://localhost:8080',
         pathRewrite: {"^/tiltak-refusjon/api": "/tiltak-refusjon-api"},
