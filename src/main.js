@@ -19,6 +19,10 @@ async function startApp()  {
         // setup routes
         server.use("/tiltak-refusjon", routes.setup());
 
+        server.get('/test', (req, res) => {
+            res.send('heihei fra main');
+        });
+
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {

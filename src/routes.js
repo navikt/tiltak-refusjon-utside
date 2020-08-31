@@ -27,6 +27,11 @@ const setup = () => {
     router.get('/logout', (req, res) => {
         // req.logOut();
     });
+    
+    router.get('/tet', (req, res) => {
+        res.send('heihei fra routes');
+    });
+    
 
     router.use("/api", createProxyMiddleware({
         changeOrigin: true,
