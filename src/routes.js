@@ -6,11 +6,11 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 const router = express.Router();
 
 const ensureAuthenticated = async (req, res, next) => {
-    // if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {
+    if (req.headers.cookie.includes("selvbetjening-idtoken")) {
         next();
-    // } else {
-    //     res.redirect('/tiltak-refusjon/login');
-    // }
+    } else {
+        res.redirect('/tiltak-refusjon/login');
+    }
 };
 
 const setup = () => {
