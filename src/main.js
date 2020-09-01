@@ -2,6 +2,7 @@ import routes from './routes';
 import express from 'express';
 import mustacheExpress from 'mustache-express';
 import path from "path";
+import cookieParser from 'cookie-parser';
 
 const server = express();
 
@@ -15,6 +16,8 @@ async function startApp()  {
         server.engine("html", mustacheExpress());
         server.set("view engine", "mustache");
         server.set("views", path.join(__dirname, "../build"));
+
+        server.use(cookieParser());
 
         // setup routes
         server.use("/", routes.setup());
