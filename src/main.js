@@ -22,6 +22,11 @@ async function startApp()  {
         server.use("/", routes.setup());
         server.use(cookieParser());
 
+        server.get("/cookie", (req, res) => {
+            res.json(req.cookies);
+        });
+
+
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {

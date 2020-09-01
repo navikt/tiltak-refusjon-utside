@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-
+import cookieParser from 'cookie-parser';
 import reverseProxy from "./reverse-proxy";
 
 const router = express.Router();
@@ -29,6 +29,7 @@ const setup = () => {
     });
 
     reverseProxy.setup(router);
+    router.use(cookieParser());
 
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));
