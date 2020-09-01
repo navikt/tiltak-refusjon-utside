@@ -8,6 +8,7 @@ const setup = (router) => {
             if (access_token) {
                 options.headers.Authorization = `Bearer ${access_token}`;
             }
+            return options;
         }
     }));
 };
