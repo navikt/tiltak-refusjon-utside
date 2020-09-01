@@ -8,9 +8,6 @@ const setup = (router) => {
             if (access_token) {
                 options.headers.Authorization = `Bearer ${access_token}`;
             }
-        },
-        proxyReqPathResolver: req => {
-            return req.originalUrl.replace("/api", "/tiltak-refusjon-api");
         }
     }));
 };
