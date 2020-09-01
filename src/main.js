@@ -17,14 +17,14 @@ async function startApp()  {
         server.set("view engine", "mustache");
         server.set("views", path.join(__dirname, "../build"));
 
-
-        // setup routes
-        server.use("/", routes.setup());
         server.use(cookieParser());
-
         server.get("/cookie", (req, res) => {
             res.json(req.cookies);
         });
+
+        // setup routes
+        server.use("/", routes.setup());
+
 
 
         const port = 3000;
