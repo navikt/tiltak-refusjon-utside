@@ -17,10 +17,10 @@ async function startApp()  {
         server.set("view engine", "mustache");
         server.set("views", path.join(__dirname, "../build"));
 
-        server.use(cookieParser());
 
         // setup routes
         server.use("/", routes.setup());
+        server.use(cookieParser());
 
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
