@@ -6,11 +6,11 @@ import reverseProxy from "./reverse-proxy";
 const router = express.Router();
 
 const ensureAuthenticated = async (req, res, next) => {
-    // if (req.headers.cookie.includes("selvbetjening-idtoken")) {
+    if (req.cookies['selvbetjening-idtoken']) {
         next();
-    // } else {
-    //     res.redirect('/tiltak-refusjon/login');
-    // }
+    } else {
+        res.redirect('/tiltak-refusjon/login');
+    }
 };
 
 const setup = () => {
@@ -29,7 +29,6 @@ const setup = () => {
     });
 
     reverseProxy.setup(router);
-    router.use(cookieParser());
 
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));

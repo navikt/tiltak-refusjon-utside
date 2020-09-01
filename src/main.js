@@ -18,13 +18,9 @@ async function startApp()  {
         server.set("views", path.join(__dirname, "../build"));
 
         server.use(cookieParser());
-        server.get("/cookie", (req, res) => {
-            res.json(req.cookies);
-        });
 
         // setup routes
         server.use("/", routes.setup());
-
 
 
         const port = 3000;
