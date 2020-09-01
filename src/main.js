@@ -22,7 +22,6 @@ async function startApp()  {
         // setup routes
         server.use("/", routes.setup());
 
-
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {
