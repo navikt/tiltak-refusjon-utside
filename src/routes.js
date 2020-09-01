@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import reverseProxy from "./reverse-proxy";
 import axios from 'axios';
+import {JSDOM} from 'jsdom';
 
 const router = express.Router();
 
@@ -31,13 +32,13 @@ const setup = () => {
     reverseProxy.setup(router);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, "../build"), { index: false }));
+    router.use(express.static(path.join(__dirname, "../build"), {index: false}));
 
     router.use('*', async (req, res) => {
         const response = await axios.get(process.env.DECORATOR_URL);
         const body = response.data;
 
-        const { document } = new JSDOM(body).window;
+        const {document} = new JSDOM(body).window;
         res.render('index.html', {
             NAV_SCRIPTS: document.getElementById('scripts').innerHTML,
             NAV_STYLES: document.getElementById('styles').innerHTML,
@@ -51,4 +52,4 @@ const setup = () => {
     return router
 };
 
-export default { setup };
+export default {setup};
