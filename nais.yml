@@ -23,10 +23,8 @@ spec:
   env:
     - name: LOGINSERVICE_URL
       value: https://loginservice.dev.nav.no/login?redirect=https://tiltak-refusjon.dev.nav.no
-    - name: DECORATOR_SCRIPT
-      value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js
-    - name: DECORATOR_STYLING
-      value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
+    - name: DECORATOR_URL
+      value: https://dekoratoren.dev.nav.no
     - name: API_URL
       value: http://tiltak-refusjon-api
   accessPolicy:
