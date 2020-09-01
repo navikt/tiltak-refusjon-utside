@@ -5,14 +5,14 @@ const setup = (router) => {
         parseReqBody: false,
         proxyReqPathResolver: (req) => {
             return req.originalUrl;
-          },
-          proxyReqOptDecorator: (options, req) => {
-              const access_token = req.cookies["selvbetjening-idtoken"];
-              if (access_token) {
-                  options.headers.Authorization = `Bearer ${access_token}`;
-                }
-                return options;
+        },
+        proxyReqOptDecorator: (options, req) => {
+            const access_token = req.cookies["selvbetjening-idtoken"];
+            if (access_token) {
+                options.headers.Authorization = `Bearer ${access_token}`;
             }
+            return options;
+        }
     }));
 };
 

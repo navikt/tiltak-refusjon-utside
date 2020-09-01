@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import cookieParser from 'cookie-parser';
 import reverseProxy from "./reverse-proxy";
 
 const router = express.Router();
@@ -9,7 +8,7 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.cookies['selvbetjening-idtoken']) {
         next();
     } else {
-        res.redirect('/tiltak-refusjon/login');
+        res.redirect('/login');
     }
 };
 
