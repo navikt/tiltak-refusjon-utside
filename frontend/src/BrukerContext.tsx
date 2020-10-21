@@ -87,7 +87,11 @@ export const BrukerContext = React.createContext<InnloggetBruker>({
 });
 
 const BrukerProvider: FunctionComponent = (props) => {
-    const [innloggetBruker, setInnloggetBruker] = useState({});
+    const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>({
+        identifikator: '007',
+        altinnOrganisasjoner: testAltinnOrganisasjon,
+        tilganger: [],
+    });
     useEffect(() => {
         hent();
     }, []);
@@ -97,13 +101,7 @@ const BrukerProvider: FunctionComponent = (props) => {
         setInnloggetBruker(hentetInnloggetBruker);
     };
 
-    const brukerContext: InnloggetBruker = {
-        identifikator: '007',
-        altinnOrganisasjoner: testAltinnOrganisasjon,
-        tilganger: [],
-    };
-
-    return <BrukerContext.Provider value={brukerContext}>{props.children}</BrukerContext.Provider>;
+    return <BrukerContext.Provider value={innloggetBruker}>{props.children}</BrukerContext.Provider>;
 };
 
 export default BrukerProvider;
