@@ -26,10 +26,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install
       - run: yarn build
-      - run: cd frontend
-      - run: yarn install
-      - run: yarn build
-      - run: cd ..
+      - run:
+      - name: Frontend yarn install
+        working-directory: ./frontend
+        run: yarn install
+      - name: Frontend yarn build
+        working-directory: ./frontend
+        run: yarn build
       - uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-cache-{hash}
