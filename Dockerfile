@@ -10,7 +10,7 @@ ENV NODE_EXTRA_CA_CERTS /etc/ssl/ca-bundle.pem
 
 COPY ./node_modules ./node_modules
 COPY ./dist ./dist
-COPY ./frontend/build ./build
+COPY ./frontend/build ./frontend/build
 
 EXPOSE 3000
 

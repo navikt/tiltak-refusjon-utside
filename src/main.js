@@ -15,7 +15,7 @@ async function startApp()  {
 
         server.engine("html", mustacheExpress());
         server.set("view engine", "mustache");
-        server.set("views", path.join(__dirname, "../build"));
+        server.set("views", path.join(__dirname, "../frontend/build"));
 
         server.use(cookieParser());
 
