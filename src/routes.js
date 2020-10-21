@@ -23,7 +23,7 @@ const setup = () => {
         res.redirect(process.env.LOGINSERVICE_URL);
     });
 
-    router.use(ensureAuthenticated);
+    // router.use(ensureAuthenticated);
 
     router.get('/logout', (req, res) => {
         // req.logOut();
