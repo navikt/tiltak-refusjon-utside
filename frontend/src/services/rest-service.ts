@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { InnloggetBruker } from '../BrukerContext';
+import { AxiosResponse } from 'axios';
 
 export const API_URL = '/api';
 
-export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
+export const hentInnloggetBruker = async (): Promise<AxiosResponse> => {
     return await axios.get(`${API_URL}/innloggetBruker`);
 };

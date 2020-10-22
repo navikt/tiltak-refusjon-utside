@@ -6,9 +6,8 @@ import { useContext } from 'react';
 import { BrukerContext } from './BrukerContext';
 
 const Oversikt: FunctionComponent = () => {
-    const bruker = useContext(BrukerContext);
+    const { bruker } = useContext(BrukerContext);
     const history = useHistory();
-
     return (
         <>
             <Bedriftsmeny
