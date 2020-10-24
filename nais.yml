@@ -37,3 +37,5 @@ spec:
     outbound:
       rules:
         - application: tiltak-refusjon-api
+      external:
+        - host: https://dekoratoren.dev.nav.no
