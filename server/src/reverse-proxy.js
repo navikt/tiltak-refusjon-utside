@@ -1,5 +1,5 @@
 import proxy from 'express-http-proxy';
-import config from './config';
+import * as config from './config';
 import {exchangeToken} from './auth';
 
 const setup = (app) => {
