@@ -1,6 +1,6 @@
 import session from "express-session";
 import redis from "redis";
-import * as config from "./config.js";
+import * as config from "./config";
 import RedisStore from "connect-redis";
 
 export const setupSession = () => {
