@@ -33,6 +33,7 @@ jobs:
           docker push $IMAGE_BASE
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
+        timeout-minutes: 3
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
