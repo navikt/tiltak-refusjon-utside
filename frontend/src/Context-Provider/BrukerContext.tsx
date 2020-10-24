@@ -5,7 +5,6 @@ import { hentInnloggetBruker } from '../services/rest-service';
 import { useState } from 'react';
 import {Context, initBruker, InnloggetBruker} from "./BrukerContextType";
 
-
 export const BrukerContext = React.createContext<Context>({} as Context);
 
 const BrukerProvider: FunctionComponent = (props) => {
