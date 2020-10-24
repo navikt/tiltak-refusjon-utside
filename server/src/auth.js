@@ -1,5 +1,5 @@
 import { Issuer } from 'openid-client'
-import logger from 'logstash'
+import logger from './logger'
 
 let tokenxConfig = null
 let tokenxClient = null
