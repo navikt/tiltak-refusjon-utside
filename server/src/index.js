@@ -78,19 +78,6 @@ app.use(async (req, res, next) => {
     }
 })
 
-// authenticated routes below
-app.use("/api", proxy(config.api.url, {
-    parseReqBody: false,
-    proxyReqPathResolver: (req) => {
-        return req.originalUrl;
-    },
-    proxyReqOptDecorator: async (options, req) => {
-        const accessToken = await auth.exchangeToken(req.session.tokens.id_token)
-        options.headers.Authorization = `Bearer ${accessToken}`;
-        return options;
-    }
-}));
-
 // serve static files
 app.use(express.static(path.join(__dirname, "../frontend/build"), {index: false}));
 
