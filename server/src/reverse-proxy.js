@@ -1,21 +1,17 @@
 import proxy from 'express-http-proxy';
-import config from '../config';
-import auth from './auth';
+import config from './config';
+import {exchangeToken} from './auth';
 
 const setup = (app) => {
-    app.use("/api", proxy(config.api.url, {
+    app.use("/api", proxy(config.app.apiUrl, {
         parseReqBody: false,
         proxyReqPathResolver: (req) => {
             return req.originalUrl;
         },
-        proxyReqOptDecorator: (options, req) => {
-            return new Promise(((resolve, reject) =>
-                    auth.exchangeToken(req.session.tokens.id_token).then(access_token => {
-                            options.headers.Authorization = `Bearer ${access_token}`;
-                            resolve(options)
-                        },
-                        error => reject(error))
-            ))
+        proxyReqOptDecorator: async (options, req) => {
+            const accessToken = await exchangeToken(req.session.tokens.id_token);
+            options.headers.Authorization = `Bearer ${accessToken}`;
+            return options;
         }
     }));
 };
