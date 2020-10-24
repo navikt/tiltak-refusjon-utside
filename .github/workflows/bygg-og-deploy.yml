@@ -1,4 +1,4 @@
-name: Fetch frontend, bygg og deploy 
+name: Bygg og deploy
 
 on: [push, workflow_dispatch]
 
@@ -14,29 +14,18 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: yarn install
-      - run: yarn build
+      - name: Server yarn install
+        working-directory: ./server
+        run: yarn install
+      - name: Server yarn build
+        working-directory: ./server
+        run: yarn build
       - name: Frontend yarn install
         working-directory: ./frontend
         run: yarn install
       - name: Frontend yarn build
         working-directory: ./frontend
         run: yarn build
-      - uses: satackey/action-docker-layer-caching@v0.0.8
-        with:
-          key: docker-cache-{hash}
-          restore-keys: |
-            docker-cache-
       - name: Bygg, tag og push Docker-image
         run: |
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
