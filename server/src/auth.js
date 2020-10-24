@@ -1,5 +1,5 @@
 import { Issuer } from 'openid-client'
-import logger from 'winston-logstash-format'
+import logger from 'logstash'
 
 let tokenxConfig = null
 let tokenxClient = null
