@@ -10,6 +10,7 @@ import {setupSession} from './session.js'
 import path from "path";
 import axios from 'axios';
 import reverseProxy from "./reverse-proxy";
+import mustacheExpress from 'mustache-express';
 
 const app = express()
 
@@ -78,10 +79,15 @@ app.use(async (req, res, next) => {
     }
 })
 
+reverseProxy.setup(app);
+
+app.engine("html", mustacheExpress());
+app.set("view engine", "mustache");
+app.set("views", path.join(__dirname, "../frontend/build"));
+
 // serve static files
 app.use(express.static(path.join(__dirname, "../frontend/build"), {index: false}));
 
-reverseProxy.setup(app);
 
 app.use('*', async (req, res) => {
     const response = await axios.get(process.env.DECORATOR_URL);
