@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import {generators, TokenSet} from 'openid-client'
-import logger from 'logstash'
+import logger from './logger'
 import * as auth from './auth.js'
 import * as config from './config.js'
 import * as headers from './headers.js'
