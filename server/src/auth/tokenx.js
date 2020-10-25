@@ -3,7 +3,7 @@ import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 
 const metadata = {
-    client_id: config.tokenx.clientId,
+    client_id: config.tokenx.clientID,
     token_endpoint_auth_method: config.tokenx.tokenEndpointAuthMethod,
 };
 

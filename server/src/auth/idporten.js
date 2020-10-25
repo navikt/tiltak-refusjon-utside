@@ -4,7 +4,7 @@ import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 
 const metadata = {
-    client_id: config.idporten.clientId,
+    client_id: config.idporten.clientID,
     redirect_uris: [config.idporten.redirectUri],
     response_types: config.idporten.responseType,
     token_endpoint_auth_method: config.idporten.tokenEndpointAuthMethod,
