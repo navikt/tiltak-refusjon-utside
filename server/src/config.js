@@ -19,7 +19,8 @@ const server = {
 const tokenx = {
     discoveryUrl: envVar({name: "TOKEN_X_WELL_KNOWN_URL"}),
     clientID: envVar({name: "TOKEN_X_CLIENT_ID"}),
-    privateJwk: envVar({name: "TOKEN_X_PRIVATE_JWK"})
+    privateJwk: envVar({name: "TOKEN_X_PRIVATE_JWK"}),
+    tokenEndpointAuthMethod: 'private_key_jwt'
 }
 
 const idporten = {

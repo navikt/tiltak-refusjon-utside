@@ -1,5 +1,4 @@
-import {custom, Issuer, Strategy} from 'openid-client';
-import authUtils from './utils';
+import {custom, Issuer} from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 
