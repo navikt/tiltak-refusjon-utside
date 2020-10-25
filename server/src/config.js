@@ -32,6 +32,8 @@ const idporten = {
     responseType: 'code',
     responseMode: 'query',
     scope: 'openid profile',
+    tokenEndpointAuthMethod: 'private_key_jwt',
+    tokenEndpointAuthSigningAlg: 'RS256'
 }
 
 const redis = {
