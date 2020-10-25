@@ -1,34 +1,58 @@
-import dotenv from 'dotenv'
+import 'dotenv/config';
 
-dotenv.config()
+const envVar = ({name, required = true}) => {
+    if (!process.env[name] && required) {
+        console.error(`Missing required environment variable '${name}'`);
+        process.exit(1);
+    }
+    return process.env[name]
+};
 
-export const app = {
-    useSecureCookies: !!process.env.NAIS_CLUSTER_NAME,
-    port: process.env.PORT || 3000,
-    apiUrl: process.env.API_URL,
-    targetAudience: process.env.API_AUDIENCE,
+const server = {
+    host: envVar({name: "HOST", required: false}) || 'localhost', // should be equivalent to the URL this application is hosted on for correct CORS origin header
+    port: envVar({name: "PORT", required: false}) || 3000,
+    proxy: envVar({name: "HTTP_PROXY", required: false}), // optional, only set if requests to Azure AD must be performed through a corporate proxy (i.e. traffic to login.microsoftonline.com is blocked by the firewall)
+    sessionKey: envVar({name: "SESSION_KEY"}), // should be set to a random key of significant length for signing session ID cookies
+    cookieName: 'tiltak-refusjon-utside'
+};
+
+const tokenx = {
+    discoveryUrl: envVar({name: "TOKEN_X_WELL_KNOWN_URL"}),
+    clientID: envVar({name: "TOKEN_X_CLIENT_ID"}),
+    privateJwk: envVar({name: "TOKEN_X_PRIVATE_JWK"})
 }
 
-export const session = {
-    secret: process.env.SESSION_SECRET,
-    maxAgeMs: process.env.SESSION_MAX_AGE_MS || 12 * 60 * 60 * 1000, // defaults to 12 hours
-    redisHost: process.env.REDIS_HOST,
-    redisPort: process.env.REDIS_PORT || 6379,
-    redisPassword: process.env.REDIS_PASSWORD,
-}
-
-export const idporten = {
-    discoveryUrl: process.env.IDPORTEN_WELL_KNOWN_URL || "https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration",
-    clientID: process.env.IDPORTEN_CLIENT_ID,
-    clientJwk: process.env.IDPORTEN_CLIENT_JWK,
-    redirectUri : process.env.IDPORTEN_REDIRECT_URI || "http://localhost:3000/callback",
-    responseType: ['code'],
+const idporten = {
+    discoveryUrl: envVar({name: "IDPORTEN_WELL_KNOWN_URL"}),
+    clientID: envVar({name: "IDPORTEN_CLIENT_ID"}),
+    clientJwk: envVar({name: "IDPORTEN_CLIENT_JWK"}),
+    redirectUri : envVar({name: "IDPORTEN_REDIRECT_URI"}),
+    logoutRedirectUri: "https://nav.no",
+    responseType: 'code',
+    responseMode: 'query',
     scope: 'openid profile',
 }
 
-export const tokenx = {
-    discoveryUrl: process.env.TOKEN_X_WELL_KNOWN_URL,
-    clientID: process.env.TOKEN_X_CLIENT_ID,
-    privateJwk: process.env.TOKEN_X_PRIVATE_JWK
-}
+const redis = {
+    host: envVar({name: "REDIS_HOST", required: false}),
+    port: envVar({name: "REDIS_PORT", required: false}) || 6379,
+    password: envVar({name: "REDIS_PASSWORD", required: false})
+};
 
+const apiConfig = () => {
+    console.log(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
+    const scopes = envVar({name: "API_SCOPES", required: false});
+    return {
+        audience: envVar({name: "API_AUDIENCE"}),
+        url: envVar({name: "API_URL"}),
+        scopes: scopes ? scopes.split(',') : []
+    };
+};
+
+export default {
+    server,
+    api: apiConfig(),
+    redis,
+    tokenx,
+    idporten
+};

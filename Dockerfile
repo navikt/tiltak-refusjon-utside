@@ -15,4 +15,4 @@ COPY ./frontend/build ./frontend/build
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["node server/dist/index.js"]
+CMD ["node server/dist/main.js"]

@@ -1,38 +1,33 @@
 {
   "name": "tiltak-refusjon-utside",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
-    "build": "babel src -d dist",
-    "serve": "node dist/index.js"
+    "start": "NODE_ENV=development nodemon --exec babel-node src/main.js",
+    "build": "./node_modules/.bin/babel src -d dist",
+    "serve": "node ../dist/main.js"
   },
-  "author": "https://nais.io/",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.20.0",
-    "body-parser": "^1.19.0",
+    "axios": "^0.19.2",
     "connect-redis": "^5.0.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-http-proxy": "^1.6.2",
-    "express-rate-limit": "^5.1.3",
-    "express-session": "^1.17.1",
+    "express-session": "^1.17.0",
+    "helmet": "^4.1.0",
     "mustache-express": "^1.3.0",
-    "node-fetch": "^2.6.1",
-    "openid-client": "^4.1.1",
+    "openid-client": "^3.7.2",
+    "passport": "^0.4.0",
     "redis": "^3.0.2",
-    "winston": "^3.3.3"
+    "tunnel": "^0.0.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/plugin-transform-runtime": "^7.11.5",
-    "@babel/polyfill": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "jest": "^26.4.2"
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.6.0",
+    "morgan": "^1.9.1",
+    "morgan-body": "^2.4.8",
+    "nodemon": "^2.0.4"
   }
 }

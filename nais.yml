@@ -31,7 +31,7 @@ spec:
       value: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
     - name: API_URL
       value: http://tiltak-refusjon-api
-    - name: SESSION_SECRET
+    - name: SESSION_KEY
       value: changeme
   accessPolicy:
     outbound:
