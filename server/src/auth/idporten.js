@@ -28,6 +28,7 @@ const authUrl = (session, idportenClient) => {
         redirect_uri: config.idporten.redirectUri,
         response_type: config.idporten.responseType,
         response_mode: config.idporten.responseMode,
+        resource: config.idporten.clientID,
         nonce: session.nonce,
         state: session.state,
     })
