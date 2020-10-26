@@ -29,18 +29,8 @@ async function startApp()  {
         // server.use(helmet());
         server.use(cors);
 
-        // initialize passport and restore authentication state, if any, from the session
-        server.use(passport.initialize());
-        server.use(passport.session());
-
         const tokenxAuthClient = await tokenx.client();
-
         const idportenAuthClient = await idporten.client();
-        const idportenOidcStrategy = idporten.strategy(idportenAuthClient);
-
-        passport.use('idportenOidc', idportenOidcStrategy);
-        passport.serializeUser((user, done) => done(null, user));
-        passport.deserializeUser((user, done) => done(null, user));
 
         server.engine("html", mustacheExpress());
         server.set("view engine", "mustache");

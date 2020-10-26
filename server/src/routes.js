@@ -6,32 +6,70 @@ import path from 'path';
 import session from 'express-session';
 import reverseProxy from "./proxy/reverse-proxy";
 import axios from 'axios';
+import  { generators, TokenSet }  from 'openid-client';
+import idporten from 'auth/idporten';
 
 const router = express.Router();
-
-const ensureAuthenticated = async (req, res, next) => {
-    if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {
-        next();
-    } else {
-        session.redirectTo = req.originalUrl;
-        res.redirect('/login');
-    }
-};
 
 const setup = (tokenxClient, idportenClient) => {
     // Unprotected
     router.get('/isAlive', (req, res) => res.send('Alive'));
     router.get('/isReady', (req, res) => res.send('Ready'));
 
-    router.get('/login', passport.authenticate('idportenOidc', { failureRedirect: '/login'}));
-    router.use('/oauth2/callback', passport.authenticate('idportenOidc', { failureRedirect: '/login'}), (req, res) => {
-        if (session.redirectTo) {
-            res.redirect(session.redirectTo);
-        } else {
-            res.redirect('/');
-        }
+    router.get('/login', async (req, res) => { // lgtm [js/missing-rate-limiting]
+        const session = req.session;
+        session.nonce = generators.nonce();
+        session.state = generators.state();
+        res.redirect(idporten.authUrl(session, idportenClient));
     });
 
+    // router.use('/oauth2/callback', passport.authenticate('idportenOidc', { failureRedirect: '/login'}), (req, res) => {
+    //     if (session.redirectTo) {
+    //         res.redirect(session.redirectTo);
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    // });
+
+    router.get("/oauth2/callback", async (req, res) => {
+        const session = req.session
+        idporten.validateOidcCallback(idportenClient, req)
+            .then((tokens) => {
+                session.tokens = tokens
+                session.state = null
+                session.nonce = null
+                res.cookie(config.server.cookieName, `${tokens.id_token}`, {
+                    secure: config.server.useSecureCookies,
+                    sameSite: "lax",
+                    maxAge: 12 * 60 * 60 * 1000 // 12 timer
+                })
+                if (session.redirectTo) {
+                    res.redirect(session.redirectTo);
+                } else {
+                    res.redirect('/');
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                session.destroy()
+                res.sendStatus(403)
+            })
+    })
+
+    const ensureAuthenticated = async (req, res, next) => {
+        let currentTokens = req.session.tokens
+        if (!currentTokens) {
+            res.redirect('/login')
+        } else {
+            let tokenSet = new TokenSet(currentTokens)
+            if (tokenSet.expired()) {
+                console.log('refreshing token');
+                tokenSet = new TokenSet(await idporten.refresh(idportenClient, currentTokens))
+                req.session.tokens = tokenSet
+            }
+            return next()
+        }
+    }
     router.use(ensureAuthenticated);
 
     // Protected

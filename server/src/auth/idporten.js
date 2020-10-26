@@ -1,5 +1,4 @@
-import {custom, Issuer, Strategy} from 'openid-client';
-import authUtils from './utils';
+import {custom, Issuer} from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 
@@ -23,32 +22,36 @@ const client = async () => {
     return new issuer.Client(metadata, {keys: [jwk]});
 };
 
-const strategy = client => {
-    const verify = (tokenSet, done) => {
-        if (tokenSet.expired()) {
-            return done(null, false)
-        }
-        const user = {
-            'tokenSets': {
-                [authUtils.tokenSetSelfId]: tokenSet
-            },
-            'claims': tokenSet.claims()
-        };
-        return done(null, user);
-    };
-    const options = {
-        client: client,
-        params: {
-            audience: client.metadata.issuer,
-            redirect_uri: config.idporten.redirectUri,
-            response_type: config.idporten.responseType,
-            response_mode: config.idporten.responseMode,
-            scope: config.idporten.scope
-        },
-        passReqToCallback: false,
-        usePKCE: 'S256'
-    };
-    return new Strategy(options, verify);
-};
+const authUrl = (session, idportenClient) => {
+    return idportenClient.authorizationUrl({
+        scope: config.idporten.scope,
+        redirect_uri: config.idporten.redirectUri,
+        response_type: config.idporten.responseType,
+        response_mode: config.idporten.responseMode,
+        nonce: session.nonce,
+        state: session.state,
+    })
+}
 
-export default { client, strategy };
+const validateOidcCallback = async (idportenClient, req) => {
+    const params = idportenClient.callbackParams(req)
+    const nonce = req.session.nonce
+    const state = req.session.state
+
+    return idportenClient
+        .callback(config.idporten.redirectUri, params, {nonce, state}, { clientAssertionPayload: { aud: idportenMetadata.metadata.issuer }})
+        .catch((err) => Promise.reject(`error in oidc callback: ${err}`))
+        .then(async (tokenSet) => {
+            return tokenSet
+        })
+}
+
+const refresh = (idportenClient, oldTokenSet) =>
+    idportenClient.refresh(oldTokenSet).then((newTokenSet) => {
+        return Promise.resolve(newTokenSet)
+    }).catch(err => {
+        console.log(err);
+        return Promise.reject(err)
+    })
+
+export default { client, authUrl, validateOidcCallback, refresh };
