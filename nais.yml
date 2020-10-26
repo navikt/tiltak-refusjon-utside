@@ -15,7 +15,6 @@ spec:
     enabled: true
   idporten:
     enabled: true
-    redirectURI: "http://localhost:3000/oauth2/callback"
   liveness:
     path: /isAlive
     initialDelay: 10
