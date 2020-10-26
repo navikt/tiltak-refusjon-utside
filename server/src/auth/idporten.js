@@ -39,7 +39,7 @@ const validateOidcCallback = async (idportenClient, req) => {
     const state = req.session.state
 
     return idportenClient
-        .callback(config.idporten.redirectUri, params, {nonce, state}, { clientAssertionPayload: { aud: idportenMetadata.metadata.issuer }})
+        .callback(config.idporten.redirectUri, params, {nonce, state}, { clientAssertionPayload: { aud: idportenClient.metadata.issuer }})
         .catch((err) => Promise.reject(`error in oidc callback: ${err}`))
         .then(async (tokenSet) => {
             return tokenSet
