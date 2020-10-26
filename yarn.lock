@@ -2918,10 +2918,10 @@ nav-frontend-ekspanderbartpanel@^3.0.31:
   resolved "https://registry.yarnpkg.com/nav-frontend-ekspanderbartpanel/-/nav-frontend-ekspanderbartpanel-3.0.31.tgz#2c007ecb1101f5a6402471833435b7aea7a7ebe5"
   integrity sha512-7D1e/47sVrJ/gra35Ny7rxJPx28VWHEjAICkYvVVWtc7zkJuhVC/RF8LQwYN+y8CJCrcZOLjJmXWSu4MeOAR3Q==
 
-nav-frontend-js-utils@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.13.tgz#4c66a82e4ed026c36e528cdd84e1d96c4f7ce066"
-  integrity sha512-lq3vwEGFIQ3QlZhCYCUd2ydr4kGxivhzcCpMzHeVRDCyeGkKwWYPNwy61CRyxtvWMzTXK1+JCM4RtdFy2WmaeA==
+nav-frontend-js-utils@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.14.tgz#f0cfd232a8f82ce0ef4032e7297176ad3065777a"
+  integrity sha512-Kv4M1Es8CbFugJiVti5shxPQh/V4KowEkc76sBxbWKXMRQfgOGboMQywQp8M3QSadSMJKn/bbi0Lu8MXAP6i1w==
 
 nav-frontend-lenker-style@^0.2.33:
   version "0.2.33"
@@ -2959,6 +2959,26 @@ nav-frontend-typografi@^2.0.30:
   version "2.0.30"
   resolved "https://registry.yarnpkg.com/nav-frontend-typografi/-/nav-frontend-typografi-2.0.30.tgz#53185de8a026666fe5a1b1d853a062966837c068"
   integrity sha512-OAjGMLQKMS5tWPVqX6B2a40QHNQICXGV1uJMm8pYuhkDUlvX00ox+gTzSkMyTAqZtz1bSvvm/2YIL59rDA0acw==
+
+nav-frontend-veileder-style@^2.0.19:
+  version "2.0.19"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veileder-style/-/nav-frontend-veileder-style-2.0.19.tgz#f9805e0cada1bb69c7b9c0e343c0981797e978ca"
+  integrity sha512-R+4sFjN5SakryXYhc1zmAqHYpO8qQBDLfGJHDquwDkfHfbjaAJmu1c+K5Ggvn5IrIYO0Nja0Dr6R7rEV/mUVgw==
+
+nav-frontend-veileder@^2.0.26:
+  version "2.0.26"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veileder/-/nav-frontend-veileder-2.0.26.tgz#fb25f380b730e3e30ba1347d77dfc6929c1a2dab"
+  integrity sha512-6qX6xM2EMHSGv0lnD+zeSaDdv/hq5JjbtGfFeQVfO9oF5G6fjjnZfi+UlYC3HxlRxSYjaewkpTaWjAC3B6vmuA==
+
+nav-frontend-veilederpanel-style@^0.0.33:
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.33.tgz#89d9c7ecf9c0f5e2a4085bf0e28439e5daac3b39"
+  integrity sha512-+ucKpKrroGfaI/W6FXL6cHgcNAouM+VT2/WqAa68I5p0kNJOVWT4fBfdn/6qq6pgOSwgbuoFZL59DYP4Rn+wUw==
+
+nav-frontend-veilederpanel@^0.1.34:
+  version "0.1.34"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.34.tgz#90b9a047e8d8edc359386ff8e7cfc3e86a659de4"
+  integrity sha512-lBoi0z4egV8f30hvXSGxaCNq/7zPLC0qD3OemfUfTjguiSuP5IoBt4tBB12xvB33Ux/i+3vpqT9kFHUAxsqYVA==
 
 negotiator@0.6.2:
   version "0.6.2"

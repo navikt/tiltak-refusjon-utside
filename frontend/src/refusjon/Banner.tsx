@@ -4,15 +4,15 @@ import { useHistory } from 'react-router';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 
 const Banner: FunctionComponent = () => {
-    const { bruker } = useContext(BrukerContext);
+    const context = useContext(BrukerContext);
     const history = useHistory();
 
     return (
         <>
             <Bedriftsmeny
                 history={history}
-                organisasjoner={bruker.altinnOrganisasjoner}
-                onOrganisasjonChange={() => void 0}
+                organisasjoner={context.innloggetBruker.altinnOrganisasjoner}
+                onOrganisasjonChange={(org) => context.hentRefusjon(org.OrganizationNumber)}
                 sidetittel={'Tiltaksrefusjon'}
             />
         </>
