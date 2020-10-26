@@ -39,6 +39,7 @@ const strategy = client => {
     const options = {
         client: client,
         params: {
+            audience: config.idporten.clientID,
             redirect_uri: config.idporten.redirectUri,
             response_type: config.idporten.responseType,
             response_mode: config.idporten.responseMode,
