@@ -1,13 +1,10 @@
-import authUtils from './auth/utils';
 import config from './config';
 import express from 'express';
-import passport from 'passport';
 import path from 'path';
-import session from 'express-session';
 import reverseProxy from "./proxy/reverse-proxy";
 import axios from 'axios';
-import  { generators, TokenSet }  from 'openid-client';
-import idporten from 'auth/idporten';
+import {generators, TokenSet} from 'openid-client';
+import idporten from './auth/idporten';
 
 const router = express.Router();
 
