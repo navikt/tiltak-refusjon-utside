@@ -1,5 +1,5 @@
-import authUtils from '../auth/utils';
 import proxy from 'express-http-proxy';
+import authUtils from '../auth/utils';
 import config from '../config';
 
 const setup = (router, tokenxClient) => {
@@ -11,7 +11,7 @@ const setup = (router, tokenxClient) => {
         proxyReqOptDecorator: (options, req) => {
             return new Promise(((resolve, reject) =>
                     authUtils.getOnBehalfOfAccessToken(
-                        tokenxClient, req
+                        req.session.tokens.id_token, tokenxClient
                     ).then(access_token => {
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options)
