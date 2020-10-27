@@ -1,5 +1,5 @@
-apiVersion: 'nais.io/v1alpha1'
-kind: 'Application'
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
   name: tiltak-refusjon-utside
   namespace: arbeidsgiver
@@ -11,6 +11,10 @@ spec:
   port: 3000
   ingresses:
     - https://tiltak-refusjon.dev.nav.no
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
   liveness:
     path: /isAlive
     initialDelay: 10
@@ -21,13 +25,17 @@ spec:
     min: 1
     max: 1
   env:
-    - name: LOGINSERVICE_URL
-      value: https://loginservice.dev.nav.no/login?redirect=https://tiltak-refusjon.dev.nav.no
     - name: DECORATOR_URL
       value: https://dekoratoren.dev.nav.no
+    - name: API_AUDIENCE
+      value: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
     - name: API_URL
       value: http://tiltak-refusjon-api
+    - name: SESSION_KEY
+      value: changeme
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
+      external:
+        - host: dekoratoren.dev.nav.no
