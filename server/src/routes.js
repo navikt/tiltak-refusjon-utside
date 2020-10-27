@@ -1,5 +1,6 @@
 import axios from 'axios';
 import express from 'express';
+import { JSDOM } from 'jsdom';
 import { generators, TokenSet } from 'openid-client';
 import path from 'path';
 import idporten from './auth/idporten';
