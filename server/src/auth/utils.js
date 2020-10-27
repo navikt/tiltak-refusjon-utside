@@ -44,7 +44,7 @@ export const getOnBehalfOfAccessToken = async (idportenToken, tokenxClient) => {
         grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
         client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
         subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-        audience: appConfig.targetAudience,
+        audience: config.api.audience,
         subject_token: idportenToken
     }, additionalClaims).then(tokenSet => {
         return Promise.resolve(tokenSet.access_token)
