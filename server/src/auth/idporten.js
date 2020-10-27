@@ -36,8 +36,8 @@ const authUrl = (session, idportenClient) => {
 const validateOidcCallback = async (idportenClient, req) => {
     const issuer = 'https://oidc-ver2.difi.no/idporten-oidc-provider/';
 
-    console.log('idportenClient.metadata: ');
-    console.log(idportenClient.metadata);
+    console.log('idportenClient: ');
+    console.log(idportenClient);
     
     
     const params = idportenClient.callbackParams(req)

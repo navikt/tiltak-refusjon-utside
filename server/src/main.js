@@ -1,13 +1,11 @@
-import tokenx from './auth/tokenx';
-import idporten from './auth/idporten';
-import routes from './routes';
-import cors from './cors';
 import express from 'express';
-import helmet from 'helmet';
-import passport from 'passport';
-import session from './session';
 import mustacheExpress from 'mustache-express';
 import path from "path";
+import idporten from './auth/idporten';
+import tokenx from './auth/tokenx';
+import cors from './cors';
+import routes from './routes';
+import session from './session';
 
 // for debugging during development
 // import morganBody from 'morgan-body';
@@ -34,7 +32,7 @@ async function startApp()  {
 
         server.engine("html", mustacheExpress());
         server.set("view engine", "mustache");
-        server.set("views", path.join(__dirname, "../frontend/build"));
+        server.set("views", path.join(__dirname, "../../frontend/build"));
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));

@@ -83,7 +83,7 @@ const setup = (tokenxClient, idportenClient) => {
     reverseProxy.setup(router, tokenxClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, "../build"), { index: false }));
+    router.use(express.static(path.join(__dirname, "../../frontend/build"), { index: false }));
 
     router.use('*', async (req, res) => {
         const response = await axios.get(process.env.DECORATOR_URL);
