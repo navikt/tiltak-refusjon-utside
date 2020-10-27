@@ -1,4 +1,4 @@
-import {custom, Issuer} from 'openid-client';
+import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 
@@ -28,7 +28,6 @@ const authUrl = (session, idportenClient) => {
         redirect_uri: config.idporten.redirectUri,
         response_type: config.idporten.responseType,
         response_mode: config.idporten.responseMode,
-        resource: idportenClient.metadata.issuer,
         nonce: session.nonce,
         state: session.state,
     })

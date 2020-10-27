@@ -13,7 +13,8 @@ const server = {
     port: envVar({name: "PORT", required: false}) || 3000,
     proxy: envVar({name: "HTTP_PROXY", required: false}), // optional, only set if requests to Azure AD must be performed through a corporate proxy (i.e. traffic to login.microsoftonline.com is blocked by the firewall)
     sessionKey: envVar({name: "SESSION_KEY"}), // should be set to a random key of significant length for signing session ID cookies
-    cookieName: 'tiltak-refusjon-utside',
+    sessionCookieName: 'tiltak-refusjon-utside',
+    idTokenCookieName: 'id-token',
     useSecureCookies: !!envVar({name: "NAIS_CLUSTER_NAME", required: false}),
 };
 

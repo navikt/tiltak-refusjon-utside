@@ -1,10 +1,10 @@
-import config from './config';
-import express from 'express';
-import path from 'path';
-import reverseProxy from "./proxy/reverse-proxy";
 import axios from 'axios';
-import {generators, TokenSet} from 'openid-client';
+import express from 'express';
+import { generators, TokenSet } from 'openid-client';
+import path from 'path';
 import idporten from './auth/idporten';
+import config from './config';
+import reverseProxy from "./proxy/reverse-proxy";
 
 const router = express.Router();
 
@@ -35,7 +35,7 @@ const setup = (tokenxClient, idportenClient) => {
                 session.tokens = tokens
                 session.state = null
                 session.nonce = null
-                res.cookie(config.server.cookieName, `${tokens.id_token}`, {
+                res.cookie(config.server.idTokenCookieName, `${tokens.id_token}`, {
                     secure: config.server.useSecureCookies,
                     sameSite: "lax",
                     maxAge: 12 * 60 * 60 * 1000 // 12 timer

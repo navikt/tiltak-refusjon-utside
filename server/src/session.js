@@ -1,6 +1,5 @@
-import config from './config';
-import redis from 'redis';
 import session from 'express-session';
+import config from './config';
 
 const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
@@ -14,7 +13,7 @@ const setup = (app) => {
                 httpOnly: true,
             },
             secret: config.server.sessionKey,
-            name: config.server.cookieName,
+            name: config.server.sessionCookieName,
             resave: false,
             saveUninitialized: true,
         }));
