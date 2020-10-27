@@ -1,4 +1,5 @@
 import { TokenSet } from "openid-client";
+import config from '../config';
 
 const tokenSetSelfId = "self";
 
