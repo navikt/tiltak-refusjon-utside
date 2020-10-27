@@ -1,6 +1,9 @@
+import { Status, Tiltak } from '../bruker/BrukerContextType';
+
 export interface Refusjon {
     id: string;
-    tiltak: Tiltakstype;
+    status: Status;
+    tiltakstype: Tiltak;
     deltaker: string;
     deltakerFnr: string;
     veileder: string;
@@ -27,12 +30,11 @@ export interface Refusjon {
     opprettet_tidspunkt: string;
 }
 
-export type Tiltakstype = 'Arbeidstrening' | 'Midlertidig lønnstilskudd' | ' lønnstilskudd';
-
 export const refusjonInit: Refusjon = {
     id: '14',
     deltaker: 'Inger Hagerup',
-    tiltak: 'Arbeidstrening',
+    status: Status.UBEHANDLET,
+    tiltakstype: Tiltak.MIDLETTIDIG_LØNNSTILSKUDD,
     deltakerFnr: '07049223190',
     veileder: 'Alf Hansen',
     bedrift: 'Kiwi Majorstuen',

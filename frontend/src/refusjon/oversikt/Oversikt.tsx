@@ -20,14 +20,25 @@ const Oversikt: FunctionComponent = () => {
     };
     useEffect(hentRefusjoner, []);
 
+    const filtereListe = () => {
+        const behandletType = context.refusjon
+            ? context.refusjon.filter((element) => element.status === context.filter.status)
+            : [];
+        if (context.filter.tiltakstype) {
+            return behandletType.filter((element) => element.tiltakstype === context.filter.tiltakstype);
+        }
+        return behandletType;
+    };
+
     const settKolonne = (input: string | number): ReactNode => <div className={cls.element('kolonne')}>{input}</div>;
+    const filtrerteRefusjoner = filtereListe();
 
     return (
         <>
             <div className={cls.className}>
                 <LabelRad className={cls.className} />
-                {context.refusjon ? (
-                    context.refusjon.map((ref, index) => (
+                {filtrerteRefusjoner && filtrerteRefusjoner.length > 0 ? (
+                    filtrerteRefusjoner.map((ref, index) => (
                         <div className={cls.element('rad')} key={index}>
                             {settKolonne(ref.bedrift)}
                             {settKolonne(ref.deltaker)}

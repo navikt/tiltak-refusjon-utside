@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 import { useEffect } from 'react';
 import { hentInnloggetBruker, hentRefusjoner } from '../services/rest-service';
 import { useState } from 'react';
-import { Context, initBruker, InnloggetBruker } from './BrukerContextType';
+import { Context, Filter, initBruker, InnloggetBruker, Status } from './BrukerContextType';
 import { Refusjon, refusjonInit } from '../refusjon/refusjon';
 
 export const BrukerContext = React.createContext<Context>({} as Context);
@@ -11,6 +11,10 @@ export const BrukerContext = React.createContext<Context>({} as Context);
 const BrukerProvider: FunctionComponent = (props) => {
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>(initBruker);
     const [refusjon, setRefusjon] = useState<Refusjon[]>([refusjonInit]);
+    const [filter, setFilter] = useState<Filter>({
+        status: Status.UBEHANDLET,
+        tiltakstype: undefined,
+    });
 
     const hentinnloggetBruker = async () => {
         try {
@@ -42,13 +46,19 @@ const BrukerProvider: FunctionComponent = (props) => {
         hentinnloggetBruker();
     };
 
+    const oppdaterFilter = (nyttFilter: Filter) => {
+        setFilter({ ...filter, ...nyttFilter });
+    };
+
     useEffect(hentInnloggetBrukerInfo, []);
 
     const context: Context = {
         innloggetBruker: innloggetBruker,
         refusjon: refusjon,
+        filter: filter,
         hentinnloggetBruker: hentinnloggetBruker,
         hentRefusjon: hentRefusjon,
+        oppdaterFilter: oppdaterFilter,
     };
 
     return <BrukerContext.Provider value={context}>{props.children}</BrukerContext.Provider>;
