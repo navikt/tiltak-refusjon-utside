@@ -1,0 +1,40 @@
+.oversikt {
+    padding-left: 1rem;
+
+    &__rad,
+    &__label-rad {
+        padding-left: 0.5rem;
+        display: flex;
+        justify-content: center;
+        height: 3.5rem;
+        width: 100%;
+        max-width: 52.5rem;
+        background-color: white;
+        border-radius: 4px;
+        margin-bottom: 1.25rem;
+    }
+
+    &__rad {
+        &:hover {
+            outline: 1px solid black;
+            cursor: pointer;
+            box-shadow: 8px 5px 5px -1px rgba(217, 214, 217, 1);
+        }
+    }
+
+    &__kolonne {
+        width: 24%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__ikon {
+        margin-right: 0.25rem;
+        margin-top: 0.5rem;
+    }
+
+    .nav-veilederpanel {
+        min-height: 4.25rem;
+    }
+}

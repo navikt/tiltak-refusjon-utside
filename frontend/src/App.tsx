@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import BrukerProvider from './Context-Provider/BrukerContext';
-import Oversikt from './Oversikt';
+import BrukerProvider from './bruker/BrukerContext';
+import Innhold from './refusjon/innhold/Innhold';
 
 function App() {
     return (
@@ -11,7 +11,7 @@ function App() {
             <Switch>
                 <Route path="/">
                     <BrukerProvider>
-                        <Oversikt />
+                        <Innhold />
                     </BrukerProvider>
                 </Route>
             </Switch>
