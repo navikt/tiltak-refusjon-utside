@@ -15,7 +15,7 @@ import morganBody from 'morgan-body';
 //import morgan from 'morgan';
 
 const log = fs.createWriteStream(
-    path.join(__dirname, "./", "logs", "express.log"), { flags: "a" }
+    path.join(__dirname, "./", "logs", "combined.log"), { flags: "a" }
   );
 
 const logger = winston.createLogger({
