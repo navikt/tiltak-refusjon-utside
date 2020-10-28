@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import mustacheExpress from 'mustache-express';
 import path from "path";
@@ -6,31 +7,8 @@ import tokenx from './auth/tokenx';
 import cors from './cors';
 import routes from './routes';
 import session from './session';
-import bodyParser from 'body-parser';
-import winston from 'winston';
-import fs from 'fs';
 
-// for debugging during development
-import morganBody from 'morgan-body';
 //import morgan from 'morgan';
-
-const log = fs.createWriteStream(
-    path.join(__dirname, "./", "logs", "express.log"), { flags: "a" }
-  );
-
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.File({
-            format: winston.format.json(), //format.combine(format.timestamp(), loggerFormat),
-            filename: path.join(__dirname, "./", "logs", "combined.log"),
-        }),
-    ],
-});
-const loggerStream = {
-    write: message => {
-      logger.info(message);
-    },
-  };
 
 
 const server = express();
@@ -60,10 +38,6 @@ async function startApp()  {
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
-
-        morganBody(server, {
-            stream: log
-          });
 
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
