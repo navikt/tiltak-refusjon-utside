@@ -1,14 +1,13 @@
 import proxy from 'express-http-proxy';
+import winston from 'winston';
 import authUtils from '../auth/utils';
 import config from '../config';
-import winston from 'winston';
-import * as format from 'logform';
 
 const logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-            format: format.combine(format.timestamp(), loggerFormat),
+            format: winston.format.json(), //format.combine(format.timestamp(), loggerFormat),
             filename: path.join(__dirname, "../", "logs", "combined.log"),
         }),
     ],
