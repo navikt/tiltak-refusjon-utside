@@ -17,7 +17,7 @@ const logger = winston.createLogger({
     transports: [
         new winston.transports.File({
             format: winston.format.json(), //format.combine(format.timestamp(), loggerFormat),
-            filename: path.join(__dirname, "../", "logs", "combined.log"),
+            filename: path.join(__dirname, "./", "logs", "combined.log"),
         }),
     ],
 });
