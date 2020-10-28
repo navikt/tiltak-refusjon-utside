@@ -2,6 +2,7 @@ import proxy from 'express-http-proxy';
 import winston from 'winston';
 import authUtils from '../auth/utils';
 import config from '../config';
+import path from "path";
 
 const logger = winston.createLogger({
     transports: [
