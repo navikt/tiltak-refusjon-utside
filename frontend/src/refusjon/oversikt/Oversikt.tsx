@@ -1,24 +1,26 @@
-import React, { FunctionComponent, ReactNode, useContext, useEffect } from 'react';
-import BEMHelper from '../../utils/bem';
-import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import moment from 'moment';
-import './oversikt.less';
-import LabelRad from './LabelRad';
-import { BrukerContext } from '../../bruker/BrukerContext';
 import Veilederpanel from 'nav-frontend-veilederpanel';
+import React, { FunctionComponent, ReactNode, useContext } from 'react';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
+import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
+import { BrukerContext } from '../../bruker/BrukerContext';
+import { useHentRefusjoner } from '../../services/rest-service';
+import BEMHelper from '../../utils/bem';
+import LabelRad from './LabelRad';
+import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
 
 const Oversikt: FunctionComponent = () => {
     const context = useContext(BrukerContext);
-    const { hentRefusjon } = context;
+    //const { hentRefusjon } = context;
     const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
 
-    const hentRefusjoner = () => {
-        hentRefusjon(organisasjonsNummer);
-    };
-    useEffect(hentRefusjoner, []);
+    const refusjoner = useHentRefusjoner(organisasjonsNummer);
+    // const hentRefusjoner = () => {
+    //     hentRefusjon(organisasjonsNummer);
+    // };
+    // useEffect(hentRefusjoner, []);
 
     const filtereListe = () => {
         const behandletType = context.refusjon
