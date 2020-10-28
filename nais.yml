@@ -31,11 +31,11 @@ spec:
       value: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
     - name: API_URL
       value: http://tiltak-refusjon-api
-    - name: SESSION_KEY
-      value: changeme
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
       external:
         - host: dekoratoren.dev.nav.no
+  envFrom:
+    - secret: tiltak-refusjon-session-encrypt-key
