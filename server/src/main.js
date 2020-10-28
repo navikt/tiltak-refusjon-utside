@@ -6,16 +6,35 @@ import tokenx from './auth/tokenx';
 import cors from './cors';
 import routes from './routes';
 import session from './session';
+import bodyParser from 'body-parser';
+import winston from 'winston';
 
 // for debugging during development
-// import morganBody from 'morgan-body';
-// import morgan from 'morgan';
+import morganBody from 'morgan-body';
+//import morgan from 'morgan';
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.File({
+            format: winston.format.json(), //format.combine(format.timestamp(), loggerFormat),
+            filename: path.join(__dirname, "../", "logs", "combined.log"),
+        }),
+    ],
+});
+const loggerStream = {
+    write: message => {
+      logger.info(message);
+    },
+  };
+
 
 const server = express();
 
+
+
 async function startApp()  {
     try {
-        // morganBody(server);
+        server.use(bodyParser.json());
         // morgan('dev');
 
         session.setup(server);
@@ -36,6 +55,10 @@ async function startApp()  {
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
+
+        morganBody(server, {
+            stream: loggerStream
+          });
 
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
