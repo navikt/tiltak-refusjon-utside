@@ -1,12 +1,11 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Refusjon } from '../refusjon/refusjon';
 
 export interface Context {
     innloggetBruker: InnloggetBruker;
-    refusjon: Refusjon[];
+    // refusjon: Refusjon[];
     filter: Filter;
     hentinnloggetBruker: () => Promise<void>;
-    hentRefusjon: (bedriftNummer: string) => Promise<void>;
+    // hentRefusjon: (bedriftNummer: string) => Promise<void>;
     oppdaterFilter: (nyttFilter: Filter) => void;
 }
 

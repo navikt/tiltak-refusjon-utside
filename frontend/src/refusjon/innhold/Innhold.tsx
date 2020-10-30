@@ -9,6 +9,8 @@ import Filtermeny from '../Filtermeny';
 const cls = BEMHelper('innhold');
 
 const Innhold: FunctionComponent = () => {
+    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
+
     return (
         <>
             <Banner />
@@ -18,7 +20,7 @@ const Innhold: FunctionComponent = () => {
                         <Filtermeny />
                     </div>
                     <div className={cls.element('container')}>
-                        <Oversikt />
+                        <Oversikt orgNr={organisasjonsNummer} />
                     </div>
                 </div>
             </div>

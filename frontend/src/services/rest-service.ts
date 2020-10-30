@@ -16,7 +16,7 @@ const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 
 const swrConfig = {
     fetcher: axiosFetcher,
-    suspense: false,
+    //suspense: false,
 };
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {

@@ -1,16 +1,12 @@
-import React from 'react';
-import { FunctionComponent } from 'react';
-import { useEffect } from 'react';
-import { hentInnloggetBruker, hentRefusjoner } from '../services/rest-service';
-import { useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { hentInnloggetBruker } from '../services/rest-service';
 import { Context, Filter, initBruker, InnloggetBruker, Status } from './BrukerContextType';
-import { Refusjon, refusjonInit } from '../refusjon/refusjon';
 
 export const BrukerContext = React.createContext<Context>({} as Context);
 
 const BrukerProvider: FunctionComponent = (props) => {
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>(initBruker);
-    const [refusjon, setRefusjon] = useState<Refusjon[]>([refusjonInit]);
+    // const [refusjon, setRefusjon] = useState<Refusjon[]>([refusjonInit]);
     const [filter, setFilter] = useState<Filter>({
         status: Status.UBEHANDLET,
         tiltakstype: undefined,
@@ -25,18 +21,18 @@ const BrukerProvider: FunctionComponent = (props) => {
         }
     };
 
-    const hentRefusjon = async (bedriftNummer: string) => {
-        try {
-            const refusjoner = await hentRefusjoner(bedriftNummer);
-            setRefusjoner(refusjoner);
-        } catch (e) {
-            console.warn(e);
-        }
-    };
+    // const hentRefusjon = async (bedriftNummer: string) => {
+    //     try {
+    //         const refusjoner = await hentRefusjoner(bedriftNummer);
+    //         setRefusjoner(refusjoner);
+    //     } catch (e) {
+    //         console.warn(e);
+    //     }
+    // };
 
-    const setRefusjoner = (nyeRefusjoner: Refusjon[]) => {
-        setRefusjon([...nyeRefusjoner]);
-    };
+    // const setRefusjoner = (nyeRefusjoner: Refusjon[]) => {
+    //     setRefusjon([...nyeRefusjoner]);
+    // };
 
     const setInnloggetBrukerInformasjon = (brukerInformasjon: InnloggetBruker) => {
         setInnloggetBruker(brukerInformasjon);
@@ -54,10 +50,10 @@ const BrukerProvider: FunctionComponent = (props) => {
 
     const context: Context = {
         innloggetBruker: innloggetBruker,
-        refusjon: refusjon,
+        // refusjon: refusjon,
         filter: filter,
         hentinnloggetBruker: hentinnloggetBruker,
-        hentRefusjon: hentRefusjon,
+        // hentRefusjon: hentRefusjon,
         oppdaterFilter: oppdaterFilter,
     };
 

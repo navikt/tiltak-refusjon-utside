@@ -11,20 +11,24 @@ import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
 
-const Oversikt: FunctionComponent = () => {
+type Props = {
+    orgNr: string;
+};
+
+const Oversikt: FunctionComponent<Props> = (props) => {
     const context = useContext(BrukerContext);
     //const { hentRefusjon } = context;
-    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
+    //const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
 
-    const refusjoner = useHentRefusjoner(organisasjonsNummer);
+    const refusjoner = useHentRefusjoner(props.orgNr);
     // const hentRefusjoner = () => {
     //     hentRefusjon(organisasjonsNummer);
     // };
     // useEffect(hentRefusjoner, []);
 
     const filtereListe = () => {
-        const behandletType = context.refusjon
-            ? context.refusjon.filter((element) => element.status === context.filter.status)
+        const behandletType = refusjoner //context.refusjon
+            ? refusjoner.filter((element) => element.status === context.filter.status)
             : [];
         if (context.filter.tiltakstype) {
             return behandletType.filter((element) => element.tiltakstype === context.filter.tiltakstype);
@@ -56,7 +60,7 @@ const Oversikt: FunctionComponent = () => {
                     ))
                 ) : (
                     <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                        Det er ikke Registert noen refusjoner pa org. nr: {organisasjonsNummer}.
+                        Det er ikke Registert noen refusjoner pa org. nr: {props.orgNr}.
                     </Veilederpanel>
                 )}
             </div>
