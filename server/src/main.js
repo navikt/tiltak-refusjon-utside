@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import mustacheExpress from 'mustache-express';
 import path from "path";
@@ -7,15 +8,16 @@ import cors from './cors';
 import routes from './routes';
 import session from './session';
 
-// for debugging during development
-// import morganBody from 'morgan-body';
-// import morgan from 'morgan';
+//import morgan from 'morgan';
+
 
 const server = express();
 
+
+
 async function startApp()  {
     try {
-        // morganBody(server);
+        server.use(bodyParser.json());
         // morgan('dev');
 
         session.setup(server);
