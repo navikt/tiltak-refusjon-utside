@@ -13,10 +13,18 @@ const api = axios.create({
 });
 
 const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
+const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 const swrConfig = {
     fetcher: axiosFetcher,
     //suspense: false,
+};
+
+const swrFetcher = (url: string, bedriftnummer: any) => {
+    return {
+        fetcher: axiosFetcher,
+        //suspense: false,
+    }
 };
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
@@ -29,6 +37,10 @@ export const hentRefusjoner = async (bedriftnummer: string): Promise<Refusjon[]>
     return response.data;
 };
 export const useHentRefusjoner = (bedriftnummer: string) => {
-    const { data } = useSWR<Refusjon[]>(`/refusjon/bedrift/${bedriftnummer}`, swrConfig);
+    const url = `/refusjon/bedrift/${bedriftnummer}`;
+    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
+    //const { data } = useSWR<Refusjon[]>(`/refusjon/bedrift/${bedriftnummer}`, swrConfig);
+    const { data } = useSWR<Refusjon[]>(`/api/refusjon/bedrift/${organisasjonsNummer}`, fetcher);
+
     return data!;
 }

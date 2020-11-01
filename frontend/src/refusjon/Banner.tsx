@@ -8,7 +8,7 @@ const Banner: FunctionComponent = () => {
     const context = useContext(BrukerContext);
     const history = useHistory();
 
-    //const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
+    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
     //const refusjoner = useHentRefusjoner(organisasjonsNummer);
 
     return (
@@ -19,7 +19,7 @@ const Banner: FunctionComponent = () => {
                 onOrganisasjonChange={
                     (org) => {
                         // TRENGER Å REFETCHE HER
-                        mutate(`/api/refusjon/bedrift/`);
+                        mutate([`/api/refusjon/bedrift/`, organisasjonsNummer]);
                     } /*context.hentRefusjon(org.OrganizationNumber) */
                 }
                 sidetittel={'Tiltaksrefusjon'}
