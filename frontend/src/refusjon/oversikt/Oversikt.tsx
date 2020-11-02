@@ -1,27 +1,20 @@
 import moment from 'moment';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent, ReactNode, useContext } from 'react';
-import { useParams } from 'react-router';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
 import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import { BrukerContext } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import { urlParameter } from '../../utils/urlUtils';
 import LabelRad from './LabelRad';
 import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
 
-type Props = {
-    orgNr: string;
-};
-
-const Oversikt: FunctionComponent<Props> = (props) => {
+const Oversikt: FunctionComponent = () => {
     const context = useContext(BrukerContext);
 
-    useParams();
-    const refusjoner = useHentRefusjoner(urlParameter('bedrift'));
+    const refusjoner = useHentRefusjoner(context.valgtBedrift);
 
     const filtereListe = () => {
         const behandletType = refusjoner //context.refusjon
@@ -57,7 +50,7 @@ const Oversikt: FunctionComponent<Props> = (props) => {
                     ))
                 ) : (
                     <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                        Det er ikke Registert noen refusjoner pa org. nr: {props.orgNr}.
+                        Det er ikke Registert noen refusjoner pa org. nr: {context.valgtBedrift}.
                     </Veilederpanel>
                 )}
             </div>

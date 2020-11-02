@@ -13,8 +13,6 @@ const api = axios.create({
 });
 
 const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
-//const fetcher = (url: string, orgnr: string) => fetch(url + orgnr).then((r) => r.json());
-const paramFetcher = (url: string, orgnr: string) => api.get(url + orgnr).then((r) => r.data);
 
 
 const swrConfig = {
@@ -22,24 +20,12 @@ const swrConfig = {
     //suspense: false,
 };
 
-const swrFetcher = (url: string, bedriftnummer: any) => {
-    return {
-        fetcher: paramFetcher,
-        //suspense: false,
-    }
-};
-
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await axios.get(`${API_URL}/innloggetBruker`);
     return response.data;
 };
 
-// export const hentRefusjoner = async (bedriftnummer: string): Promise<Refusjon[]> => {
-//     const response = await axios.get(`${API_URL}/refusjon/bedrift/${bedriftnummer}`);
-//     return response.data;
-// };
-
 export const useHentRefusjoner = (bedriftnummer: string) => {
-    const { data } = useSWR<Refusjon[]>([`/refusjon/bedrift/`, bedriftnummer], (url, orgnr) => paramFetcher(url, orgnr));
-    return data!;
+    const { data } = useSWR<Refusjon[]>(`/refusjon/bedrift/${bedriftnummer}`, swrConfig);
+    return data;
 }

@@ -1,16 +1,13 @@
-import { FunctionComponent } from 'react';
-import React from 'react';
-import Oversikt from '../oversikt/Oversikt';
-import Banner from '../Banner';
+import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../utils/bem';
-import './innhold.less';
+import Banner from '../Banner';
 import Filtermeny from '../Filtermeny';
+import Oversikt from '../oversikt/Oversikt';
+import './innhold.less';
 
 const cls = BEMHelper('innhold');
 
 const Innhold: FunctionComponent = () => {
-    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
-
     return (
         <>
             <Banner />
@@ -20,7 +17,7 @@ const Innhold: FunctionComponent = () => {
                         <Filtermeny />
                     </div>
                     <div className={cls.element('container')}>
-                        <Oversikt orgNr={organisasjonsNummer} />
+                        <Oversikt />
                     </div>
                 </div>
             </div>
