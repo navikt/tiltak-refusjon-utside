@@ -1,1 +1,0 @@
-export const urlParameter = (parameter: string) => new URLSearchParams(window.location.search).get(parameter)! || '';
