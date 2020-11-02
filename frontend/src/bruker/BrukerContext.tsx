@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { hentInnloggetBruker } from '../services/rest-service';
-import { BrukerContextType, Filter, InnloggetBruker, Status } from './BrukerContextType';
+import { BrukerContextType, InnloggetBruker } from './BrukerContextType';
 import Banner from '../refusjon/Banner';
 import LokalLogin from '../LokalLogin';
 import { useHistory } from 'react-router-dom';
@@ -19,14 +19,6 @@ export const useInnloggetBruker = () => {
 export const BrukerProvider: FunctionComponent = (props) => {
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>();
     const [valgtBedrift, setValgtBedrift] = useState();
-    const [filter, setFilter] = useState<Filter>({
-        status: Status.UBEHANDLET,
-        tiltakstype: undefined,
-    });
-
-    const oppdaterFilter = (nyttFilter: Filter) => {
-        setFilter({ ...filter, ...nyttFilter });
-    };
 
     useEffect(() => {
         hentInnloggetBruker().then(setInnloggetBruker);
@@ -56,8 +48,6 @@ export const BrukerProvider: FunctionComponent = (props) => {
                     value={{
                         innloggetBruker,
                         valgtBedrift,
-                        filter,
-                        oppdaterFilter,
                     }}
                 >
                     {props.children}

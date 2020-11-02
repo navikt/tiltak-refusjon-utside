@@ -8,20 +8,20 @@ import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import LabelRad from './LabelRad';
 import './oversikt.less';
+import { useFilter } from './FilterContext';
 
 const cls = BEMHelper('oversikt');
 
 const Oversikt: FunctionComponent = () => {
     const brukerContext = useInnloggetBruker();
+    const { filter } = useFilter();
 
     const refusjoner = useHentRefusjoner(brukerContext.valgtBedrift);
 
     const filtereListe = () => {
-        const behandletType = refusjoner //brukerContext.refusjon
-            ? refusjoner.filter((element) => element.status === brukerContext.filter.status)
-            : [];
-        if (brukerContext.filter.tiltakstype) {
-            return behandletType.filter((element) => element.tiltakstype === brukerContext.filter.tiltakstype);
+        const behandletType = refusjoner ? refusjoner.filter((element) => element.status === filter.status) : [];
+        if (filter.tiltakstype) {
+            return behandletType.filter((element) => element.tiltakstype === filter.tiltakstype);
         }
         return behandletType;
     };
@@ -30,31 +30,29 @@ const Oversikt: FunctionComponent = () => {
     const filtrerteRefusjoner = filtereListe();
 
     return (
-        <>
-            <div className={cls.className}>
-                <LabelRad className={cls.className} />
-                {filtrerteRefusjoner && filtrerteRefusjoner.length > 0 ? (
-                    filtrerteRefusjoner.map((ref, index) => (
-                        <div className={cls.element('rad')} key={index}>
-                            {settKolonne(ref.bedrift)}
-                            {settKolonne(ref.deltaker)}
-                            {settKolonne(ref.veileder)}
-                            {settKolonne(moment(ref.opprettet_tidspunkt).format('DD.MM.YYYY, kk:mm'))}
-                            <div className={cls.element('kolonne')}>
-                                <span className={cls.element('ikon')}>
-                                    <Status />
-                                </span>
-                                <span>Status</span>
-                            </div>
+        <div className={cls.className}>
+            <LabelRad className={cls.className} />
+            {filtrerteRefusjoner && filtrerteRefusjoner.length > 0 ? (
+                filtrerteRefusjoner.map((ref, index) => (
+                    <div className={cls.element('rad')} key={index}>
+                        {settKolonne(ref.bedrift)}
+                        {settKolonne(ref.deltaker)}
+                        {settKolonne(ref.veileder)}
+                        {settKolonne(moment(ref.opprettet_tidspunkt).format('DD.MM.YYYY, kk:mm'))}
+                        <div className={cls.element('kolonne')}>
+                            <span className={cls.element('ikon')}>
+                                <Status />
+                            </span>
+                            <span>Status</span>
                         </div>
-                    ))
-                ) : (
-                    <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                        Det er ikke Registert noen refusjoner pa org. nr: {brukerContext.valgtBedrift}.
-                    </Veilederpanel>
-                )}
-            </div>
-        </>
+                    </div>
+                ))
+            ) : (
+                <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
+                    Det er ikke Registert noen refusjoner pa org. nr: {brukerContext.valgtBedrift}.
+                </Veilederpanel>
+            )}
+        </div>
     );
 };
 
