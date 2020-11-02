@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import { BrukerContext } from '../bruker/BrukerContext';
+import { useInnloggetBruker } from '../bruker/BrukerContext';
 import { Filter, Status, Tiltak } from '../bruker/BrukerContextType';
 
 const Filtermeny: FunctionComponent = () => {
-    const context = useContext(BrukerContext);
+    const context = useInnloggetBruker();
     const getNyttStatusFilter = (statusFilter: Status): Filter => ({
         status: statusFilter,
         tiltakstype: context.filter.tiltakstype,

@@ -3,16 +3,18 @@ import React, { FunctionComponent } from 'react';
 import HvitBoks from '../../komponenter/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import BEMHelper from '../../utils/bem';
-import { Refusjon } from '../refusjon';
 import './TiltaketSteg.less';
+import { useParams } from 'react-router-dom';
+import { useHentRefusjon } from '../../services/rest-service';
 
-type Props = {
-    refusjon: Refusjon;
-};
+type Props = {};
 
 const cls = BEMHelper('tiltaksteg');
 
 const TiltaketSteg: FunctionComponent<Props> = (props) => {
+    const { refusjonId } = useParams();
+    const refusjon = useHentRefusjon(refusjonId);
+
     return (
         <HvitBoks>
             <div className={cls.element('infoboks')}>
@@ -35,13 +37,13 @@ const TiltaketSteg: FunctionComponent<Props> = (props) => {
             <Undertittel>Om tiltaket</Undertittel>
             <VerticalSpacer rem={2} />
             <Element>Type tiltak</Element>
-            {props.refusjon.tiltakstype}
+            {refusjon.tiltakstype}
             <VerticalSpacer rem={1} />
             <Element>Deltaker</Element>
-            {props.refusjon.deltaker}
+            {refusjon.deltaker}
             <VerticalSpacer rem={1} />
             <Element>Periode</Element>
-            {`${props.refusjon.fraDato} - ${props.refusjon.tilDato}`}
+            {`${refusjon.fraDato} - ${refusjon.tilDato}`}
         </HvitBoks>
     );
 };

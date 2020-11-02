@@ -1,9 +1,9 @@
 import moment from 'moment';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import React, { FunctionComponent, ReactNode, useContext } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
 import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
-import { BrukerContext } from '../../bruker/BrukerContext';
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import LabelRad from './LabelRad';
@@ -12,17 +12,16 @@ import './oversikt.less';
 const cls = BEMHelper('oversikt');
 
 const Oversikt: FunctionComponent = () => {
-    const context = useContext(BrukerContext);
+    const brukerContext = useInnloggetBruker();
 
-    const defaultBedrift = new URLSearchParams(window.location.search).get('bedrift')! || '';
-    const refusjoner = useHentRefusjoner(context.valgtBedrift || defaultBedrift);
+    const refusjoner = useHentRefusjoner(brukerContext.valgtBedrift);
 
     const filtereListe = () => {
-        const behandletType = refusjoner //context.refusjon
-            ? refusjoner.filter((element) => element.status === context.filter.status)
+        const behandletType = refusjoner //brukerContext.refusjon
+            ? refusjoner.filter((element) => element.status === brukerContext.filter.status)
             : [];
-        if (context.filter.tiltakstype) {
-            return behandletType.filter((element) => element.tiltakstype === context.filter.tiltakstype);
+        if (brukerContext.filter.tiltakstype) {
+            return behandletType.filter((element) => element.tiltakstype === brukerContext.filter.tiltakstype);
         }
         return behandletType;
     };
@@ -51,7 +50,7 @@ const Oversikt: FunctionComponent = () => {
                     ))
                 ) : (
                     <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                        Det er ikke Registert noen refusjoner pa org. nr: {context.valgtBedrift}.
+                        Det er ikke Registert noen refusjoner pa org. nr: {brukerContext.valgtBedrift}.
                     </Veilederpanel>
                 )}
             </div>

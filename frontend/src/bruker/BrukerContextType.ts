@@ -1,12 +1,12 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Dispatch } from 'react';
 
-export interface Context {
+export type Bedrift = string;
+
+export interface BrukerContextType {
     innloggetBruker: InnloggetBruker;
+    valgtBedrift: Bedrift;
     filter: Filter;
     oppdaterFilter: (nyttFilter: Filter) => void;
-    valgtBedrift: string;
-    setValgtBedrift: Dispatch<React.SetStateAction<string>>;
 }
 
 export interface InnloggetBruker {
@@ -30,22 +30,3 @@ export enum Tiltak {
     MIDLETTIDIG_LØNNSTILSKUDD = 'MIDLERTIDLIG_LONNSTILSKUDD',
     VARIG_LØNNSTILSKUDD = 'VARIG_LONNSTILSKUDD',
 }
-
-export type Bedrift = {
-    bedriftNr?: string;
-};
-
-export const initBruker: InnloggetBruker = {
-    identifikator: '',
-    organisasjoner: [
-        {
-            Name: 'Saltrød og Høneby',
-            Type: 'Business',
-            OrganizationNumber: '999999999',
-            OrganizationForm: 'BEDR',
-            Status: 'Active',
-            ParentOrganizationNumber: '910825550',
-        },
-    ],
-    tilganger: [],
-};

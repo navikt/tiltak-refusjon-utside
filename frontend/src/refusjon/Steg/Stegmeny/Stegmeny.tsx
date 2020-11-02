@@ -3,23 +3,20 @@ import { FunctionComponent } from 'react';
 import { useRouteMatch } from 'react-router';
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
+import { matchPath } from 'react-router-dom';
 
 type Steg = 'tiltaket' | 'inntekt' | 'oppsummering';
 
 const Stegmeny: FunctionComponent = () => {
     const { path, url } = useRouteMatch();
-    const steg: Steg[] = ['tiltaket', 'inntekt', 'oppsummering'];
-    const aktiv = url + `/${steg}`;
+    const alleSteg: Steg[] = ['tiltaket', 'inntekt', 'oppsummering'];
 
-    const sjekkOmStegIPath = (steg: Steg) => window.location.pathname.includes(steg.toLowerCase());
-
-    const stegLenker = steg.map((steg) => {
+    const stegLenker = alleSteg.map((steg) => {
+        const stegUrl = url + `/${steg}`;
         return (
             <StegmenyLenke
                 label={steg}
-                aktiv={sjekkOmStegIPath(steg)}
-                ferdig={false}
-                url={url + `/${steg}`}
+                url={stegUrl}
                 key={steg}
             />
         );

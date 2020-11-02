@@ -1,21 +1,25 @@
 import Bedriftsmeny from '@navikt/bedriftsmeny';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router';
-import { BrukerContext } from '../bruker/BrukerContext';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
-const Banner: FunctionComponent = () => {
-    const context = useContext(BrukerContext);
+type Props = {
+    organisasjoner: Organisasjon[];
+    setValgtBedrift: (org: Organisasjon) => void;
+};
+
+const Banner: FunctionComponent<Props> = (props) => {
     const history = useHistory();
 
     return (
-        <>
-            <Bedriftsmeny
-                history={history}
-                organisasjoner={context.innloggetBruker.organisasjoner}
-                onOrganisasjonChange={(org) => context.setValgtBedrift(org.OrganizationNumber)}
-                sidetittel={'Tiltaksrefusjon'}
-            />
-        </>
+        <Bedriftsmeny
+            history={history}
+            organisasjoner={props.organisasjoner}
+            onOrganisasjonChange={org => {
+                props.setValgtBedrift(org);
+            }}
+            sidetittel="Tiltaksrefusjon"
+        />
     );
 };
 
