@@ -1,13 +1,12 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Refusjon } from '../refusjon/refusjon';
+import { Dispatch } from 'react';
 
 export interface Context {
     innloggetBruker: InnloggetBruker;
-    refusjon: Refusjon[];
     filter: Filter;
-    hentinnloggetBruker: () => Promise<void>;
-    hentRefusjon: (bedriftNummer: string) => Promise<void>;
     oppdaterFilter: (nyttFilter: Filter) => void;
+    valgtBedrift: string;
+    setValgtBedrift: Dispatch<React.SetStateAction<string>>;
 }
 
 export interface InnloggetBruker {

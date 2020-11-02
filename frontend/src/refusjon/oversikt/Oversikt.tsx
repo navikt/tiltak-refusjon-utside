@@ -1,28 +1,24 @@
-import React, { FunctionComponent, ReactNode, useContext, useEffect } from 'react';
-import BEMHelper from '../../utils/bem';
-import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import moment from 'moment';
-import './oversikt.less';
-import LabelRad from './LabelRad';
-import { BrukerContext } from '../../bruker/BrukerContext';
 import Veilederpanel from 'nav-frontend-veilederpanel';
+import React, { FunctionComponent, ReactNode, useContext } from 'react';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
+import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
+import { BrukerContext } from '../../bruker/BrukerContext';
+import { useHentRefusjoner } from '../../services/rest-service';
+import BEMHelper from '../../utils/bem';
+import LabelRad from './LabelRad';
+import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
 
 const Oversikt: FunctionComponent = () => {
     const context = useContext(BrukerContext);
-    const { hentRefusjon } = context;
-    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
 
-    const hentRefusjoner = () => {
-        hentRefusjon(organisasjonsNummer);
-    };
-    useEffect(hentRefusjoner, []);
+    const refusjoner = useHentRefusjoner(context.valgtBedrift);
 
     const filtereListe = () => {
-        const behandletType = context.refusjon
-            ? context.refusjon.filter((element) => element.status === context.filter.status)
+        const behandletType = refusjoner //context.refusjon
+            ? refusjoner.filter((element) => element.status === context.filter.status)
             : [];
         if (context.filter.tiltakstype) {
             return behandletType.filter((element) => element.tiltakstype === context.filter.tiltakstype);
@@ -54,7 +50,7 @@ const Oversikt: FunctionComponent = () => {
                     ))
                 ) : (
                     <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                        Det er ikke Registert noen refusjoner pa org. nr: {organisasjonsNummer}.
+                        Det er ikke Registert noen refusjoner pa org. nr: {context.valgtBedrift}.
                     </Veilederpanel>
                 )}
             </div>

@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useContext } from 'react';
-import { BrukerContext } from '../bruker/BrukerContext';
-import { useHistory } from 'react-router';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
+import React, { FunctionComponent, useContext } from 'react';
+import { useHistory } from 'react-router';
+import { BrukerContext } from '../bruker/BrukerContext';
 
 const Banner: FunctionComponent = () => {
     const context = useContext(BrukerContext);
@@ -12,7 +12,7 @@ const Banner: FunctionComponent = () => {
             <Bedriftsmeny
                 history={history}
                 organisasjoner={context.innloggetBruker.altinnOrganisasjoner}
-                onOrganisasjonChange={(org) => context.hentRefusjon(org.OrganizationNumber)}
+                onOrganisasjonChange={(org) => context.setValgtBedrift(org.OrganizationNumber)}
                 sidetittel={'Tiltaksrefusjon'}
             />
         </>

@@ -1,10 +1,9 @@
-import { FunctionComponent } from 'react';
-import React from 'react';
-import Oversikt from '../oversikt/Oversikt';
-import Banner from '../Banner';
+import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../utils/bem';
-import './innhold.less';
+import Banner from '../Banner';
 import Filtermeny from '../Filtermeny';
+import Oversikt from '../oversikt/Oversikt';
+import './innhold.less';
 
 const cls = BEMHelper('innhold');
 
