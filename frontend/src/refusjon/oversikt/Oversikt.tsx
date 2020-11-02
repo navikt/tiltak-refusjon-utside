@@ -8,6 +8,7 @@ import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import LabelRad from './LabelRad';
 import './oversikt.less';
+import { Link, useHistory } from 'react-router-dom';
 import { useFilter } from './FilterContext';
 
 const cls = BEMHelper('oversikt');
@@ -29,12 +30,23 @@ const Oversikt: FunctionComponent = () => {
     const settKolonne = (input: string | number): ReactNode => <div className={cls.element('kolonne')}>{input}</div>;
     const filtrerteRefusjoner = filtereListe();
 
+    const history = useHistory();
+
     return (
         <div className={cls.className}>
             <LabelRad className={cls.className} />
             {filtrerteRefusjoner && filtrerteRefusjoner.length > 0 ? (
-                filtrerteRefusjoner.map((ref, index) => (
-                    <div className={cls.element('rad')} key={index}>
+                filtrerteRefusjoner.map((ref) => (
+                    <div
+                        className={cls.element('rad')}
+                        key={ref.id}
+                        onClick={() =>
+                            history.push({
+                                pathname: `/refusjon/${ref.id}/oppsummering`,
+                                search: window.location.search,
+                            })
+                        }
+                    >
                         {settKolonne(ref.bedrift)}
                         {settKolonne(ref.deltaker)}
                         {settKolonne(ref.veileder)}
