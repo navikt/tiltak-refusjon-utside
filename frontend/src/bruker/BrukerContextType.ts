@@ -11,7 +11,7 @@ export interface Context {
 
 export interface InnloggetBruker {
     identifikator: string;
-    altinnOrganisasjoner: Organisasjon[];
+    organisasjoner: Organisasjon[];
     tilganger: Bedrift[];
 }
 
@@ -37,7 +37,7 @@ export type Bedrift = {
 
 export const initBruker: InnloggetBruker = {
     identifikator: '',
-    altinnOrganisasjoner: [
+    organisasjoner: [
         {
             Name: 'Saltrød og Høneby',
             Type: 'Business',

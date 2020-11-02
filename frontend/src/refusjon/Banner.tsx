@@ -11,7 +11,7 @@ const Banner: FunctionComponent = () => {
         <>
             <Bedriftsmeny
                 history={history}
-                organisasjoner={context.innloggetBruker.altinnOrganisasjoner}
+                organisasjoner={context.innloggetBruker.organisasjoner}
                 onOrganisasjonChange={(org) => context.setValgtBedrift(org.OrganizationNumber)}
                 sidetittel={'Tiltaksrefusjon'}
             />

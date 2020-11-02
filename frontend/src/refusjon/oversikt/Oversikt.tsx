@@ -14,7 +14,8 @@ const cls = BEMHelper('oversikt');
 const Oversikt: FunctionComponent = () => {
     const context = useContext(BrukerContext);
 
-    const refusjoner = useHentRefusjoner(context.valgtBedrift);
+    const defaultBedrift = new URLSearchParams(window.location.search).get('bedrift')! || '';
+    const refusjoner = useHentRefusjoner(context.valgtBedrift || defaultBedrift);
 
     const filtereListe = () => {
         const behandletType = refusjoner //context.refusjon
