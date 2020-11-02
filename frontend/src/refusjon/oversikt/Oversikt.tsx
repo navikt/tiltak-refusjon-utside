@@ -1,12 +1,13 @@
 import moment from 'moment';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent, ReactNode, useContext } from 'react';
-import useSWR from 'swr';
+import { useParams } from 'react-router';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
 import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import { BrukerContext } from '../../bruker/BrukerContext';
+import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import { Refusjon } from '../refusjon';
+import { urlParameter } from '../../utils/urlUtils';
 import LabelRad from './LabelRad';
 import './oversikt.less';
 
@@ -18,25 +19,9 @@ type Props = {
 
 const Oversikt: FunctionComponent<Props> = (props) => {
     const context = useContext(BrukerContext);
-    //const { bedrift } = useParams();
-    //const { hentRefusjon } = context;
-    const organisasjonsNummer = new URLSearchParams(window.location.search).get('bedrift')! || '';
 
-    // useEffect(() => {
-    //     console.log(bedrift);
-    // }, [bedrift]);
-
-    //const refusjoner = useHentRefusjoner(props.orgNr);
-    const fetcher = (url: string, orgnr: string) => fetch(url + orgnr).then((r) => r.json());
-    const { data } = useSWR<Refusjon[]>([`/api/refusjon/bedrift/`, organisasjonsNummer], (url, orgnr) =>
-        fetcher(url, orgnr)
-    );
-    const refusjoner = data;
-
-    // const hentRefusjoner = () => {
-    //     hentRefusjon(organisasjonsNummer);
-    // };
-    // useEffect(hentRefusjoner, []);
+    useParams();
+    const refusjoner = useHentRefusjoner(urlParameter('bedrift'));
 
     const filtereListe = () => {
         const behandletType = refusjoner //context.refusjon
