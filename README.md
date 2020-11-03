@@ -2,6 +2,6 @@
 
 ### Lokal oppstart:
 
-yarn install i ./frontend
+yarn install
 
-yarn start i ./frontend
+yarn start

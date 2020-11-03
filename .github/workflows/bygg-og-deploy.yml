@@ -21,10 +21,8 @@ jobs:
         working-directory: ./server
         run: yarn build
       - name: Frontend yarn install
-        working-directory: ./frontend
         run: yarn install
       - name: Frontend yarn build
-        working-directory: ./frontend
         run: yarn build
       - name: Bygg, tag og push Docker-image
         run: |

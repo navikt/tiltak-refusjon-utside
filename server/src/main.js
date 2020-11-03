@@ -34,7 +34,7 @@ async function startApp()  {
 
         server.engine("html", mustacheExpress());
         server.set("view engine", "mustache");
-        server.set("views", path.join(__dirname, "../../frontend/build"));
+        server.set("views", path.join(__dirname, "../../build"));
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
