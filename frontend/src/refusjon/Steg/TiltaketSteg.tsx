@@ -1,15 +1,18 @@
+import { ReactComponent as InfoIkon } from '@/asset/image/info-ikon.svg';
 import { Element, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { useParams } from 'react-router-dom';
 import HvitBoks from '../../komponenter/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import BEMHelper from '../../utils/bem';
-import './TiltaketSteg.less';
-import { useParams } from 'react-router-dom';
+import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
+import BEMHelper from '../../utils/bem';
+import { formatterDato } from '../../utils/datoUtils';
+import './TiltaketSteg.less';
 
 type Props = {};
 
-const cls = BEMHelper('tiltaksteg');
+const cls = BEMHelper('tiltaketsteg');
 
 const TiltaketSteg: FunctionComponent<Props> = (props) => {
     const { refusjonId } = useParams();
@@ -18,6 +21,7 @@ const TiltaketSteg: FunctionComponent<Props> = (props) => {
     return (
         <HvitBoks>
             <div className={cls.element('infoboks')}>
+                <InfoIkon style={{ margin: '-5rem auto auto', display: 'flex' }} />
                 <Systemtittel>Slik søker du om refusjon</Systemtittel>
                 <VerticalSpacer rem={1} />
                 <Element>
@@ -37,13 +41,13 @@ const TiltaketSteg: FunctionComponent<Props> = (props) => {
             <Undertittel>Om tiltaket</Undertittel>
             <VerticalSpacer rem={2} />
             <Element>Type tiltak</Element>
-            {refusjon.tiltakstype}
+            {tiltakstypeTekst[refusjon.tiltakstype]}
             <VerticalSpacer rem={1} />
             <Element>Deltaker</Element>
             {refusjon.deltaker}
             <VerticalSpacer rem={1} />
             <Element>Periode</Element>
-            {`${refusjon.fraDato} - ${refusjon.tilDato}`}
+            {`${formatterDato(refusjon.fraDato)} - ${formatterDato(refusjon.tilDato)}`}
         </HvitBoks>
     );
 };
