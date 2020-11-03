@@ -1,15 +1,15 @@
 import moment from 'moment';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent, ReactNode } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
 import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
+import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
-import { Link, useHistory } from 'react-router-dom';
-import { useFilter } from './FilterContext';
 
 const cls = BEMHelper('oversikt');
 
