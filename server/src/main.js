@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import mustacheExpress from 'mustache-express';
-import path from "path";
+import path from 'path';
 import idporten from './auth/idporten';
 import tokenx from './auth/tokenx';
 import cors from './cors';
@@ -10,12 +10,9 @@ import session from './session';
 
 //import morgan from 'morgan';
 
-
 const server = express();
 
-
-
-async function startApp()  {
+async function startApp() {
     try {
         server.use(bodyParser.json());
         // morgan('dev');
@@ -32,9 +29,9 @@ async function startApp()  {
         const tokenxAuthClient = await tokenx.client();
         const idportenAuthClient = await idporten.client();
 
-        server.engine("html", mustacheExpress());
-        server.set("view engine", "mustache");
-        server.set("views", path.join(__dirname, "../../build"));
+        server.engine('html', mustacheExpress());
+        server.set('view engine', 'mustache');
+        server.set('views', path.join(__dirname, '../../build'));
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
@@ -46,4 +43,4 @@ async function startApp()  {
     }
 }
 
-startApp().catch(err => console.log(err));
+startApp().catch((err) => console.log(err));

@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
 export const formatterDato = (dato: string) => {

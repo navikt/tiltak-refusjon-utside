@@ -14,7 +14,6 @@ const api = axios.create({
 
 const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 
-
 const swrConfig = {
     fetcher: axiosFetcher,
     suspense: true,
@@ -28,9 +27,9 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
 export const useHentRefusjoner = (bedriftnummer: string) => {
     const { data } = useSWR<Refusjon[]>(`/refusjon/bedrift/${bedriftnummer}`, swrConfig);
     return data;
-}
+};
 
 export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
     return data!;
-}
+};

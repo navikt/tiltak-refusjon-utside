@@ -13,13 +13,7 @@ const Stegmeny: FunctionComponent = () => {
 
     const stegLenker = alleSteg.map((steg) => {
         const stegUrl = url + `/${steg}`;
-        return (
-            <StegmenyLenke
-                label={steg}
-                url={stegUrl}
-                key={steg}
-            />
-        );
+        return <StegmenyLenke label={steg} url={stegUrl} key={steg} />;
     });
 
     return <nav className="stegmeny">{stegLenker}</nav>;
