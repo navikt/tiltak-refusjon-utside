@@ -46,13 +46,13 @@ const RefusjonSide: FunctionComponent = () => {
                     </div>
                     <div className={cls.element('container')}>
                         <div className={cls.element('stegmeny')}>
-                            {alleSteg.map((steg) => (
-                                <StegmenyLenke label={steg.tittel} url={`${url}/${steg.path}`} />
+                            {alleSteg.map((steg, index) => (
+                                <StegmenyLenke label={steg.tittel} url={`${url}/${steg.path}`} key={index} />
                             ))}
                         </div>
 
-                        {alleSteg.map((steg) => (
-                            <Route exact path={`${path}/${steg.path}`}>
+                        {alleSteg.map((steg, index) => (
+                            <Route exact path={`${path}/${steg.path}`} key={index}>
                                 {steg.komponent}
                             </Route>
                         ))}
