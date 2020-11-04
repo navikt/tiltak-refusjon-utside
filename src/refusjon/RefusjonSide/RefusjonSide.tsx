@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Route, useRouteMatch } from 'react-router';
+import { Redirect, Route, useRouteMatch } from 'react-router';
 import BEMHelper from '../../utils/bem';
 import OppsummeringSteg from '../Steg/OppsummeringSteg';
 import TiltaketSteg from '../Steg/TiltaketSteg';
@@ -10,11 +10,9 @@ import './RefusjonSide.less';
 import { Link } from 'react-router-dom';
 import { VenstreChevron } from 'nav-frontend-chevron';
 
-type Props = {};
-
 const cls = BEMHelper('refusjonside');
 
-const RefusjonSide: FunctionComponent<Props> = (props) => {
+const RefusjonSide: FunctionComponent = () => {
     const { path, url } = useRouteMatch();
 
     const alleSteg = [
@@ -61,6 +59,7 @@ const RefusjonSide: FunctionComponent<Props> = (props) => {
                     </div>
                 </div>
             </div>
+            <Redirect to={`${url}/${alleSteg[0].path}`} />
         </>
     );
 };
