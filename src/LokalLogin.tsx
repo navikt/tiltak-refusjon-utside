@@ -9,7 +9,7 @@ type Props = {
     innloggetBruker: InnloggetBruker | undefined;
 };
 
-const COOKIE_NAME = `tokenx-idtoken`;
+const COOKIE_NAME = `tokenx-token`;
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [pid, setPid] = useState('15000000000');
