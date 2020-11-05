@@ -9,6 +9,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import './RefusjonSide.less';
 import { Link } from 'react-router-dom';
 import { VenstreChevron } from 'nav-frontend-chevron';
+import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
 
 const cls = BEMHelper('refusjonside');
 
@@ -53,7 +54,10 @@ const RefusjonSide: FunctionComponent = () => {
 
                         {alleSteg.map((steg, index) => (
                             <Route exact path={`${path}/${steg.path}`} key={index}>
-                                {steg.komponent}
+                                <div className={cls.element('innhold-steg')}>
+                                    {steg.komponent}
+                                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={index} url={url} />
+                                </div>
                             </Route>
                         ))}
                     </div>
