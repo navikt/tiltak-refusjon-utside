@@ -1,6 +1,30 @@
 .refusjonside {
     display: flex;
+    flex-direction: row;
     justify-content: center;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__container {
+        width: 100%;
+        max-width: 58rem;
+        display: flex;
+    }
+
+    &__navigasjonslinje {
+        padding: 1rem 0 0.75rem 0.125rem;
+        width: 100%;
+    }
+
+    &__navigasjonslenke {
+        display: flex;
+        align-items: center;
+        color: #0067c5;
+    }
+
     &__stegmeny {
         margin-right: 1rem;
     }

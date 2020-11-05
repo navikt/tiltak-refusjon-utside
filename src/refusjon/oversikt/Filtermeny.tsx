@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Filter, useFilter } from './FilterContext';
-import { Status } from "../status";
-import { Tiltak } from "../tiltak";
+import { Status } from '../status';
+import { Tiltak } from '../tiltak';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();

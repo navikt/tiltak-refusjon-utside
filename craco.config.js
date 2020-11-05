@@ -8,9 +8,7 @@ module.exports = {
             '@': path.resolve(__dirname, 'src/'),
         },
     },
-    plugins: [
-        { plugin: CracoLessPlugin }
-    ],
+    plugins: [{ plugin: CracoLessPlugin }],
     eslint: {
         enable: true,
         mode: 'extends',

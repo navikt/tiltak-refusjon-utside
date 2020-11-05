@@ -13,13 +13,13 @@ const metadata = {
 const client = async () => {
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
-            agent: httpProxy.agent
+            agent: httpProxy.agent,
         });
     }
     const issuer = await Issuer.discover(config.idporten.discoveryUrl);
     console.log(`Discovered issuer ${issuer.issuer}`);
     const jwk = JSON.parse(config.idporten.clientJwk);
-    return new issuer.Client(metadata, {keys: [jwk]});
+    return new issuer.Client(metadata, { keys: [jwk] });
 };
 
 const authUrl = (session, idportenClient) => {
@@ -30,34 +30,36 @@ const authUrl = (session, idportenClient) => {
         response_mode: config.idporten.responseMode,
         nonce: session.nonce,
         state: session.state,
-    })
-}
+    });
+};
 
 const validateOidcCallback = async (idportenClient, req) => {
     const issuer = 'https://oidc-ver2.difi.no/idporten-oidc-provider/';
 
     console.log('idportenClient: ');
     console.log(idportenClient);
-    
-    
-    const params = idportenClient.callbackParams(req)
-    const nonce = req.session.nonce
-    const state = req.session.state
+
+    const params = idportenClient.callbackParams(req);
+    const nonce = req.session.nonce;
+    const state = req.session.state;
 
     return idportenClient
-        .callback(config.idporten.redirectUri, params, {nonce, state}, { clientAssertionPayload: { aud: issuer }})
+        .callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: issuer } })
         .catch((err) => Promise.reject(`error in oidc callback: ${err}`))
         .then(async (tokenSet) => {
-            return tokenSet
-        })
-}
+            return tokenSet;
+        });
+};
 
 const refresh = (idportenClient, oldTokenSet) =>
-    idportenClient.refresh(oldTokenSet).then((newTokenSet) => {
-        return Promise.resolve(newTokenSet)
-    }).catch(err => {
-        console.log(err);
-        return Promise.reject(err)
-    })
+    idportenClient
+        .refresh(oldTokenSet)
+        .then((newTokenSet) => {
+            return Promise.resolve(newTokenSet);
+        })
+        .catch((err) => {
+            console.log(err);
+            return Promise.reject(err);
+        });
 
 export default { client, authUrl, validateOidcCallback, refresh };

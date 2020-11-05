@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import HvitBoks from "../../komponenter/HvitBoks";
+import HvitBoks from '../../komponenter/HvitBoks';
 
 type Props = {};
 

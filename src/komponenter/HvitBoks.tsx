@@ -8,7 +8,7 @@ const HvitBoks: FunctionComponent<Props> = (props) => {
             style={{
                 ...props.style,
                 borderRadius: '4px',
-                padding: '3rem 1rem',
+                padding: '3rem 2.5rem',
                 backgroundColor: 'white',
                 width: '40rem',
             }}

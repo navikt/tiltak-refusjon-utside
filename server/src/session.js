@@ -6,7 +6,8 @@ const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 const setup = (app) => {
     app.set('trust proxy', 1);
     // if (process.env.NODE_ENV === 'development') {
-        app.use(session({
+    app.use(
+        session({
             cookie: {
                 maxAge: SESSION_MAX_AGE_MILLISECONDS,
                 sameSite: 'lax',
@@ -16,7 +17,8 @@ const setup = (app) => {
             name: config.server.sessionCookieName,
             resave: false,
             saveUninitialized: true,
-        }));
+        })
+    );
     // } else {
     //     const RedisStore = require('connect-redis')(session);
     //

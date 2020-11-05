@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from 'react';
-import { Route, useRouteMatch } from 'react-router';
+import { Redirect, Route, useRouteMatch } from 'react-router';
 import BEMHelper from '../../utils/bem';
 import OppsummeringSteg from '../Steg/OppsummeringSteg';
 import TiltaketSteg from '../Steg/TiltaketSteg';
-import './RefusjonSide.less';
 import StegmenyLenke from '../Steg/Stegmeny/StegmenyLenke/StegmenyLenke';
-import InntektSteg from '../Steg/InntektSteg';
+import InntektSteg from '../Steg/inntektsteg/InntektSteg';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-
-type Props = {};
+import './RefusjonSide.less';
+import { Link } from 'react-router-dom';
+import { VenstreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('refusjonside');
 
-const RefusjonSide: FunctionComponent<Props> = (props) => {
+const RefusjonSide: FunctionComponent = () => {
     const { path, url } = useRouteMatch();
 
     const alleSteg = [
@@ -37,18 +37,29 @@ const RefusjonSide: FunctionComponent<Props> = (props) => {
         <>
             <VerticalSpacer rem={1} />
             <div className={cls.className}>
-                <div className={cls.element('stegmeny')}>
-                    {alleSteg.map((steg) => (
-                        <StegmenyLenke label={steg.tittel} url={`${url}/${steg.path}`} />
-                    ))}
-                </div>
+                <div className={cls.element('wrapper')}>
+                    <div className={cls.element('navigasjonslinje')}>
+                        <Link to="/" className={cls.element('navigasjonslenke')}>
+                            <VenstreChevron />
+                            Tilbake til oversikt
+                        </Link>
+                    </div>
+                    <div className={cls.element('container')}>
+                        <div className={cls.element('stegmeny')}>
+                            {alleSteg.map((steg, index) => (
+                                <StegmenyLenke label={steg.tittel} url={`${url}/${steg.path}`} key={index} />
+                            ))}
+                        </div>
 
-                {alleSteg.map((steg) => (
-                    <Route exact path={`${path}/${steg.path}`}>
-                        {steg.komponent}
-                    </Route>
-                ))}
+                        {alleSteg.map((steg, index) => (
+                            <Route exact path={`${path}/${steg.path}`} key={index}>
+                                {steg.komponent}
+                            </Route>
+                        ))}
+                    </div>
+                </div>
             </div>
+            <Redirect to={`${url}/${alleSteg[0].path}`} />
         </>
     );
 };

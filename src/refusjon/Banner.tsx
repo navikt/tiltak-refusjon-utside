@@ -15,7 +15,7 @@ const Banner: FunctionComponent<Props> = (props) => {
         <Bedriftsmeny
             history={history}
             organisasjoner={props.organisasjoner}
-            onOrganisasjonChange={org => {
+            onOrganisasjonChange={(org) => {
                 props.setValgtBedrift(org);
             }}
             sidetittel="Tiltaksrefusjon"

@@ -1,5 +1,5 @@
-import { Status } from "./status";
-import { Tiltak } from "./tiltak";
+import { Status } from './status';
+import { Tiltak } from './tiltak';
 
 export interface Refusjon {
     id: string;
