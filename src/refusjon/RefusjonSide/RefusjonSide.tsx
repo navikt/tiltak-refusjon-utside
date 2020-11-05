@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Redirect, Route, useRouteMatch } from 'react-router';
+import { Route, useRouteMatch } from 'react-router';
 import BEMHelper from '../../utils/bem';
 import OppsummeringSteg from '../Steg/OppsummeringSteg';
 import TiltaketSteg from '../Steg/TiltaketSteg';
