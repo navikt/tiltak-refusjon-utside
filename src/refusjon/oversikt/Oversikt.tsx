@@ -42,7 +42,7 @@ const Oversikt: FunctionComponent = () => {
                         key={ref.id}
                         onClick={() =>
                             history.push({
-                                pathname: `/refusjon/${ref.id}/oppsummering`,
+                                pathname: `/refusjon/${ref.id}/tiltaket`,
                                 search: window.location.search,
                             })
                         }

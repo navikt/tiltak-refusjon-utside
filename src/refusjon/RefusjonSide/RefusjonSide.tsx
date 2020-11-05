@@ -59,7 +59,6 @@ const RefusjonSide: FunctionComponent = () => {
                     </div>
                 </div>
             </div>
-            <Redirect to={`${url}/${alleSteg[0].path}`} />
         </>
     );
 };
