@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Undertittel } from 'nav-frontend-typografi';
-import { ReactComponent as Bygg } from '@/asset/image/inntektsteg.illustrasjon.bygg.svg';
-import { ReactComponent as Person } from '@/asset/image/inntektsteg.illustrasjon.person.svg';
-import { ReactComponent as Periode } from '@/asset/image/inntektsteg.illustrasjon.periode.svg';
+import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
+import { ReactComponent as Person } from '@/asset/image/person.svg';
+import { ReactComponent as Periode } from '@/asset/image/periode.svg';
 
 import { formatterDato } from '../../../utils/datoUtils';
 import BEMHelper from '../../../utils/bem';

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Undertittel } from 'nav-frontend-typografi';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
-import { ReactComponent as Pengesekk } from '@/asset/image/inntektsteg.pengesekkdollar.svg';
+import { ReactComponent as Pengesekk } from '@/asset/image/pengesekkdollar.svg';
 import BEMHelper from '../../../utils/bem';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';

@@ -5,8 +5,8 @@ import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { ReactComponent as Stranden } from '@/asset/image/inntektsteg.strand.svg';
-import { ReactComponent as Sykepenger } from '@/asset/image/inntektsteg.sykepenger.svg';
+import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
+import { ReactComponent as Sykepenger } from '@/asset/image/sykepenger.svg';
 import EkspanderbartpanelTittel from './EkspanderbartpanelTittel';
 
 interface Props {
