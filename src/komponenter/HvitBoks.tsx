@@ -9,7 +9,6 @@ const HvitBoks: FunctionComponent<Props> = (props) => {
         padding: '3rem 2.5rem',
         backgroundColor: 'white',
         width: '100%',
-        flexGrow: 3,
         marginBottom: '1rem',
     };
 
