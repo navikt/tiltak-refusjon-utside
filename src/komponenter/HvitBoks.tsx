@@ -10,7 +10,6 @@ const HvitBoks: FunctionComponent<Props> = (props) => {
                 borderRadius: '4px',
                 padding: '3rem 2.5rem',
                 backgroundColor: 'white',
-                width: '40rem',
             }}
             {...props}
         />
