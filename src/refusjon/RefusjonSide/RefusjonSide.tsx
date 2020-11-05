@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Route, useRouteMatch } from 'react-router';
 import BEMHelper from '../../utils/bem';
-import OppsummeringSteg from '../Steg/OppsummeringSteg';
+import OppsummeringSteg from '../Steg/oppsummeringSteg/OppsummeringSteg';
 import TiltaketSteg from '../Steg/TiltaketSteg';
 import StegmenyLenke from '../Steg/Stegmeny/StegmenyLenke/StegmenyLenke';
 import InntektSteg from '../Steg/inntektsteg/InntektSteg';
