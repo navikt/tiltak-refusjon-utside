@@ -10,11 +10,9 @@ import BEMHelper from '../../utils/bem';
 import { formatterDato } from '../../utils/datoUtils';
 import './TiltaketSteg.less';
 
-type Props = {};
-
 const cls = BEMHelper('tiltaketsteg');
 
-const TiltaketSteg: FunctionComponent<Props> = (props) => {
+const TiltaketSteg: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
