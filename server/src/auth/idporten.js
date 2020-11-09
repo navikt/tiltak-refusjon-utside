@@ -21,7 +21,7 @@ export const client = async () => {
     idportenMetadata = await Issuer.discover(config.idporten.discoveryUrl);
     console.log(`Discovered issuer ${idportenMetadata.issuer}`);
     const jwk = JSON.parse(config.idporten.clientJwk);
-    return new issuer.Client(metadata, { keys: [jwk] });
+    return new idportenMetadata.Client(metadata, { keys: [jwk] });
 };
 
 export const authUrl = (session, idportenClient) => {
