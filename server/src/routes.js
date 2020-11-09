@@ -50,7 +50,6 @@ const setup = (tokenxClient, idportenClient) => {
         } else {
             let tokenSet = new TokenSet(currentTokens);
             if (tokenSet.expired()) {
-                console.log('refreshing token');
                 tokenSet = new TokenSet(await idporten.refresh(idportenClient, currentTokens));
                 req.session.tokens = tokenSet;
             }
@@ -61,7 +60,7 @@ const setup = (tokenxClient, idportenClient) => {
 
     // Protected
     router.get('/session', (req, res) => {
-        res.json(req.user);
+        res.json(req.session);
     });
 
     router.get('/logout', (req, res) => {
