@@ -36,19 +36,13 @@ const authUrl = (session, idportenClient) => {
 const validateOidcCallback = async (idportenClient, req) => {
     const issuer = 'https://oidc-ver2.difi.no/idporten-oidc-provider/';
 
-    console.log('idportenClient: ');
-    console.log(idportenClient);
-
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
 
     return idportenClient
         .callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: issuer } })
-        .catch((err) => Promise.reject(`error in oidc callback: ${err}`))
-        .then(async (tokenSet) => {
-            return tokenSet;
-        });
+        .catch((err) => Promise.reject(`error in oidc callback: ${err}`));
 };
 
 const refresh = (idportenClient, oldTokenSet) =>

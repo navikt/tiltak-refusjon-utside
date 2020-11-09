@@ -22,14 +22,6 @@ const setup = (tokenxClient, idportenClient) => {
         res.redirect(idporten.authUrl(session, idportenClient));
     });
 
-    // router.use('/oauth2/callback', passport.authenticate('idportenOidc', { failureRedirect: '/login'}), (req, res) => {
-    //     if (session.redirectTo) {
-    //         res.redirect(session.redirectTo);
-    //     } else {
-    //         res.redirect('/');
-    //     }
-    // });
-
     router.get('/oauth2/callback', async (req, res) => {
         const session = req.session;
         idporten
@@ -38,11 +30,6 @@ const setup = (tokenxClient, idportenClient) => {
                 session.tokens = tokens;
                 session.state = null;
                 session.nonce = null;
-                res.cookie(config.server.idTokenCookieName, `${tokens.id_token}`, {
-                    secure: config.server.useSecureCookies,
-                    sameSite: 'lax',
-                    maxAge: 12 * 60 * 60 * 1000, // 12 timer
-                });
                 if (session.redirectTo) {
                     res.redirect(session.redirectTo);
                 } else {
