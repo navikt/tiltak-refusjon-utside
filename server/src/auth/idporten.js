@@ -10,14 +10,16 @@ const metadata = {
     token_endpoint_auth_signing_alg: config.idporten.tokenEndpointAuthSigningAlg,
 };
 
+let idportenMetadata = null;
+
 export const client = async () => {
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
         });
     }
-    const issuer = await Issuer.discover(config.idporten.discoveryUrl);
-    console.log(`Discovered issuer ${issuer.issuer}`);
+    idportenMetadata = await Issuer.discover(config.idporten.discoveryUrl);
+    console.log(`Discovered issuer ${idportenMetadata.issuer}`);
     const jwk = JSON.parse(config.idporten.clientJwk);
     return new issuer.Client(metadata, { keys: [jwk] });
 };
@@ -35,13 +37,11 @@ export const authUrl = (session, idportenClient) => {
 };
 
 export const validateOidcCallback = async (idportenClient, req) => {
-    const issuer = 'https://oidc-ver2.difi.no/idporten-oidc-provider/';
-
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
 
-    return await idportenClient.callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: issuer } });
+    return await idportenClient.callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: idportenMetadata.metadata.issuer } });
 };
 
 export const refresh = async (idportenClient, oldTokenSet) => {
