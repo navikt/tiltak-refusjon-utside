@@ -30,6 +30,7 @@ export const authUrl = (session, idportenClient) => {
         response_mode: config.idporten.responseMode,
         nonce: session.nonce,
         state: session.state,
+        resource: "https://nav.no",
     });
 };
 
