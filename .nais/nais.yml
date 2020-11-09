@@ -35,6 +35,7 @@ spec:
       value: tiltak-refusjon-utside-redis
   accessPolicy:
     outbound:
+
       rules:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-utside-redis
