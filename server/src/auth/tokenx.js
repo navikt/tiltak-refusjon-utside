@@ -36,7 +36,7 @@ export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
                 client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                 subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                 audience: config.api.audience,
-                subject_token: frontendTokenSetFromSession(req).access_token,
+                subject_token: frontendTokenSetFromSession(req).id_token,
             },
             additionalClaims
         );
