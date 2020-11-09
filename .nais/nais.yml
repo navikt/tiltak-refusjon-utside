@@ -39,9 +39,9 @@ spec:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-utside-redis
       external:
-      {{ #each host}}
+      {{#each host}}
         - host: "{{this}}"
-      {{/each } }
+      {{/each}}
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
     - secret: tiltak-refusjon-utside-redis
