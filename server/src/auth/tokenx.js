@@ -1,6 +1,7 @@
 import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
+import {backendTokenSetFromSession, frontendTokenSetFromSession} from "./utils";
 
 const metadata = {
     client_id: config.tokenx.clientID,
@@ -20,7 +21,7 @@ export const client = async () => {
 };
 
 export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
-    let { backendTokenSet } = req.session;
+    let { backendTokenSet } = backendTokenSetFromSession(req);
 
     if (!backendTokenSet || backendTokenSet.expired()) {
         const now = Math.floor(Date.now() / 1000);
@@ -35,7 +36,7 @@ export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
                 client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                 subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                 audience: config.api.audience,
-                subject_token: req.session.frontendTokenSet.access_token,
+                subject_token: frontendTokenSetFromSession(req).access_token,
             },
             additionalClaims
         );

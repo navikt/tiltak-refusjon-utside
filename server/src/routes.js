@@ -1,11 +1,12 @@
 import axios from 'axios';
 import express from 'express';
 import { JSDOM } from 'jsdom';
-import { generators, TokenSet } from 'openid-client';
+import { generators } from 'openid-client';
 import path from 'path';
 import * as idporten from './auth/idporten';
 import config from './config';
 import reverseProxy from './proxy/reverse-proxy';
+import { frontendTokenSetFromSession } from './auth/utils';
 
 const router = express.Router();
 
@@ -36,11 +37,11 @@ const setup = (tokenxClient, idportenClient) => {
     });
 
     const ensureAuthenticated = async (req, res, next) => {
-        const { frontendTokenSet } = req.session;
+        const frontendTokenSet = frontendTokenSetFromSession(req);
         if (!frontendTokenSet) {
             res.redirect('/login');
         } else if (frontendTokenSet.expired()) {
-            req.session.frontendTokenSet = new TokenSet(await idporten.refresh(idportenClient, frontendTokenSet));
+            req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSet);
             next();
         } else {
             next();
