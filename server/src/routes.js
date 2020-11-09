@@ -41,7 +41,9 @@ const setup = (tokenxClient, idportenClient) => {
             res.redirect('/login');
         } else if (frontendTokenSet.expired()) {
             req.session.frontendTokenSet = new TokenSet(await idporten.refresh(idportenClient, frontendTokenSet));
-            return next();
+            next();
+        } else {
+            next();
         }
     };
 
