@@ -21,7 +21,7 @@ export const client = async () => {
 };
 
 export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
-    let { backendTokenSet } = backendTokenSetFromSession(req);
+    let backendTokenSet = backendTokenSetFromSession(req);
 
     if (!backendTokenSet || backendTokenSet.expired()) {
         const now = Math.floor(Date.now() / 1000);
