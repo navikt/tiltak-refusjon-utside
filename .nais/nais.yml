@@ -33,9 +33,10 @@ spec:
       value: http://tiltak-refusjon-api
     - name: REDIS_HOST
       value: tiltak-refusjon-utside-redis
+    - name: HOST
+      value: {{ingress}}
   accessPolicy:
     outbound:
-
       rules:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-utside-redis
