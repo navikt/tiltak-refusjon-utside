@@ -7,7 +7,7 @@ const metadata = {
     token_endpoint_auth_method: config.tokenx.tokenEndpointAuthMethod,
 };
 
-const client = async () => {
+export const client = async () => {
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
@@ -19,4 +19,28 @@ const client = async () => {
     return new issuer.Client(metadata, { keys: [jwk] });
 };
 
-export default { client };
+export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
+    let { backendTokenSet } = req.session;
+
+    if (!backendTokenSet || backendTokenSet.expired()) {
+        const now = Math.floor(Date.now() / 1000);
+        const additionalClaims = {
+            clientAssertionPayload: {
+                nbf: now,
+            },
+        };
+        backendTokenSet = await tokenxClient.grant(
+            {
+                grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+                audience: config.api.audience,
+                subject_token: req.session.frontendTokenSet.access_token,
+            },
+            additionalClaims
+        );
+        req.session.backendTokenSet = backendTokenSet;
+    }
+
+    return backendTokenSet.access_token;
+};

@@ -3,7 +3,7 @@ import express from 'express';
 import { JSDOM } from 'jsdom';
 import { generators, TokenSet } from 'openid-client';
 import path from 'path';
-import idporten from './auth/idporten';
+import * as idporten from './auth/idporten';
 import config from './config';
 import reverseProxy from './proxy/reverse-proxy';
 
@@ -24,38 +24,27 @@ const setup = (tokenxClient, idportenClient) => {
 
     router.get('/oauth2/callback', async (req, res) => {
         const session = req.session;
-        idporten
-            .validateOidcCallback(idportenClient, req)
-            .then((tokens) => {
-                session.tokens = tokens;
-                session.state = null;
-                session.nonce = null;
-                if (session.redirectTo) {
-                    res.redirect(session.redirectTo);
-                } else {
-                    res.redirect('/');
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                session.destroy();
-                res.sendStatus(403);
-            });
+        const tokenSet = await idporten.validateOidcCallback(idportenClient, req);
+        session.frontendTokenSet = tokenSet;
+        session.state = null;
+        session.nonce = null;
+        if (session.redirectTo) {
+            res.redirect(session.redirectTo);
+        } else {
+            res.redirect('/');
+        }
     });
 
     const ensureAuthenticated = async (req, res, next) => {
-        let currentTokens = req.session.tokens;
-        if (!currentTokens) {
+        const { frontendTokenSet } = req.session;
+        if (!frontendTokenSet) {
             res.redirect('/login');
-        } else {
-            let tokenSet = new TokenSet(currentTokens);
-            if (tokenSet.expired()) {
-                tokenSet = new TokenSet(await idporten.refresh(idportenClient, currentTokens));
-                req.session.tokens = tokenSet;
-            }
+        } else if (frontendTokenSet.expired()) {
+            req.session.frontendTokenSet = new TokenSet(await idporten.refresh(idportenClient, frontendTokenSet));
             return next();
         }
     };
+
     router.use(ensureAuthenticated);
 
     // Protected

@@ -10,7 +10,7 @@ const metadata = {
     token_endpoint_auth_signing_alg: config.idporten.tokenEndpointAuthSigningAlg,
 };
 
-const client = async () => {
+export const client = async () => {
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
@@ -22,7 +22,7 @@ const client = async () => {
     return new issuer.Client(metadata, { keys: [jwk] });
 };
 
-const authUrl = (session, idportenClient) => {
+export const authUrl = (session, idportenClient) => {
     return idportenClient.authorizationUrl({
         scope: config.idporten.scope,
         redirect_uri: config.idporten.redirectUri,
@@ -33,27 +33,16 @@ const authUrl = (session, idportenClient) => {
     });
 };
 
-const validateOidcCallback = async (idportenClient, req) => {
+export const validateOidcCallback = async (idportenClient, req) => {
     const issuer = 'https://oidc-ver2.difi.no/idporten-oidc-provider/';
 
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
 
-    return idportenClient
-        .callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: issuer } })
-        .catch((err) => Promise.reject(`error in oidc callback: ${err}`));
+    return await idportenClient.callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: issuer } });
 };
 
-const refresh = (idportenClient, oldTokenSet) =>
-    idportenClient
-        .refresh(oldTokenSet)
-        .then((newTokenSet) => {
-            return Promise.resolve(newTokenSet);
-        })
-        .catch((err) => {
-            console.log(err);
-            return Promise.reject(err);
-        });
-
-export default { client, authUrl, validateOidcCallback, refresh };
+export const refresh = async (idportenClient, oldTokenSet) => {
+    return await idportenClient.refresh(oldTokenSet);
+}
