@@ -10,7 +10,7 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://tiltak-refusjon.dev.nav.no
+    - {{ingress}}
   tokenx:
     enabled: true
   idporten:
@@ -23,19 +23,25 @@ spec:
     initialDelay: 10
   replicas:
     min: 1
-    max: 1
+    max: 2
   env:
-    - name: DECORATOR_URL
-      value: https://dekoratoren.dev.nav.no
-    - name: API_AUDIENCE
-      value: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
+    {{#each env}}
+    - name: "{{@key}}"
+      value: "{{this}}"
+    {{/each}}
     - name: API_URL
       value: http://tiltak-refusjon-api
+    - name: REDIS_HOST
+      value: tiltak-refusjon-utside-redis
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
+        - application: tiltak-refusjon-utside-redis
       external:
-        - host: dekoratoren.dev.nav.no
+      {{ #each host}}
+        - host: "{{this}}"
+      {{/each } }
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
+    - secret: tiltak-refusjon-utside-redis

@@ -9,7 +9,7 @@ env:
 
 jobs:
   bygg:
-    name: Hent frontend-kode og bygg
+    name: Bygg og deploy
     runs-on: ubuntu-latest
     steps:
       - name: Sjekk ut kode
@@ -31,9 +31,9 @@ jobs:
           docker push $IMAGE_BASE
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
-        timeout-minutes: 3
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais.yml
+          RESOURCE: .nais/nais.yml,.nais/redis.yml,.nais/alerts.yml
+          VARS: .nais/dev.yml
           PRINT_PAYLOAD: true

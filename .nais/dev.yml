@@ -1,0 +1,7 @@
+ingress: https://tiltak-refusjon.dev.nav.no
+host:
+  - dekoratoren.dev.nav.no
+env:
+  DECORATOR_URL: https://dekoratoren.dev.nav.no
+  API_AUDIENCE: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
+slack_alert_channel: arbeidsgiver-notifications-test
