@@ -19,8 +19,8 @@ const swrConfig = {
     suspense: true,
 };
 
-export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
-    const response = await axios.get(`${API_URL}/innloggetBruker`);
+export const hentInnloggetBruker = async () => {
+    const response = await axios.get<InnloggetBruker>(`${API_URL}/innlogget-bruker`);
     return response.data;
 };
 
