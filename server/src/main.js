@@ -1,7 +1,5 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import mustacheExpress from 'mustache-express';
-import path from 'path';
 import * as idporten from './auth/idporten';
 import * as tokenx from './auth/tokenx';
 import cors from './cors';
@@ -28,10 +26,6 @@ async function startApp() {
 
         const tokenxAuthClient = await tokenx.client();
         const idportenAuthClient = await idporten.client();
-
-        server.engine('html', mustacheExpress());
-        server.set('view engine', 'mustache');
-        server.set('views', path.join(__dirname, '../../build'));
 
         // setup routes
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
