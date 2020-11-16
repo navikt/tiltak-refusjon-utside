@@ -1,5 +1,5 @@
-import proxy from 'express-http-proxy';
 import axios from 'axios';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const setup = (router) => {
     router.use('/dekoratoren/api/auth', (req, res) => {
@@ -11,14 +11,7 @@ const setup = (router) => {
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
 
-    router.use(
-        '/dekoratoren',
-        proxy('http://www.nav.no', {
-            proxyReqPathResolver: (req) => {
-                return req.originalUrl;
-            },
-        })
-    );
+    router.use('/dekoratoren', createProxyMiddleware({ target: 'http://www.nav.no' }));
 };
 
 export default { setup };
