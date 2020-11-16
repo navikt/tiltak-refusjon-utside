@@ -1,11 +1,10 @@
-import axios from 'axios';
 import express from 'express';
-import { JSDOM } from 'jsdom';
 import { generators } from 'openid-client';
 import path from 'path';
 import * as idporten from './auth/idporten';
 import config from './config';
-import reverseProxy from './proxy/reverse-proxy';
+import apiProxy from './proxy/api-proxy';
+import decoratorProxy from './proxy/decorator-proxy';
 import { frontendTokenSetFromSession } from './auth/utils';
 
 const router = express.Router();
@@ -60,25 +59,10 @@ const setup = (tokenxClient, idportenClient) => {
         res.redirect(idportenClient.endSessionUrl({ post_logout_redirect_uri: config.idporten.logoutRedirectUri }));
     });
 
-    reverseProxy.setup(router, tokenxClient);
+    apiProxy.setup(router, tokenxClient);
+    decoratorProxy.setup(router);
 
-    // serve static files
-    router.use(express.static(path.join(__dirname, '../../build'), { index: false }));
-
-    router.use('*', async (req, res) => {
-        const response = await axios.get(process.env.DECORATOR_URL);
-        const body = response.data;
-
-        const { document } = new JSDOM(body).window;
-        res.render('index.html', {
-            NAV_SCRIPTS: document.getElementById('scripts').innerHTML,
-            NAV_STYLES: document.getElementById('styles').innerHTML,
-            NAV_SKIPLINKS: document.getElementById('skiplinks').innerHTML,
-            NAV_HEADING: document.getElementById('header-withmenu').innerHTML,
-            NAV_FOOTER: document.getElementById('footer-withmenu').innerHTML,
-            NAV_MENU_RESOURCES: document.getElementById('megamenu-resources').innerHTML,
-        });
-    });
+    router.use(express.static(path.join(__dirname, '../build')));
 
     return router;
 };
