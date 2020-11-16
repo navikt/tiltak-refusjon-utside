@@ -11,7 +11,14 @@ const setup = (router) => {
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
 
-    router.use('/dekoratoren', proxy('http://www.nav.no'));
+    router.use(
+        '/dekoratoren',
+        proxy('http://www.nav.no', {
+            proxyReqPathResolver: (req) => {
+                return req.originalUrl;
+            },
+        })
+    );
 };
 
 export default { setup };
