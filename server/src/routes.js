@@ -6,6 +6,7 @@ import config from './config';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
 import { frontendTokenSetFromSession } from './auth/utils';
+import logger from './logger';
 
 const router = express.Router();
 
@@ -24,14 +25,21 @@ const setup = (tokenxClient, idportenClient) => {
 
     router.get('/oauth2/callback', async (req, res) => {
         const session = req.session;
-        const tokenSet = await idporten.validateOidcCallback(idportenClient, req);
-        session.frontendTokenSet = tokenSet;
-        session.state = null;
-        session.nonce = null;
-        if (session.redirectTo) {
-            res.redirect(session.redirectTo);
-        } else {
-            res.redirect('/');
+
+        try {
+            const tokenSet = await idporten.validateOidcCallback(idportenClient, req);
+            session.frontendTokenSet = tokenSet;
+            session.state = null;
+            session.nonce = null;
+            if (session.redirectTo) {
+                res.redirect(session.redirectTo);
+            } else {
+                res.redirect('/');
+            }
+        } catch (error) {
+            logger.error(error);
+            session.destroy();
+            res.sendStatus(403);
         }
     });
 
@@ -55,7 +63,7 @@ const setup = (tokenxClient, idportenClient) => {
     });
 
     router.get('/logout', (req, res) => {
-        req.logOut();
+        req.session.destroy();
         res.redirect(idportenClient.endSessionUrl({ post_logout_redirect_uri: config.idporten.logoutRedirectUri }));
     });
 
