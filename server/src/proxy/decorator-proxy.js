@@ -11,7 +11,7 @@ const setup = (router) => {
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
 
-    router.use('/dekoratoren', createProxyMiddleware({ target: 'http://www.nav.no' }));
+    router.use('/dekoratoren', createProxyMiddleware({ target: 'http://www.nav.no', changeOrigin: true }));
 };
 
 export default { setup };
