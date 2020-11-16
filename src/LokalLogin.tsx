@@ -1,9 +1,10 @@
-import { ReactComponent as NavIkon } from '@/asset/image/navikon.svg';
 import axios from 'axios';
-import { Flatknapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetBruker } from './bruker/BrukerContextType';
+import VerticalSpacer from './komponenter/VerticalSpacer';
+import { Element } from 'nav-frontend-typografi';
 
 type Props = {
     innloggetBruker: InnloggetBruker | undefined;
@@ -28,26 +29,17 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.5rem' }}>
-            <div>
-                <NavIkon
-                    onClick={() => {
-                        window.location.href = '/';
-                    }}
-                />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <VerticalSpacer rem={2} />
+            <Element>Logg inn med fødselsnummer</Element>
+            <VerticalSpacer rem={1} />
+            <div style={{ display: 'flex' }}>
+                <Input placeholder="Logg inn som" value={pid} onChange={(event) => setPid(event.currentTarget.value)} />
+                <Hovedknapp style={{ marginLeft: '0.5rem' }} disabled={!pid} onClick={() => loggInnKnapp(pid)}>
+                    Logg inn
+                </Hovedknapp>
             </div>
-            <div>
-                <div style={{ display: 'flex' }}>
-                    <Input
-                        placeholder="Logg inn som"
-                        value={pid}
-                        onChange={(event) => setPid(event.currentTarget.value)}
-                    />
-                    <Flatknapp style={{ marginLeft: '0.5rem' }} disabled={!pid} onClick={() => loggInnKnapp(pid)}>
-                        Logg inn
-                    </Flatknapp>
-                </div>
-            </div>
+            <VerticalSpacer rem={2} />
         </div>
     );
 };

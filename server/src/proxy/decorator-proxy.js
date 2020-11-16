@@ -7,7 +7,7 @@ const setup = (router) => {
     });
 
     router.use('/dekoratoren/env', async (req, res) => {
-        const response = await axios.get(`${process.env.DECORATOR_URL}/env?context=arbeidsgiver`);
+        const response = await axios.get(`${process.env.DECORATOR_URL}/env?context=arbeidsgiver&feedback=false`);
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
 

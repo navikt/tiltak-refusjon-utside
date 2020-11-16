@@ -5,7 +5,7 @@ module.exports = function (app) {
     app.use('/api', createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true }));
 
     app.use('/dekoratoren/env', async (req, res) => {
-        const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver');
+        const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false');
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
     app.use('/dekoratoren/api/auth', async (req, res) => {
