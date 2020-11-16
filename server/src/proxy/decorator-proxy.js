@@ -6,12 +6,12 @@ const setup = (router) => {
         res.json({ authenticated: true, name: '' });
     });
 
-    router.use('/dekoratoren', proxy('http://www.nav.no'));
-
     router.use('/dekoratoren/env', async (req, res) => {
         const response = await axios.get(`${process.env.DECORATOR_URL}/env?context=arbeidsgiver`);
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
+
+    router.use('/dekoratoren', proxy('http://www.nav.no'));
 };
 
 export default { setup };
