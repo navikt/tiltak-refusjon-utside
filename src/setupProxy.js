@@ -23,5 +23,5 @@ module.exports = function (app) {
         res.redirect('/');
     });
 
-    app.use('/dekoratoren', createProxyMiddleware({ target: 'http://www.nav.no', changeOrigin: true }));
+    app.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no', changeOrigin: true }));
 };
