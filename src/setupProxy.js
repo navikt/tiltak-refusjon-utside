@@ -13,13 +13,14 @@ module.exports = function (app) {
             const response = await axios.get('http://localhost:8080/api/innlogget-bruker', {
                 headers: req.headers,
             });
-            res.json({ authenticated: true, name: response.data.identifikator });
+            res.json({ authenticated: true, name: response.data.identifikator || '' });
         } catch (error) {
             res.json({ authenticated: false });
         }
     });
     app.use('/logout', (req, res) => {
         res.clearCookie('tokenx-token');
+        res.clearCookie('aad-token');
         res.redirect('/');
     });
 

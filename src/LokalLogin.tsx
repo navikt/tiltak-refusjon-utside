@@ -10,7 +10,7 @@ type Props = {
     innloggetBruker: InnloggetBruker | undefined;
 };
 
-const COOKIE_NAME = `tokenx-token`;
+const TOKENX_COOKIE_NAME = `tokenx-token`;
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [pid, setPid] = useState('15000000000');
@@ -20,7 +20,7 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
             `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=tokenx&acr=Level4&pid=${pid}`
         );
         document.cookie =
-            COOKIE_NAME + '=' + response.data + ';expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=localhost;path=/';
+            TOKENX_COOKIE_NAME + '=' + response.data + ';expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=localhost;path=/';
         window.location.reload();
     };
 
