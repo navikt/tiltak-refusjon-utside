@@ -50,7 +50,7 @@ const Oversikt: FunctionComponent = () => {
                         {settKolonne(ref.bedrift)}
                         {settKolonne(ref.deltaker)}
                         {settKolonne(ref.veileder)}
-                        {settKolonne(moment(ref.opprettet_tidspunkt).format('DD.MM.YYYY, kk:mm'))}
+                        {settKolonne(moment(ref.opprettetTidspunkt).format('DD.MM.YYYY, kk:mm'))}
                         <div className={cls.element('kolonne')}>
                             <span className={cls.element('ikon')}>
                                 <Status />

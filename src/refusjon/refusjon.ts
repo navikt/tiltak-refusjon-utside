@@ -28,5 +28,5 @@ export interface Refusjon {
     refusjonPrMåned: number;
     fraDato: string;
     tilDato: string;
-    opprettet_tidspunkt: string;
+    opprettetTidspunkt: string;
 }
