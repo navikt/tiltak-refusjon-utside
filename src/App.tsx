@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { BrukerProvider } from './bruker/BrukerContext';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
-import Innhold from './refusjon/innhold/Innhold';
+import OversiktSide from './refusjon/OversiktSide/OversiktSide';
 import RefusjonSide from './refusjon/RefusjonSide/RefusjonSide';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
                 <BrukerProvider>
                     <Route exact path="/">
                         <ErrorOgSuspenseHandler>
-                            <Innhold />
+                            <OversiktSide />
                         </ErrorOgSuspenseHandler>
                     </Route>
                     <Route path="/refusjon/:refusjonId">

@@ -2,12 +2,12 @@ import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../utils/bem';
 import Filtermeny from '../oversikt/Filtermeny';
 import Oversikt from '../oversikt/Oversikt';
-import './innhold.less';
+import './OversiktSide.less';
 import { FilterProvider } from '../oversikt/FilterContext';
 
-const cls = BEMHelper('innhold');
+const cls = BEMHelper('OversiktSide');
 
-const Innhold: FunctionComponent = () => {
+const OversiktSide: FunctionComponent = () => {
     return (
         <div className={cls.className}>
             <div className={cls.element('wrapper')}>
@@ -24,4 +24,4 @@ const Innhold: FunctionComponent = () => {
     );
 };
 
-export default Innhold;
+export default OversiktSide;
