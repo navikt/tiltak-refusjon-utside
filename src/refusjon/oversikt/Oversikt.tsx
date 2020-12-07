@@ -1,12 +1,13 @@
-import moment from 'moment';
+import { EtikettInfo } from 'nav-frontend-etiketter';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent, ReactNode } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
-import { ReactComponent as Status } from '../../asset/image/statusplayIkon.svg';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
+import { formatterDato } from '../../utils/datoUtils';
+import { storForbokstav } from '../../utils/stringUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
@@ -22,7 +23,7 @@ const Oversikt: FunctionComponent = () => {
     const filtereListe = () => {
         const behandletType = refusjoner ? refusjoner.filter((element) => element.status === filter.status) : [];
         if (filter.tiltakstype) {
-            return behandletType.filter((element) => element.tiltakstype === filter.tiltakstype);
+            return behandletType.filter((element) => element.tilskuddsgrunnlag.tiltakstype === filter.tiltakstype);
         }
         return behandletType;
     };
@@ -42,20 +43,22 @@ const Oversikt: FunctionComponent = () => {
                         key={ref.id}
                         onClick={() =>
                             history.push({
-                                pathname: `/refusjon/${ref.id}/tiltaket`,
+                                pathname: `/refusjon/${ref.id}`,
                                 search: window.location.search,
                             })
                         }
                     >
-                        {settKolonne(ref.bedrift)}
-                        {settKolonne(ref.deltaker)}
-                        {settKolonne(ref.veileder)}
-                        {settKolonne(moment(ref.opprettetTidspunkt).format('DD.MM.YYYY, kk:mm'))}
+                        {settKolonne(
+                            `${ref.tilskuddsgrunnlag.deltakerFornavn} ${ref.tilskuddsgrunnlag.deltakerEtternavn}`
+                        )}
+                        {settKolonne(
+                            `${formatterDato(ref.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
+                                ref.tilskuddsgrunnlag.tilskuddTom
+                            )}`
+                        )}
+                        {settKolonne('???')}
                         <div className={cls.element('kolonne')}>
-                            <span className={cls.element('ikon')}>
-                                <Status />
-                            </span>
-                            <span>Status</span>
+                            <EtikettInfo>{storForbokstav(ref.status)}</EtikettInfo>
                         </div>
                     </div>
                 ))

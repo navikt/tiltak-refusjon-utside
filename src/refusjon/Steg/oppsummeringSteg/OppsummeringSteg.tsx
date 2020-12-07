@@ -1,19 +1,18 @@
+import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
+import { useParams } from 'react-router';
 import HvitBoks from '../../../komponenter/HvitBoks';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Normaltekst, Systemtittel, Undertittel, Element } from 'nav-frontend-typografi';
-import BEMHelper from '../../../utils/bem';
-import './OppsummeringSteg.less';
-import Utregning from './Utregning';
-import { useParams } from 'react-router';
-import { useHentRefusjon } from '../../../services/rest-service';
-import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
-import { formatterDato } from '../../../utils/datoUtils';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { useHentRefusjon } from '../../../services/rest-service';
+import BEMHelper from '../../../utils/bem';
+import { formatterDato } from '../../../utils/datoUtils';
+import './OppsummeringSteg.less';
 
 const cls = BEMHelper('oppsummering');
 
@@ -50,7 +49,7 @@ const OppsummeringSteg: FunctionComponent = () => {
                     Her kommer informasjon som bruker kan lese om.
                 </LesMerPanel>
                 <Ekspanderbartpanel tittel="Utregningen" apen={true}>
-                    <Utregning
+                    {/* <Utregning
                         bruttolonn={refusjon.månedslønn}
                         fratrekkFerie={0}
                         sykepenger={refusjon.sykepenger}
@@ -62,7 +61,7 @@ const OppsummeringSteg: FunctionComponent = () => {
                         satsArbeidsgiveravgift={refusjon.satsArbeidsgiveravgift}
                         arbeidsgiverAvgift={refusjon.arbeidsgiveravgift}
                         sumRefusjonsgrunnlag={refusjon.refusjonPrMåned}
-                    />
+                    /> */}
                 </Ekspanderbartpanel>
                 <div className={cls.element('summeringsboks')}>
                     <div className={cls.element('summering-ikon')}>
@@ -71,10 +70,13 @@ const OppsummeringSteg: FunctionComponent = () => {
                     <div className={cls.element('summering-tekst')}>
                         <Element>Dere søker om å få utbetalt</Element>
                         <VerticalSpacer rem={0.25} />
-                        <Undertittel>{refusjon.refusjonPrMåned + ' '}kr</Undertittel>
+                        {/* <Undertittel>{refusjon.refusjonPrMåned + ' '}kr</Undertittel> */}
                         <VerticalSpacer rem={0.25} />
                         <Normaltekst>
-                            For perioden {`${formatterDato(refusjon.fraDato)} - ${formatterDato(refusjon.tilDato)}`}
+                            For perioden{' '}
+                            {`${formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
+                                refusjon.tilskuddsgrunnlag.tilskuddTom
+                            )}`}
                         </Normaltekst>
                     </div>
                 </div>

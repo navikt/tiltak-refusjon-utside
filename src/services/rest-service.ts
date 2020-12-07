@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Refusjon } from '../refusjon/refusjon';
 
@@ -21,6 +21,12 @@ const swrConfig = {
 
 export const hentInnloggetBruker = async () => {
     const response = await axios.get<InnloggetBruker>(`${API_URL}/innlogget-bruker`);
+    return response.data;
+};
+
+export const gjorInntektsoppslag = async (refusjonId: string) => {
+    const response = await axios.post(`${API_URL}/refusjon/${refusjonId}/inntektsoppslag`);
+    mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
 

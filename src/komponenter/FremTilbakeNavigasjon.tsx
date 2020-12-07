@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
-import BEMHelper from '../utils/bem';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import BEMHelper from '../utils/bem';
 
 interface Props {
     alleSteg: {
         path: string;
-        tittel: string;
+        label: string;
         komponent: React.ReactNode;
     }[];
     index: number;
