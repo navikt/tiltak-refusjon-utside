@@ -49,8 +49,9 @@ const RefusjonSide: FunctionComponent = () => {
     return (
         <>
             <VerticalSpacer rem={1} />
+
             <div className={cls.className}>
-                <div>
+                <div className={cls.element('wrapper')}>
                     <div className={cls.element('navigasjonslinje')}>
                         <Link
                             to={{ pathname: '/', search: window.location.search }}
@@ -60,31 +61,27 @@ const RefusjonSide: FunctionComponent = () => {
                             Tilbake til oversikt
                         </Link>
                     </div>
-                    <div>
-                        <div>
-                            <HvitBoks>
-                                <Stegindikator
-                                    visLabel
-                                    steg={alleSteg}
-                                    aktivtSteg={aktivtStegIndex}
-                                    onChange={(index) => {
-                                        history.push({
-                                            pathname: alleSteg[index].path,
-                                            search: window.location.search,
-                                        });
-                                    }}
-                                />
-                            </HvitBoks>
+                    <HvitBoks>
+                        <div className={cls.element('stegindikator')}>
+                            <Stegindikator
+                                visLabel
+                                steg={alleSteg}
+                                aktivtSteg={aktivtStegIndex}
+                                onChange={(index) => {
+                                    history.push({
+                                        pathname: alleSteg[index].path,
+                                        search: window.location.search,
+                                    });
+                                }}
+                            />
                         </div>
                         {alleSteg.map((steg, index) => (
                             <Route exact path={`${path}/${steg.path}`} key={index}>
-                                <div className={cls.element('innhold-steg')}>
-                                    {steg.komponent}
-                                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={index} url={url} />
-                                </div>
+                                <div className={cls.element('innhold-steg')}>{steg.komponent}</div>
                             </Route>
                         ))}
-                    </div>
+                    </HvitBoks>
+                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
                 </div>
             </div>
         </>

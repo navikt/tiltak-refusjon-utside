@@ -1,7 +1,9 @@
+import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../../../komponenter/HvitBoks';
+import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
+import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
 import FerieOgSykdomOpplysninger from './FerieOgSykdomOpplysninger';
@@ -17,16 +19,30 @@ const InntektSteg: FunctionComponent = () => {
     const refusjon = useHentRefusjon(refusjonId);
 
     return (
-        <HvitBoks>
+        <>
+            <VerticalSpacer rem={2} />
             <div className={cls.className}>
-                <Systemtittel className={cls.element('tittel')} role="title">
-                    Inntektsopplysninger
-                </Systemtittel>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Systemtittel className={cls.element('tittel')} role="title">
+                        Inntektsopplysninger
+                    </Systemtittel>
+                    <div>
+                        <Knapp mini>Synkroniser opplysninger med A-meldingen</Knapp>
+                    </div>
+                </div>
+                <VerticalSpacer rem={1} />
                 <Normaltekst>
-                    Vi henter inntektsopplysninger fra det du har rapportert i A-meldingen. Dersom inntektsopplysningene
-                    ikke stemmer må du endre de i A-meldingen. Dersom arbeidstaker har mottatt ...... trekkes det også
-                    fra i ........
+                    Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke
+                    stemmer må det endres der.
                 </Normaltekst>
+                <VerticalSpacer rem={1} />
+                <LesMerPanel åpneLabel="Hvilke opplysninger henter vi?" lukkLabel="Lukk">
+                    lalala
+                </LesMerPanel>
+                <VerticalSpacer rem={1} />
+                <LesMerPanel åpneLabel="Hvilke opplysninger fører til reduksjon i refusjon?" lukkLabel="Lukk">
+                    lalala
+                </LesMerPanel>
                 <LonnsOpplysninger
                     bedrift={refusjon.bedriftNr}
                     deltaker={refusjon.deltakerFnr}
@@ -38,7 +54,7 @@ const InntektSteg: FunctionComponent = () => {
                 {/* <FerieOgSykdomOpplysninger feriepenger={refusjon.feriepenger} sykepenger={refusjon.sykepenger} /> */}
                 <FerieOgSykdomOpplysninger feriepenger={0} sykepenger={0} />
             </div>
-        </HvitBoks>
+        </>
     );
 };
 

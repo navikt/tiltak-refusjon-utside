@@ -9,7 +9,7 @@ const HvitBoks: FunctionComponent<Props> = (props) => {
         padding: '3rem 2.5rem',
         backgroundColor: 'white',
         marginBottom: '1rem',
-        maxWidth: '40rem',
+        maxWidth: '50rem',
     };
 
     return <div className="hvitcontainer" style={styling} {...props} />;
