@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import { Filter, useFilter } from './FilterContext';
+import React, { FunctionComponent } from 'react';
 import { Status } from '../status';
 import { Tiltak } from '../tiltak';
+import { Filter, useFilter } from './FilterContext';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
@@ -25,8 +25,8 @@ const Filtermeny: FunctionComponent = () => {
                 return oppdaterFilter(getNyttStatusFilter(Status.BEHANDLET));
             case Tiltak.MENTOR:
                 return oppdaterFilter(getNyttTiltakFilter(Tiltak.MENTOR));
-            case Tiltak.MIDLETTIDIG_LØNNSTILSKUDD:
-                return oppdaterFilter(getNyttTiltakFilter(Tiltak.MIDLETTIDIG_LØNNSTILSKUDD));
+            case Tiltak.MIDLERTIDIG_LØNNSTILSKUDD:
+                return oppdaterFilter(getNyttTiltakFilter(Tiltak.MIDLERTIDIG_LØNNSTILSKUDD));
             case Tiltak.VARIG_LØNNSTILSKUDD:
                 return oppdaterFilter(getNyttTiltakFilter(Tiltak.VARIG_LØNNSTILSKUDD));
             case 'ALLE':
@@ -66,8 +66,8 @@ const Filtermeny: FunctionComponent = () => {
                     />
                     <Radio
                         label={'Midlertidig lønnstilskudd'}
-                        checked={filter.tiltakstype === Tiltak.MIDLETTIDIG_LØNNSTILSKUDD}
-                        name={Tiltak.MIDLETTIDIG_LØNNSTILSKUDD}
+                        checked={filter.tiltakstype === Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
+                        name={Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
                         onChange={setFilter}
                     />
                     <Radio

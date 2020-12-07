@@ -1,12 +1,12 @@
 import axios from 'axios';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Refusjon } from '../refusjon/refusjon';
 
-export const API_URL = '/api';
+export const API_URL = '/api/arbeidsgiver';
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: '/api/arbeidsgiver',
     timeout: 5000,
     withCredentials: true,
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
@@ -24,8 +24,14 @@ export const hentInnloggetBruker = async () => {
     return response.data;
 };
 
+export const gjorInntektsoppslag = async (refusjonId: string) => {
+    const response = await axios.post(`${API_URL}/refusjon/${refusjonId}/inntektsoppslag`);
+    mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
 export const useHentRefusjoner = (bedriftnummer: string) => {
-    const { data } = useSWR<Refusjon[]>(`/refusjon/bedrift/${bedriftnummer}`, swrConfig);
+    const { data } = useSWR<Refusjon[]>(`/refusjon?bedriftNr=${bedriftnummer}`, swrConfig);
     return data;
 };
 

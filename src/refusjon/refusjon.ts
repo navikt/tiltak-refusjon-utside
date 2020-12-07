@@ -3,30 +3,45 @@ import { Tiltak } from './tiltak';
 
 export interface Refusjon {
     id: string;
-    status: Status;
-    tiltakstype: Tiltak;
-    deltaker: string;
+    bedriftNr: string;
     deltakerFnr: string;
-    veileder: string;
-    bedrift: string;
-    bedriftnummer: string;
-    feriedager: number;
-    trekkFeriedagerBeløp: number;
-    sykepenger: number;
-    sykedager: number;
-    stillingsprosent: number;
-    månedslønn: number;
-    nettoMånedslønn: number;
-    satsFeriepenger: number;
-    feriepenger: number;
-    satsOtp: number;
-    beløpOtp: number;
-    satsArbeidsgiveravgift: number;
-    arbeidsgiveravgift: number;
-    sumUtgifterArbeidsgiver: number;
-    satsRefusjon: number;
-    refusjonPrMåned: number;
-    fraDato: string;
-    tilDato: string;
-    opprettetTidspunkt: string;
+    godkjentAvArbeidsgiver?: boolean;
+    godkjentAvSaksbehandler?: boolean;
+    refusjonsbeløp?: number;
+    status: Status;
+    tilskuddsgrunnlag: Tilskuddsgrunnlag;
+    inntektsgrunnlag?: Inntektsgrunnlag;
+}
+
+interface Tilskuddsgrunnlag {
+    arbeidsgiveravgiftSats: number;
+    avtaleId: string;
+    bedriftNavn: string;
+    bedriftNr: string;
+    deltakerEtternavn: string;
+    deltakerFnr: string;
+    deltakerFornavn: string;
+    feriepengerSats: number;
+    id: string;
+    lønnstilskuddsprosent: number;
+    otpSats: number;
+    tilskuddFom: string;
+    tilskuddTom: string;
+    tilskuddsbeløp: number;
+    tilskuddsperiodeId: string;
+    tiltakstype: Tiltak;
+    veilederNavIdent: string;
+}
+
+interface Inntektsgrunnlag {
+    innhentetTidspunkt: string;
+    inntekter: Inntektslinje[];
+}
+
+interface Inntektslinje {
+    inntektType: string;
+    beløp: number;
+    måned: string;
+    opptjeningsperiodeFom: string;
+    opptjeningsperiodeTom: string;
 }

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../utils/bem';
+import { FilterProvider } from '../oversikt/FilterContext';
 import Filtermeny from '../oversikt/Filtermeny';
 import Oversikt from '../oversikt/Oversikt';
 import './OversiktSide.less';
-import { FilterProvider } from '../oversikt/FilterContext';
 
 const cls = BEMHelper('OversiktSide');
 

@@ -9,10 +9,9 @@ const LabelRad = (props: Props) => {
     const cls = BEMHelper(props.className);
     return (
         <div className={cls.element('label-rad')}>
-            <div className={cls.element('kolonne')}>Bedrift</div>
             <div className={cls.element('kolonne')}>Deltaker</div>
-            <div className={cls.element('kolonne')}>Veileder</div>
-            <div className={cls.element('kolonne')}>Opprettet</div>
+            <div className={cls.element('kolonne')}>Periode</div>
+            <div className={cls.element('kolonne')}>Frist for godkjenning</div>
             <div className={cls.element('kolonne')}>Status</div>
         </div>
     );
