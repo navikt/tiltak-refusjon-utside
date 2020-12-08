@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
 import { ReactComponent as Pengesekken } from '@/asset/image/pengesekkdollar.svg';
+import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { ReactComponent as Sykepenger } from '@/asset/image/sykepenger.svg';
-import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
-import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
-import Utregningsrad from './Utregningsrad';
+import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import Utregningsrad from './Utregningsrad';
 
 interface Props {
     bruttolonn: number;
@@ -19,32 +19,30 @@ interface Props {
     satsArbeidsgiveravgift: number;
     arbeidsgiverAvgift: number;
     sumRefusjonsgrunnlag: number;
+    refusjonsbeløp: number;
+    lonnstilskuddsprosent: number;
 }
 
 const Utregning: FunctionComponent<Props> = (props: Props) => {
     return (
         <div>
-            <Utregningsrad
-                labelIkon={<Pengesekken />}
-                labelTekst="Brutto lønn i perioden"
-                verdiSum={props.bruttolonn}
-            />
+            <Utregningsrad labelIkon={<Pengesekken />} labelTekst="Brutto lønn i perioden" verdi={props.bruttolonn} />
             <Utregningsrad
                 labelIkon={<Stranden />}
                 labelTekst="Avviklede feriedager"
                 verdiOperator="-"
-                verdiSum={props.fratrekkFerie}
+                verdi={props.fratrekkFerie}
             />
             <Utregningsrad
                 labelIkon={<Sykepenger />}
                 labelTekst="Sykepenger"
                 verdiOperator="-"
-                verdiSum={props.sykepenger}
+                verdi={props.sykepenger}
             />
             <Utregningsrad
                 labelTekst="Sum refusjonsgrunnlag lønnsutgifter"
                 verdiOperator="="
-                verdiSum={props.sumLonnsgrunnlag}
+                verdi={props.sumLonnsgrunnlag}
                 borderTykk={true}
             />
             <Utregningsrad
@@ -52,26 +50,33 @@ const Utregning: FunctionComponent<Props> = (props: Props) => {
                 labelTekst="Feriepenger"
                 labelSats={props.satsFeriepenger}
                 verdiOperator="+"
-                verdiSum={props.feriepenger}
+                verdi={props.feriepenger}
             />
             <Utregningsrad
                 labelIkon={<Sparegris />}
                 labelTekst="Innskudd obligatorisk tjenestepensjon"
                 labelSats={props.satsOtp}
                 verdiOperator="+"
-                verdiSum={props.belopOtp}
+                verdi={props.belopOtp}
             />
             <Utregningsrad
                 labelIkon={<Bygg />}
                 labelTekst="Arbeidsgiveravgift"
                 labelSats={props.satsArbeidsgiveravgift}
                 verdiOperator="+"
-                verdiSum={props.arbeidsgiverAvgift}
+                verdi={props.arbeidsgiverAvgift}
+            />
+            <Utregningsrad labelTekst="Refusjonsgrunnlag" verdiOperator="=" verdi={props.sumRefusjonsgrunnlag} />
+            <Utregningsrad
+                labelTekst="Lønnstilskuddsprosent"
+                verdiOperator="%"
+                ikkePenger
+                verdi={props.lonnstilskuddsprosent}
             />
             <Utregningsrad
-                labelTekst="Refusjonsgrunnlag"
+                labelTekst="Refusjonsbeløp"
                 verdiOperator="="
-                verdiSum={props.sumRefusjonsgrunnlag}
+                verdi={props.refusjonsbeløp}
                 borderTykk={true}
             />
             <VerticalSpacer rem={1} />

@@ -9,6 +9,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import InntektSteg from '../Steg/inntektsteg/InntektSteg';
+import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/oppsummeringSteg/OppsummeringSteg';
 import TiltaketSteg from '../Steg/TiltaketSteg';
 import './RefusjonSide.less';
@@ -27,12 +28,20 @@ const RefusjonSide: FunctionComponent = () => {
             label: 'Inntektsopplysninger',
             komponent: <InntektSteg />,
             index: 0,
+            disabled: refusjon.godkjentAvArbeidsgiver !== null,
         },
         {
             path: 'oppsummering',
             label: 'Oppsummering',
             komponent: <OppsummeringSteg />,
             index: 1,
+            disabled: refusjon.godkjentAvArbeidsgiver !== null,
+        },
+        {
+            path: 'kvittering',
+            label: 'Kvittering',
+            komponent: <KvitteringSteg />,
+            index: 2,
         },
     ];
 
@@ -40,6 +49,11 @@ const RefusjonSide: FunctionComponent = () => {
         return <TiltaketSteg />;
     }
     const aktivtStegIndex = alleSteg.findIndex((steg) => window.location.pathname.includes(steg.path));
+
+    if (refusjon.godkjentAvArbeidsgiver && aktivtStegIndex === -1) {
+        history.replace({ pathname: `${url}/kvittering`, search: window.location.search });
+        return null;
+    }
 
     if (aktivtStegIndex === -1) {
         history.replace({ pathname: `${url}/inntekt`, search: window.location.search });

@@ -7,35 +7,43 @@ import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../utils/bem';
 import { formatterDato } from '../../../utils/datoUtils';
+import { formatterPenger } from '../../../utils/PengeUtils';
+import { Refusjon } from '../../refusjon';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
 
 interface Props {
-    bedrift: string;
-    deltaker: string;
-    fraDato: string;
-    tilDato: string;
+    refusjon: Refusjon;
 }
 
 const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
     const cls = BEMHelper(INNTEKTSTEGCLASSNAME);
 
+    const deltakerNavn = `${props.refusjon.tilskuddsgrunnlag.deltakerFornavn} ${props.refusjon.tilskuddsgrunnlag.deltakerEtternavn}`;
+
+    if (!props.refusjon.beregning) {
+        return null;
+    }
+
     return (
         <div className={cls.element('illustrajon')}>
-            <Undertittel>Inntektsopplysninger fra A-meldingen</Undertittel>
+            <Undertittel>Inntektsopplysninger for {deltakerNavn} i perioden</Undertittel>
             <VerticalSpacer rem={1} />
             <div className={cls.element('rad')} style={{ borderBottom: '2px solid #CCE1F3', paddingBottom: '1rem' }}>
                 <span className={cls.element('ikon')}>
                     <KalenderIkon />
                 </span>
-                <b>Periode:</b> <span>{`${formatterDato(props.fraDato)} - ${formatterDato(props.tilDato)}`}</span>
+                <b>Periode:</b>{' '}
+                <span>{`${formatterDato(props.refusjon.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
+                    props.refusjon.tilskuddsgrunnlag.tilskuddTom
+                )}`}</span>
             </div>
 
             <div className={cls.element('rad')}>
                 <span className={cls.element('ikon')}>
                     <PengeIkon />
                 </span>
-                <b>Total utbetalt lønn i perioden:</b>
-                <span>3kr</span>
+                <b>Total utbetalt lønn i perioden: </b>
+                <span>{formatterPenger(props.refusjon.beregning.lønn)}</span>
             </div>
 
             <div className={cls.element('rad')}>
@@ -43,7 +51,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                     <HelseKoffertIkon />
                 </span>
                 <b>Utbetalt feriepenger i perioden: </b>
-                <span>2kr</span>
+                <span>{formatterPenger(0)}</span>
             </div>
 
             <div className={cls.element('rad')}>
@@ -51,7 +59,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                     <FerieIkon />
                 </span>
                 <b>Utbetalt sykepenger i perioden: </b>
-                <span>6kr</span>
+                <span>{formatterPenger(0)}</span>
             </div>
         </div>
     );

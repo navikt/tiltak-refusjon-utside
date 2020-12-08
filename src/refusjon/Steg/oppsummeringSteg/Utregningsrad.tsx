@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../../utils/bem';
+import { formatterPenger } from '../../../utils/PengeUtils';
 import { visSatsMedEttDesimal } from '../../../utils/utregningUtil';
 
 interface Props {
@@ -8,8 +9,9 @@ interface Props {
     labelTekst: string;
     labelSats?: number;
     verdiOperator?: string;
-    verdiSum: number;
+    verdi: number;
     borderTykk?: boolean;
+    ikkePenger?: boolean;
 }
 
 const cls = BEMHelper('oppsummering');
@@ -34,7 +36,9 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
 
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
-                <Normaltekst className={cls.element('sum')}>{props.verdiSum}</Normaltekst>
+                <Normaltekst className={cls.element('sum')}>
+                    {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
+                </Normaltekst>
             </div>
         </div>
     );

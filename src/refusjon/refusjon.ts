@@ -7,13 +7,13 @@ export interface Refusjon {
     deltakerFnr: string;
     godkjentAvArbeidsgiver?: boolean;
     godkjentAvSaksbehandler?: boolean;
-    refusjonsbeløp?: number;
     status: Status;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     inntektsgrunnlag?: Inntektsgrunnlag;
+    beregning?: Beregning;
 }
 
-interface Tilskuddsgrunnlag {
+export interface Tilskuddsgrunnlag {
     arbeidsgiveravgiftSats: number;
     avtaleId: string;
     bedriftNavn: string;
@@ -33,15 +33,26 @@ interface Tilskuddsgrunnlag {
     veilederNavIdent: string;
 }
 
-interface Inntektsgrunnlag {
+export interface Inntektsgrunnlag {
     innhentetTidspunkt: string;
     inntekter: Inntektslinje[];
 }
 
-interface Inntektslinje {
+export interface Inntektslinje {
     inntektType: string;
     beløp: number;
     måned: string;
     opptjeningsperiodeFom: string;
     opptjeningsperiodeTom: string;
+}
+
+interface Beregning {
+    arbeidsgiveravgift: number;
+    commitHash: string;
+    feriepenger: number;
+    id: string;
+    lønn: number;
+    refusjonsbeløp: number;
+    sumUtgifter: number;
+    tjenestepensjon: number;
 }

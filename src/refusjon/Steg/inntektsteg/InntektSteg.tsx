@@ -1,15 +1,14 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../../services/rest-service';
+import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
-import FerieOgSykdomOpplysninger from './FerieOgSykdomOpplysninger';
+import Inntektsfordeling from './Inntektsfordeling';
 import './InntektSteg.less';
 import LonnsOpplysninger from './LonnsOpplysninger';
-import UtbetalingsOpplysninger from './UtbetalingsOpplysninger';
 
 export const INNTEKTSTEGCLASSNAME = 'inntektsteg';
 
@@ -23,14 +22,14 @@ const InntektSteg: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div className={cls.className}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Systemtittel className={cls.element('tittel')} role="title">
-                        Inntektsopplysninger
-                    </Systemtittel>
+                    <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
                     <div>
-                        <Knapp mini>Synkroniser opplysninger med A-meldingen</Knapp>
+                        <Knapp onClick={() => gjorInntektsoppslag(refusjonId)} mini>
+                            Synkroniser opplysninger med A-meldingen
+                        </Knapp>
                     </div>
                 </div>
-                <VerticalSpacer rem={1} />
+                <VerticalSpacer rem={2} />
                 <Normaltekst>
                     Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke
                     stemmer må det endres der.
@@ -43,16 +42,29 @@ const InntektSteg: FunctionComponent = () => {
                 <LesMerPanel åpneLabel="Hvilke opplysninger fører til reduksjon i refusjon?" lukkLabel="Lukk">
                     lalala
                 </LesMerPanel>
-                <LonnsOpplysninger
-                    bedrift={refusjon.bedriftNr}
-                    deltaker={refusjon.deltakerFnr}
-                    fraDato={refusjon.tilskuddsgrunnlag.tilskuddFom}
-                    tilDato={refusjon.tilskuddsgrunnlag.tilskuddTom}
+                <LonnsOpplysninger refusjon={refusjon} />
+
+                <VerticalSpacer rem={2} />
+
+                <Undertittel>Slik fordeler inntektene seg</Undertittel>
+                <VerticalSpacer rem={1} />
+                <LesMerPanel
+                    åpneLabel="Hvordan beregner vi lønnsintekter som er opparbeidet utenfor perioden?"
+                    lukkLabel="Lukk"
+                >
+                    lalala
+                </LesMerPanel>
+                <VerticalSpacer rem={2} />
+
+                <Inntektsfordeling
+                    inntektsgrunnlag={refusjon.inntektsgrunnlag}
+                    tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
                 />
+
                 {/* <UtbetalingsOpplysninger nettoMånedslønn={refusjon.nettoMånedslønn} /> */}
-                <UtbetalingsOpplysninger nettoMånedslønn={0} />
+                {/* <UtbetalingsOpplysninger nettoMånedslønn={0} />
                 {/* <FerieOgSykdomOpplysninger feriepenger={refusjon.feriepenger} sykepenger={refusjon.sykepenger} /> */}
-                <FerieOgSykdomOpplysninger feriepenger={0} sykepenger={0} />
+                {/* <FerieOgSykdomOpplysninger feriepenger={0} sykepenger={0} /> */}
             </div>
         </>
     );

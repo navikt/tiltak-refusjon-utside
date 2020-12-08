@@ -30,6 +30,12 @@ export const gjorInntektsoppslag = async (refusjonId: string) => {
     return response.data;
 };
 
+export const godkjennRefusjon = async (refusjonId: string) => {
+    const response = await axios.post(`${API_URL}/refusjon/${refusjonId}/godkjenn`);
+    mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
 export const useHentRefusjoner = (bedriftnummer: string) => {
     const { data } = useSWR<Refusjon[]>(`/refusjon?bedriftNr=${bedriftnummer}`, swrConfig);
     return data;
