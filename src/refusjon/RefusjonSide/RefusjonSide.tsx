@@ -11,7 +11,7 @@ import BEMHelper from '../../utils/bem';
 import InntektSteg from '../Steg/inntektsteg/InntektSteg';
 import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/oppsummeringSteg/OppsummeringSteg';
-import TiltaketSteg from '../Steg/TiltaketSteg';
+import StartSteg from '../Steg/StartSteg/StartSteg';
 import './RefusjonSide.less';
 
 const cls = BEMHelper('refusjonside');
@@ -24,39 +24,45 @@ const RefusjonSide: FunctionComponent = () => {
 
     const alleSteg = [
         {
+            path: 'start',
+            label: 'Start',
+            komponent: <StartSteg />,
+            disabled: refusjon.inntektsgrunnlag !== null,
+        },
+        {
             path: 'inntekt',
             label: 'Inntektsopplysninger',
             komponent: <InntektSteg />,
-            index: 0,
-            disabled: refusjon.godkjentAvArbeidsgiver !== null,
+            disabled: refusjon.inntektsgrunnlag === null || refusjon.godkjentAvArbeidsgiver !== null,
         },
         {
             path: 'oppsummering',
             label: 'Oppsummering',
             komponent: <OppsummeringSteg />,
-            index: 1,
-            disabled: refusjon.godkjentAvArbeidsgiver !== null,
+            disabled: refusjon.inntektsgrunnlag === null || refusjon.godkjentAvArbeidsgiver !== null,
         },
         {
             path: 'kvittering',
             label: 'Kvittering',
             komponent: <KvitteringSteg />,
-            index: 2,
+            disabled: refusjon.godkjentAvArbeidsgiver === null,
         },
-    ];
+    ].map((steg, index) => ({ ...steg, index }));
 
-    if (!refusjon.inntektsgrunnlag) {
-        return <TiltaketSteg />;
-    }
-    const aktivtStegIndex = alleSteg.findIndex((steg) => window.location.pathname.includes(steg.path));
+    const aktivtStegIndex = alleSteg
+        .filter((steg) => !steg.disabled)
+        .find((steg) => window.location.pathname.includes(steg.path))?.index;
 
-    if (refusjon.godkjentAvArbeidsgiver && aktivtStegIndex === -1) {
-        history.replace({ pathname: `${url}/kvittering`, search: window.location.search });
-        return null;
-    }
-
-    if (aktivtStegIndex === -1) {
-        history.replace({ pathname: `${url}/inntekt`, search: window.location.search });
+    if (aktivtStegIndex === undefined) {
+        if (!refusjon.inntektsgrunnlag) {
+            history.replace({ pathname: `${url}/start`, search: window.location.search });
+        }
+        if (refusjon.godkjentAvArbeidsgiver) {
+            history.replace({ pathname: `${url}/kvittering`, search: window.location.search });
+        }
+        if (refusjon.inntektsgrunnlag !== null && refusjon.godkjentAvArbeidsgiver === null) {
+            history.replace({ pathname: `${url}/inntekt`, search: window.location.search });
+        }
         return null;
     }
 
@@ -89,11 +95,13 @@ const RefusjonSide: FunctionComponent = () => {
                                 }}
                             />
                         </div>
-                        {alleSteg.map((steg, index) => (
-                            <Route exact path={`${path}/${steg.path}`} key={index}>
-                                <div className={cls.element('innhold-steg')}>{steg.komponent}</div>
-                            </Route>
-                        ))}
+                        {alleSteg
+                            .filter((steg) => !steg.disabled)
+                            .map((steg, index) => (
+                                <Route exact path={`${path}/${steg.path}`} key={index}>
+                                    <div className={cls.element('innhold-steg')}>{steg.komponent}</div>
+                                </Route>
+                            ))}
                     </HvitBoks>
                     <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
                 </div>

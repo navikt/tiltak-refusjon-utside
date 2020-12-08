@@ -3,17 +3,17 @@ import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-ty
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
-import HvitBoks from '../../komponenter/HvitBoks';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { tiltakstypeTekst } from '../../messages';
-import { gjorInntektsoppslag, useHentRefusjon } from '../../services/rest-service';
-import BEMHelper from '../../utils/bem';
-import { formatterDato } from '../../utils/datoUtils';
-import './TiltaketSteg.less';
+import HvitBoks from '../../../komponenter/HvitBoks';
+import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import { tiltakstypeTekst } from '../../../messages';
+import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
+import BEMHelper from '../../../utils/bem';
+import { formatterDato } from '../../../utils/datoUtils';
+import './StartSteg.less';
 
-const cls = BEMHelper('tiltaketsteg');
+const cls = BEMHelper('startsteg');
 
-const TiltaketSteg: FunctionComponent = () => {
+const StartSteg: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
     const history = useHistory();
@@ -71,4 +71,4 @@ const TiltaketSteg: FunctionComponent = () => {
     );
 };
 
-export default TiltaketSteg;
+export default StartSteg;
