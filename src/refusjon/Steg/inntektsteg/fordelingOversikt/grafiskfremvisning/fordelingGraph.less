@@ -1,0 +1,52 @@
+.inntektsgraf {
+    width: 580px;
+    height: 320px;
+
+    &__fordelingsOversikt {
+        display: flex;
+    }
+    &__inntektsKolonne {
+        padding-top: 4rem;
+    }
+
+    &__inntektslabel {
+        padding-bottom: 1.125rem;
+    }
+
+    &__gridline {
+        stroke: #ccc;
+        stroke-dasharray: 0;
+        stroke-width: 1;
+    }
+
+    &__bakgrunnskygge {
+        fill: #e7e9e9;
+    }
+
+    &__periode {
+        fill: #cce1f3;
+        border-radius: 2px;
+    }
+
+    &__inntekt {
+        fill: #cde7d8;
+        border-radius: 2px;
+    }
+
+    &__stripletLinje {
+        stroke: #66a4dc;
+        stroke-dasharray: 12, 6;
+        stroke-width: 2px;
+    }
+
+    &__ikon {
+        width: 24px;
+        height: 24px;
+    }
+    .grid {
+        stroke: #ccc;
+        stroke-dasharray: 0;
+        stroke-width: 2;
+        z-index: 1000;
+    }
+}

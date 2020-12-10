@@ -6,7 +6,7 @@ import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
-import Inntektsfordeling from './Inntektsfordeling';
+import FordelingOversikt from './fordelingOversikt/FordelingOversikt';
 import './InntektSteg.less';
 import LonnsOpplysninger from './LonnsOpplysninger';
 
@@ -56,7 +56,7 @@ const InntektSteg: FunctionComponent = () => {
                 </LesMerPanel>
                 <VerticalSpacer rem={2} />
 
-                <Inntektsfordeling
+                <FordelingOversikt
                     inntektsgrunnlag={refusjon.inntektsgrunnlag}
                     tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
                 />

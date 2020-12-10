@@ -1,7 +1,7 @@
 import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
-import {backendTokenSetFromSession, frontendTokenSetFromSession} from "./utils";
+import { backendTokenSetFromSession, frontendTokenSetFromSession } from './utils';
 import logger from '../logger';
 
 const metadata = {
@@ -25,7 +25,7 @@ export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
     let backendTokenSet = backendTokenSetFromSession(req);
 
     if (!backendTokenSet || backendTokenSet.expired()) {
-        logger.info("Ny access token")
+        logger.info('Ny access token');
         const now = Math.floor(Date.now() / 1000);
         const additionalClaims = {
             clientAssertionPayload: {
@@ -44,7 +44,7 @@ export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
         );
         req.session.backendTokenSet = backendTokenSet;
     } else {
-        logger.info("Access token fra session")
+        logger.info('Access token fra session');
     }
 
     return backendTokenSet.access_token;

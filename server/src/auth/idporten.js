@@ -32,7 +32,7 @@ export const authUrl = (session, idportenClient) => {
         response_mode: config.idporten.responseMode,
         nonce: session.nonce,
         state: session.state,
-        resource: "https://nav.no",
+        resource: 'https://nav.no',
     });
 };
 
@@ -41,9 +41,14 @@ export const validateOidcCallback = async (idportenClient, req) => {
     const nonce = req.session.nonce;
     const state = req.session.state;
 
-    return await idportenClient.callback(config.idporten.redirectUri, params, { nonce, state }, { clientAssertionPayload: { aud: idportenMetadata.metadata.issuer } });
+    return await idportenClient.callback(
+        config.idporten.redirectUri,
+        params,
+        { nonce, state },
+        { clientAssertionPayload: { aud: idportenMetadata.metadata.issuer } }
+    );
 };
 
 export const refresh = async (idportenClient, oldTokenSet) => {
     return await idportenClient.refresh(oldTokenSet);
-}
+};
