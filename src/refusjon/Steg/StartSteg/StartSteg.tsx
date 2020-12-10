@@ -1,6 +1,5 @@
-import { Hovedknapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import HvitBoks from '../../../komponenter/HvitBoks';
@@ -10,6 +9,8 @@ import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-ser
 import BEMHelper from '../../../utils/bem';
 import { formatterDato } from '../../../utils/datoUtils';
 import './StartSteg.less';
+import { Nettressurs, Status } from '../../../nettressurs';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 
 const cls = BEMHelper('startsteg');
 
@@ -18,10 +19,23 @@ const StartSteg: FunctionComponent = () => {
     const refusjon = useHentRefusjon(refusjonId);
     const history = useHistory();
 
+    const [inntektsoppslag, setInntektsoppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
+
     const startRefusjon = async () => {
-        await gjorInntektsoppslag(refusjonId);
-        history.push({ pathname: `/refusjon/${refusjon.id}/inntekt`, search: window.location.search });
+        try {
+            setInntektsoppslag({ status: Status.LasterInn });
+            await gjorInntektsoppslag(refusjonId);
+            setInntektsoppslag({ status: Status.Sendt });
+        } catch (e) {
+            setInntektsoppslag({ status: Status.Feil, error: e.feilmelding ?? 'Uventet feil' });
+        }
     };
+
+    useEffect(() => {
+        if (inntektsoppslag.status === Status.Sendt) {
+            history.push({ pathname: `/refusjon/${refusjon.id}/inntekt`, search: window.location.search });
+        }
+    }, [inntektsoppslag]);
 
     return (
         <>
@@ -64,7 +78,9 @@ const StartSteg: FunctionComponent = () => {
                         </Normaltekst>
                     </div>
                     <VerticalSpacer rem={2} />
-                    <Hovedknapp onClick={startRefusjon}>Start</Hovedknapp>
+                    <LagreKnapp onClick={startRefusjon} nettressurs={inntektsoppslag} type="hoved">
+                        Start
+                    </LagreKnapp>
                 </HvitBoks>
             </div>
         </>
