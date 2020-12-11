@@ -19,8 +19,8 @@ const Filtermeny: FunctionComponent = () => {
 
     const setFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
         switch (event.target.name) {
-            case Status.UBEHANDLET:
-                return oppdaterFilter(getNyttStatusFilter(Status.UBEHANDLET));
+            case Status.NY:
+                return oppdaterFilter(getNyttStatusFilter(Status.NY));
             case Status.BEHANDLET:
                 return oppdaterFilter(getNyttStatusFilter(Status.BEHANDLET));
             case Tiltak.MENTOR:
@@ -32,7 +32,7 @@ const Filtermeny: FunctionComponent = () => {
             case 'ALLE':
                 return oppdaterFilter(getNyttTiltakFilter(undefined));
             default:
-                return oppdaterFilter({ status: Status.UBEHANDLET, tiltakstype: undefined });
+                return oppdaterFilter({ status: Status.NY, tiltakstype: undefined });
         }
     };
 
@@ -42,8 +42,8 @@ const Filtermeny: FunctionComponent = () => {
                 <RadioGruppe legend="">
                     <Radio
                         label={'Ubehandlet'}
-                        checked={filter.status === Status.UBEHANDLET}
-                        name={Status.UBEHANDLET}
+                        checked={filter.status === Status.NY}
+                        name={Status.NY}
                         onChange={setFilter}
                     />
                     <Radio
