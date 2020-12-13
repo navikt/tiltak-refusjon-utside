@@ -1,55 +1,82 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Inntektsgrunnlag } from '../../../../refusjon';
 import BEMHelper from '../../../../../utils/bem';
+import debounce from 'lodash.debounce';
 import './fordelingGraph.less';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
+import moment from 'moment';
+import { Enhet, Inntekt, PositionInfo, TilskuddPeriode } from './fordelingTypes';
 
 interface Props {
     svgWidth: number;
     svgHeight: number;
-    gridmaaleEnhetPrMnd: number;
+    gridEnhetMnd: number;
     maander: string[];
-    tilskuddPeriodeEnheter: ({ fraDato: string; fraEnhet: number; tilDato: string; tilEnhet: number } | null)[];
-    inntektsEnheter: { fraDato: string; fraEnhet: number; tilDato: string; tilEnhet: number }[];
-    svgEnhetMap: {
-        dato: string;
-        enhet: number;
-        inntekt: { fraDato: string; fraEnhet: number; tilDato: string; tilEnhet: number }[] | null;
-    }[];
-
-    inntektsgrunnlag: Inntektsgrunnlag;
-}
-interface Position {
-    y: number;
-    x: number;
+    tilskuddPeriode: (TilskuddPeriode | null)[];
+    inntekt: Inntekt[];
+    gridMap: Enhet[];
 }
 
 const cls = BEMHelper('inntektsgraf');
 
 const FordelingGraph: FunctionComponent<Props> = (props) => {
-    const [position, setPosition] = useState<undefined | Position>(undefined);
+    const [position, setPosition] = useState<PositionInfo | undefined>(undefined);
 
     const mousePointerEvent = (event: any) => {
+        let inntektInfo: undefined | React.ReactNode = <Normaltekst>ingen inntekt</Normaltekst>;
+        const inntekter = props.gridMap.find(
+            (enhet) =>
+                enhet.kordinatStart <= event.nativeEvent.layerX && enhet.kordinatSlutt >= event.nativeEvent.layerX
+        );
+
+        if (inntekter && inntekter.inntekt) {
+            inntektInfo = inntekter.inntekt.map((i, dex) => {
+                return (
+                    <ul className={cls.element('label-list')} key={dex}>
+                        <li>
+                            <Normaltekst>
+                                {moment(i.fraDato).format('MM.DD')}-{moment(i.tilDato).format('DD-MM')}
+                            </Normaltekst>
+                        </li>
+                        <li>
+                            <Normaltekst>{i.belop}kr</Normaltekst>
+                        </li>
+                    </ul>
+                );
+            });
+        }
+
         setPosition({
-            y: event.nativeEvent.layerY,
-            x: event.nativeEvent.layerX,
+            yPos: event.nativeEvent.layerY,
+            xPos: event.nativeEvent.layerX,
+            dato: inntekter?.dato,
+            inntektLabel: inntektInfo,
         });
     };
 
+    const debounceMousePointerEvent = debounce(mousePointerEvent, 5);
+
     return (
         <>
-            <figure>
+            <figure className={cls.className}>
+                <label
+                    style={{ left: `${(position && (position.xPos - 110).toString().concat('px')) || '0'}` }}
+                    className={cls.element('infolabel')}
+                >
+                    <Element className={cls.element('boldFont')}>Dato</Element>
+                    <Normaltekst className={cls.element('boldFont')}>{(position && position.dato) || ''}</Normaltekst>
+                    {position && position.inntektLabel}
+                </label>
                 <figcaption>
                     <svg
                         width={(props.svgWidth + 40).toString()}
                         height={props.svgHeight.toString()}
-                        className={cls.className}
                         viewBox={`0 0 ${props.svgWidth + 40} ${props.svgHeight}`}
-                        onMouseMove={mousePointerEvent}
+                        onMouseMove={debounceMousePointerEvent}
                     >
                         <g className={cls.element('gridline')}>
                             <g className={cls.element('labels x-labels')}>
                                 {props.maander.map((mnd: string, index: number) => {
-                                    const xPosition = index * props.gridmaaleEnhetPrMnd;
+                                    const xPosition = index * props.gridEnhetMnd;
                                     return (
                                         <text
                                             y="16"
@@ -63,27 +90,27 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                             </g>
                             <line x1="0" x2={props.svgWidth} y1="32" y2="32" />
                             <rect className={cls.element('bakgrunnskygge')} height={48} width={props.svgWidth} y={64} />
-                            {props.inntektsgrunnlag.inntekter.map((backgrunnElem, index) => {
+                            {props.inntekt.map((_, index) => {
                                 return (
                                     <rect
                                         className={cls.element('bakgrunnskygge')}
                                         height={48}
                                         width={props.svgWidth}
                                         y={128 + index * 64}
-                                        key={backgrunnElem.måned}
+                                        key={index}
                                     />
                                 );
                             })}
 
-                            <g x={props.tilskuddPeriodeEnheter[0]!.fraEnhet} y={64}>
+                            <g x={props.tilskuddPeriode[0]!.kordinatStart} y={64}>
                                 <rect
                                     className={cls.element('periode')}
                                     height={48}
                                     width={
-                                        props.tilskuddPeriodeEnheter[0]!.tilEnhet -
-                                        props.tilskuddPeriodeEnheter[0]!.fraEnhet
+                                        props.tilskuddPeriode[0]!.kordinatSlutt -
+                                        props.tilskuddPeriode[0]!.kordinatStart
                                     }
-                                    x={props.tilskuddPeriodeEnheter[0]!.fraEnhet}
+                                    x={props.tilskuddPeriode[0]!.kordinatStart}
                                     y={64}
                                 />
 
@@ -91,7 +118,7 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     viewBox="0 0 24 24"
                                     fillRule="evenodd"
                                     clipRule="evenodd"
-                                    transform={`translate(${props.tilskuddPeriodeEnheter[0]!.fraEnhet + 7}, 75)`}
+                                    transform={`translate(${props.tilskuddPeriode[0]!.kordinatStart + 7}, 75)`}
                                     d="M 24 22 a 2 2 0 0 1 -2 2 H 2 a 2 2 0 0 1 -2 -2 V 5 a 2 2 0 0 1 2 -2 h 4 V 1 A 1 1 0 0 1 7.993 0.883 L 8 1 v 2 h 7.999 L 16 1 a 1 1 0 0 1 1.993 -0.117 L 18 1 l -0.001 2 H 22 a 2 2 0 0 1 2 2 v 17 Z m -2 -10 H 2 v 10 h 20 V 12 Z M 6 5 H 2 v 5 h 20 V 5 h -4.001 L 18 7 a 1 1 0 0 1 -1.993 0.117 L 16 7 l -0.001 -2 H 8 v 2 a 1 1 0 0 1 -1.993 0.117 L 6 7 V 5 Z"
                                     fill="#3E3832"
                                 />
@@ -101,30 +128,30 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                 className={cls.element('stripletLinje')}
                                 y1={64}
                                 y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriodeEnheter[0]!.fraEnhet}
-                                x2={props.tilskuddPeriodeEnheter[0]!.fraEnhet}
+                                x1={props.tilskuddPeriode[0]!.kordinatStart}
+                                x2={props.tilskuddPeriode[0]!.kordinatStart}
                             />
                             <line
                                 className={cls.element('stripletLinje')}
                                 y1={64}
                                 y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriodeEnheter[0]!.tilEnhet}
-                                x2={props.tilskuddPeriodeEnheter[0]!.tilEnhet}
+                                x1={props.tilskuddPeriode[0]!.kordinatSlutt}
+                                x2={props.tilskuddPeriode[0]!.kordinatSlutt}
                             />
-                            {props.inntektsEnheter.map((inntekt, index) => {
+                            {props.inntekt.map((inntekt, index) => {
                                 return (
                                     <g key={index}>
                                         <rect
                                             className={cls.element('inntekt')}
                                             height={48}
-                                            width={inntekt.tilEnhet - inntekt.fraEnhet}
-                                            x={inntekt.fraEnhet}
+                                            width={inntekt.kordinatSlutt - inntekt.kordinatStart}
+                                            x={inntekt.kordinatStart}
                                             y={128 + index * 64}
                                         />
                                         <path
                                             fillRule="evenodd"
                                             clipRule="evenodd"
-                                            transform={`translate(${inntekt.fraEnhet + 7}, ${140 + index * 64})`}
+                                            transform={`translate(${inntekt.kordinatStart + 7}, ${140 + index * 64})`}
                                             d="M19 0a5 5 0 014.584 7H24v14H0V7h10a5 5 0 015-5l.063-.082A4.991 4.991 0 0119 0zm3 9c-.836.628-1.875 1-3 1l.033-.044a5.012 5.012 0 01-2.394 1.77c.098.103.182.223.253.36.12.234.18.525.18.873 0 .432-.095.787-.284 1.066-.157.233-.36.416-.607.551l-.154.075L17.36 17h-1.485l-1.125-2.115h-.729V17h-1.322v-5.56a5.02 5.02 0 01-2.281-2.438L2 9v10h20V9zM8.157 11.132v2.403h.036l1.746-2.403h1.458l-1.773 2.34L11.721 17h-1.449l-1.431-2.475-.684.9V17H6.834v-5.868h1.323zm6.547 1.053h-.684v1.647h.684c.348 0 .614-.074.797-.22.183-.148.274-.365.274-.653 0-.288-.091-.489-.274-.603-.152-.095-.362-.15-.63-.166l-.167-.005zM15 4a3 3 0 100 6 3 3 0 000-6zm4-2c-.643 0-1.238.202-1.726.546l.132.07a4.999 4.999 0 012.524 5.22l.124-.027-.042.016A3.001 3.001 0 0019 2z"
                                             fill="#3E3832"
                                         />
@@ -133,10 +160,11 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                             })}
                             <g className="grid v-grid" id="vGrid">
                                 <line
-                                    y1="0"
-                                    y2="300"
-                                    x1={(position && position.x) || '500'}
-                                    x2={(position && position.x) || '500'}
+                                    className={cls.element('date-line')}
+                                    y1="48"
+                                    y2="330"
+                                    x1={(position && position.xPos) || '0'}
+                                    x2={(position && position.xPos) || '0'}
                                 />
                             </g>
                         </g>

@@ -123,3 +123,5 @@ export const getAntallMndTilSVGGrid = (fraDato: string, tilDato: string): string
 
     return antallMnd;
 };
+
+export const datoString = (dato: Moment): string => dato.format('YYYY-MM-DD');
