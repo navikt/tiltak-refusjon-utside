@@ -68,9 +68,9 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                 </label>
                 <figcaption>
                     <svg
-                        width={(props.svgWidth + 40).toString()}
+                        width={props.svgWidth.toString()}
                         height={props.svgHeight.toString()}
-                        viewBox={`0 0 ${props.svgWidth + 40} ${props.svgHeight}`}
+                        viewBox={`0 0 ${props.svgWidth} ${props.svgHeight}`}
                         onMouseMove={debounceMousePointerEvent}
                     >
                         <g className={cls.element('gridline')}>
@@ -83,7 +83,9 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                             x={index === props.maander.length - 1 ? xPosition - 30 : xPosition}
                                             key={index}
                                         >
-                                            {mnd}
+                                            {index === props.maander.length - 1
+                                                ? moment(mnd, 'MMMM').format('MMM')
+                                                : mnd}
                                         </text>
                                     );
                                 })}
