@@ -6,7 +6,6 @@ import {
 } from '../../../../../utils/datoUtils';
 import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../../refusjon';
 import { Moment } from 'moment';
-import FordelingGraph from './FordelingGraph';
 import {
     getDatoer,
     getDiffMellomToDatoer,
