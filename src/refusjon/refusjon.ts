@@ -42,6 +42,7 @@ export interface Inntektslinje {
     inntektType: string;
     beløp: number;
     måned: string;
+    id: string;
     opptjeningsperiodeFom: string;
     opptjeningsperiodeTom: string;
 }

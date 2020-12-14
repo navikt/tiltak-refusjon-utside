@@ -23,12 +23,18 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
 
     const mousePointerEvent = (event: any) => {
         let inntektInfo: undefined | React.ReactNode = <Normaltekst>ingen inntekt</Normaltekst>;
+        let inntektFelt: undefined | { id: string }[] = undefined;
+
         const inntekter = props.gridMap.find(
             (enhet) =>
                 enhet.kordinatStart <= event.nativeEvent.layerX && enhet.kordinatSlutt >= event.nativeEvent.layerX
         );
 
         if (inntekter && inntekter.inntekt) {
+            inntektFelt = inntekter.inntekt.map((i) => {
+                return { id: i.id };
+            });
+
             inntektInfo = inntekter.inntekt.map((i, dex) => {
                 return (
                     <ul className={cls.element('label-list')} key={dex}>
@@ -50,6 +56,7 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
             xPos: event.nativeEvent.layerX,
             dato: inntekter?.dato,
             inntektLabel: inntektInfo,
+            inntektFeltId: inntektFelt,
         });
     };
 
@@ -130,20 +137,21 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                 className={cls.element('stripletLinje')}
                                 y1={64}
                                 y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriode[0]!.kordinatStart}
-                                x2={props.tilskuddPeriode[0]!.kordinatStart}
+                                x1={props.tilskuddPeriode[0]?.kordinatStart}
+                                x2={props.tilskuddPeriode[0]?.kordinatStart}
                             />
                             <line
                                 className={cls.element('stripletLinje')}
                                 y1={64}
                                 y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriode[0]!.kordinatSlutt}
-                                x2={props.tilskuddPeriode[0]!.kordinatSlutt}
+                                x1={props.tilskuddPeriode[0]?.kordinatSlutt}
+                                x2={props.tilskuddPeriode[0]?.kordinatSlutt}
                             />
                             {props.inntekt.map((inntekt, index) => {
                                 return (
                                     <g key={index}>
                                         <rect
+                                            id={inntekt.id}
                                             className={cls.element('inntekt')}
                                             height={48}
                                             width={inntekt.kordinatSlutt - inntekt.kordinatStart}
@@ -162,12 +170,37 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                             })}
                             <g className="grid v-grid" id="vGrid">
                                 <line
-                                    className={cls.element('date-line')}
-                                    y1="48"
-                                    y2="330"
+                                    className={cls.element('dataInfo')}
+                                    y1="64"
+                                    y2={props.svgHeight - 15}
                                     x1={(position && position.xPos) || '0'}
                                     x2={(position && position.xPos) || '0'}
                                 />
+                                <circle
+                                    className={cls.element('dataInfo')}
+                                    cx={(position && position.xPos) || '0'}
+                                    cy="50"
+                                    r="3"
+                                    stroke="black"
+                                    strokeWidth="1"
+                                    fill="grey"
+                                />
+
+                                {position?.inntektFeltId?.map((felt) => {
+                                    return (
+                                        <>
+                                            <circle
+                                                className={cls.element('dataInfo')}
+                                                cx={(position && position.xPos) || '0'}
+                                                cy={128 + parseInt(felt.id) * 64}
+                                                r="5"
+                                                stroke="black"
+                                                strokeWidth="1"
+                                                fill="#B7CFC0"
+                                            />
+                                        </>
+                                    );
+                                })}
                             </g>
                         </g>
                     </svg>

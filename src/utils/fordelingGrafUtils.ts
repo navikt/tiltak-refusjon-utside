@@ -56,7 +56,7 @@ export const getGridMap = (datoKordinater: DatoKordinater[], inntekt: Inntekt[])
 };
 
 export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKordinater: DatoKordinater[]) => {
-    return inntektsgrunnlag.inntekter.map((inntekt) => {
+    return inntektsgrunnlag.inntekter.map((inntekt, index) => {
         const inntekter = datoKordinater.filter(
             (d) => d.dato === inntekt.opptjeningsperiodeTom || d.dato === inntekt.opptjeningsperiodeFom
         );
@@ -70,6 +70,7 @@ export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKordinater: D
                 kordinatStart: inntekter[0].kordinatStart,
                 kordinatSlutt: setsluttDato!.kordinatStart,
                 belop: inntekt.beløp,
+                id: index.toString(),
             };
         }
         return {
@@ -78,6 +79,7 @@ export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKordinater: D
             kordinatStart: inntekter[0].kordinatStart,
             kordinatSlutt: inntekter[1].kordinatStart,
             belop: inntekt.beløp,
+            id: index.toString(),
         };
     });
 };

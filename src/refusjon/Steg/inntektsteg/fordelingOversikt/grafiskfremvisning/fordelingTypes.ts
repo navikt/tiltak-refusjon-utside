@@ -18,6 +18,7 @@ export interface Inntekt {
     kordinatStart: number;
     kordinatSlutt: number;
     belop: number;
+    id: string;
 }
 
 export interface PositionInfo {
@@ -25,6 +26,7 @@ export interface PositionInfo {
     xPos: number;
     dato: string | undefined;
     inntektLabel: React.ReactNode | undefined;
+    inntektFeltId: { id: string }[] | undefined;
 }
 
 export interface DatoKordinater {
