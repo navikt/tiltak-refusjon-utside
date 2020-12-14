@@ -99,18 +99,6 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                             </g>
                             <line x1="0" x2={props.svgWidth} y1="32" y2="32" />
                             <rect className={cls.element('bakgrunnskygge')} height={48} width={props.svgWidth} y={64} />
-                            {props.inntekt.map((_, index) => {
-                                return (
-                                    <rect
-                                        className={cls.element('bakgrunnskygge')}
-                                        height={48}
-                                        width={props.svgWidth}
-                                        y={128 + index * 64}
-                                        key={index}
-                                    />
-                                );
-                            })}
-
                             <g x={props.tilskuddPeriode[0]!.kordinatStart} y={64}>
                                 <rect
                                     className={cls.element('periode')}
@@ -132,24 +120,16 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     fill="#3E3832"
                                 />
                             </g>
-
-                            <line
-                                className={cls.element('stripletLinje')}
-                                y1={64}
-                                y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriode[0]?.kordinatStart}
-                                x2={props.tilskuddPeriode[0]?.kordinatStart}
-                            />
-                            <line
-                                className={cls.element('stripletLinje')}
-                                y1={64}
-                                y2={props.svgHeight + 64}
-                                x1={props.tilskuddPeriode[0]?.kordinatSlutt}
-                                x2={props.tilskuddPeriode[0]?.kordinatSlutt}
-                            />
                             {props.inntekt.map((inntekt, index) => {
                                 return (
                                     <g key={index}>
+                                        <rect
+                                            className={cls.element('bakgrunnskygge')}
+                                            height={48}
+                                            width={props.svgWidth}
+                                            y={128 + index * 64}
+                                            key={index}
+                                        />
                                         <rect
                                             id={inntekt.id}
                                             className={cls.element('inntekt')}
@@ -168,6 +148,21 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     </g>
                                 );
                             })}
+                            <line
+                                className={cls.element('stripletLinje')}
+                                y1={64}
+                                y2={props.svgHeight + 64}
+                                x1={props.tilskuddPeriode[0]?.kordinatStart}
+                                x2={props.tilskuddPeriode[0]?.kordinatStart}
+                            />
+                            <line
+                                className={cls.element('stripletLinje')}
+                                y1={64}
+                                y2={props.svgHeight + 64}
+                                x1={props.tilskuddPeriode[0]?.kordinatSlutt}
+                                x2={props.tilskuddPeriode[0]?.kordinatSlutt}
+                            />
+
                             <g className="grid v-grid" id="vGrid">
                                 <line
                                     className={cls.element('dataInfo')}
@@ -176,16 +171,15 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     x1={(position && position.xPos) || '0'}
                                     x2={(position && position.xPos) || '0'}
                                 />
-                                <circle
-                                    className={cls.element('dataInfo')}
-                                    cx={(position && position.xPos) || '0'}
-                                    cy="50"
-                                    r="3"
-                                    stroke="black"
-                                    strokeWidth="1"
-                                    fill="grey"
-                                />
 
+                                <polygon
+                                    className={cls.element('dataInfo', 'triangle')}
+                                    points="12,12 0,12 6,24"
+                                    transform={`translate(${(position && position.xPos - 6) || 0}, 40)`}
+                                    x={(position && position.xPos) || '0'}
+                                    y="50"
+                                    stroke="0"
+                                />
                                 {position?.inntektFeltId?.map((felt) => {
                                     return (
                                         <>
@@ -193,9 +187,18 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                                 className={cls.element('dataInfo')}
                                                 cx={(position && position.xPos) || '0'}
                                                 cy={128 + parseInt(felt.id) * 64}
-                                                r="5"
-                                                stroke="black"
+                                                r="2"
                                                 strokeWidth="1"
+                                                opacity="0.6"
+                                                fill="black"
+                                            />
+                                            <circle
+                                                className={cls.element('dataInfo')}
+                                                cx={(position && position.xPos) || '0'}
+                                                cy={128 + parseInt(felt.id) * 64}
+                                                r="5"
+                                                strokeWidth="0"
+                                                opacity="0.6"
                                                 fill="#B7CFC0"
                                             />
                                         </>
