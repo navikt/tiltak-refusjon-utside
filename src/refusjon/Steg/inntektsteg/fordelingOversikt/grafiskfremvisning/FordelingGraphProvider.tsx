@@ -17,6 +17,7 @@ import {
     gridHeight,
     setMndGrid,
 } from '../../../../../utils/fordelingGrafUtils';
+import FordelingGraphBuilder from './FordelingGraphBuilder';
 
 interface Props {
     inntektsgrunnlag: Inntektsgrunnlag;
@@ -72,7 +73,7 @@ const FordelingGraphProvider: FunctionComponent<Props> = (props) => {
     return (
         <>
             <div>
-                <FordelingGraph
+                <FordelingGraphBuilder
                     svgWidth={SVG_GRID_WIDTH}
                     svgHeight={height}
                     gridEnhetMnd={gridEnhetMnd}
