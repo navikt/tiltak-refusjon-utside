@@ -1,22 +1,22 @@
 export interface Enhet {
     dato: string;
-    kordinatStart: number;
-    kordinatSlutt: number;
+    koordinatStart: number;
+    koordinatSlutt: number;
     inntekt: Inntekt[] | null;
 }
 
 export interface TilskuddPeriode {
     datoFra: string;
-    kordinatStart: number;
+    koordinatStart: number;
     datoTil: string;
-    kordinatSlutt: number;
+    koordinatSlutt: number;
 }
 
 export interface Inntekt {
     fraDato: string;
     tilDato: string;
-    kordinatStart: number;
-    kordinatSlutt: number;
+    koordinatStart: number;
+    koordinatSlutt: number;
     belop: number;
     id: string;
 }
@@ -29,8 +29,8 @@ export interface PositionInfo {
     inntektFeltId: { id: string }[] | undefined;
 }
 
-export interface DatoKordinater {
+export interface DatoKoordinater {
     dato: string;
-    kordinatStart: number;
-    kordinatSlutt: number;
+    koordinatStart: number;
+    koordinatSlutt: number;
 }

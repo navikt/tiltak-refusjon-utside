@@ -1,5 +1,5 @@
 import {
-    DatoKordinater,
+    DatoKoordinater,
     Inntekt,
 } from '../refusjon/Steg/inntektsteg/fordelingOversikt/grafiskfremvisning/fordelingTypes';
 import moment from 'moment';
@@ -45,7 +45,7 @@ export const getDiffMellomToDatoer = (datoFra: string, datoTil: string) => {
 export const gridHeight = (antallIntekter: number) =>
     (antallIntekter * HOYDE_INNTEKTSFELT_I_REM + HOYDE_TOPPOVERSIKT_I_REM) * REM + 48;
 
-export const getGridMap = (datoKordinater: DatoKordinater[], inntekt: Inntekt[]) => {
+export const getGridMap = (datoKordinater: DatoKoordinater[], inntekt: Inntekt[]) => {
     return datoKordinater.map((enhet) => {
         const inntektFunnet = inntekt.filter((i) => i.fraDato <= enhet.dato && i.tilDato >= enhet.dato);
         if (inntektFunnet.length !== 0) {
@@ -55,20 +55,20 @@ export const getGridMap = (datoKordinater: DatoKordinater[], inntekt: Inntekt[])
     });
 };
 
-export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKordinater: DatoKordinater[]) => {
+export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKoordinater: DatoKoordinater[]) => {
     return inntektsgrunnlag.inntekter.map((inntekt, index) => {
-        const inntekter = datoKordinater.filter(
+        const inntekter = datoKoordinater.filter(
             (d) => d.dato === inntekt.opptjeningsperiodeTom || d.dato === inntekt.opptjeningsperiodeFom
         );
         if (!inntekter[1]) {
-            const setsluttDato = datoKordinater.find(
+            const setsluttDato = datoKoordinater.find(
                 (d) => d.dato === moment(inntekter[0].dato).endOf('month').format('YYYY-MM-DD')
             );
             return {
                 fraDato: inntekter[0].dato,
                 tilDato: setsluttDato!.dato,
-                kordinatStart: inntekter[0].kordinatStart,
-                kordinatSlutt: setsluttDato!.kordinatStart,
+                koordinatStart: inntekter[0].koordinatStart,
+                koordinatSlutt: setsluttDato!.koordinatStart,
                 belop: inntekt.beløp,
                 id: index.toString(),
             };
@@ -76,28 +76,28 @@ export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKordinater: D
         return {
             fraDato: inntekter[0].dato,
             tilDato: inntekter[1].dato,
-            kordinatStart: inntekter[0].kordinatStart,
-            kordinatSlutt: inntekter[1].kordinatStart,
+            koordinatStart: inntekter[0].koordinatStart,
+            koordinatSlutt: inntekter[1].koordinatStart,
             belop: inntekt.beløp,
             id: index.toString(),
         };
     });
 };
 
-export const getTilskuddsPeriode = (datoKordinater: DatoKordinater[], tilskuddsgrunnlag: Tilskuddsgrunnlag) => {
+export const getTilskuddsPeriode = (datoKordinater: DatoKoordinater[], tilskuddsgrunnlag: Tilskuddsgrunnlag) => {
     return datoKordinater
         .map((enhet) => {
             if (enhet.dato === tilskuddsgrunnlag.tilskuddFom) {
                 const getPeriodeSlutt = datoKordinater.filter((e) => e.dato === tilskuddsgrunnlag.tilskuddTom);
                 const datoFra = enhet.dato;
                 const datoTil = getPeriodeSlutt[0].dato;
-                const kordinatStart = enhet.kordinatStart;
-                const kordinatSlutt = getPeriodeSlutt[0].kordinatStart;
+                const kordinatStart = enhet.koordinatStart;
+                const kordinatSlutt = getPeriodeSlutt[0].koordinatStart;
                 return {
                     datoFra: datoFra,
-                    kordinatStart: kordinatStart,
+                    koordinatStart: kordinatStart,
                     datoTil: datoTil,
-                    kordinatSlutt: kordinatSlutt,
+                    koordinatSlutt: kordinatSlutt,
                 };
             }
             return null;

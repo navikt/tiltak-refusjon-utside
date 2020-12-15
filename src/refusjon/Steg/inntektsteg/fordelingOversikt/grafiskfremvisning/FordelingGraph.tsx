@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../../../../utils/bem';
 import debounce from 'lodash.debounce';
 import './fordelingGraph.less';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
 import { Enhet, Inntekt, PositionInfo } from './fordelingTypes';
 
@@ -28,7 +28,7 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
 
         const inntekter = props.gridMap.find(
             (enhet) =>
-                enhet.kordinatStart <= event.nativeEvent.layerX && enhet.kordinatSlutt >= event.nativeEvent.layerX
+                enhet.koordinatStart <= event.nativeEvent.layerX && enhet.koordinatSlutt >= event.nativeEvent.layerX
         );
 
         if (inntekter && inntekter.inntekt) {
