@@ -11,7 +11,7 @@ interface Props {
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
 }
 
-const cls = BEMHelper('inntektsgraf');
+const cls = BEMHelper('fordelinggraph');
 
 const FordelingOversikt: FunctionComponent<Props> = (props) => {
     if (!props.inntektsgrunnlag) {

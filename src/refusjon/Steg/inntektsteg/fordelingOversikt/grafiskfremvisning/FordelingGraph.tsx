@@ -17,7 +17,7 @@ interface Props {
     gridMap: Enhet[];
 }
 
-const cls = BEMHelper('inntektsgraf');
+const cls = BEMHelper('fordelinggraph');
 
 const FordelingGraph: FunctionComponent<Props> = (props) => {
     const [position, setPosition] = useState<PositionInfo | undefined>(undefined);

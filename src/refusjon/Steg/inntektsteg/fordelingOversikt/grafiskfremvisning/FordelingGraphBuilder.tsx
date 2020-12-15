@@ -14,7 +14,7 @@ interface Props {
     gridMap: Enhet[];
 }
 
-const cls = BEMHelper('inntektsgraf');
+const cls = BEMHelper('fordelinggraph');
 
 const FordelingGraphBuilder: FunctionComponent<Props> = (props) => {
     const mander = props.maander.map((mnd: string, index: number) => {
