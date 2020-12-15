@@ -33,9 +33,9 @@ const StartSteg: FunctionComponent = () => {
 
     useEffect(() => {
         if (inntektsoppslag.status === Status.Sendt) {
-            history.push({ pathname: `/refusjon/${refusjon.id}/inntekt`, search: window.location.search });
+            history.push({ pathname: `/refusjon/${refusjonId}/inntekt`, search: window.location.search });
         }
-    }, [inntektsoppslag]);
+    }, [history, inntektsoppslag, refusjonId]);
 
     return (
         <>
@@ -46,14 +46,13 @@ const StartSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                     <Element>Periode</Element>
                     <Normaltekst>
-                        {`${formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
-                            refusjon.tilskuddsgrunnlag.tilskuddTom
-                        )}`}
+                        {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} -{' '}
+                        {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddTom)}
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <Element>Deltaker</Element>
                     <Normaltekst>
-                        {`${refusjon.tilskuddsgrunnlag.deltakerFornavn} ${refusjon.tilskuddsgrunnlag.deltakerEtternavn}`}
+                        {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <Element>Ansvarlig i virksomheten</Element>

@@ -6,11 +6,7 @@ import { feilmelding } from '../feilkodemapping';
 
 export const API_URL = '/api/arbeidsgiver';
 
-export class FeilkodeError extends Error {
-    constructor() {
-        super();
-    }
-}
+export class FeilkodeError extends Error {}
 
 const api = axios.create({
     baseURL: '/api/arbeidsgiver',
