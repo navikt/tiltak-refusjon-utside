@@ -22,7 +22,7 @@ export const useFilter = () => {
 
 export const FilterProvider: FunctionComponent = (props) => {
     const [filter, setFilter] = useState<Filter>({
-        status: Status.UBEHANDLET,
+        status: Status.NY,
         tiltakstype: undefined,
     });
 
