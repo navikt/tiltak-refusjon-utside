@@ -1,0 +1,97 @@
+.inntektsgraf {
+    position: relative;
+
+    &__fordelingsOversikt {
+        display: flex;
+    }
+    &__inntektsKolonne {
+        padding-top: 4rem;
+    }
+
+    &__inntektslabel {
+        padding-bottom: 1.125rem;
+    }
+
+    &__grid {
+        stroke: #ccc;
+        stroke-dasharray: 0;
+        stroke-width: 1;
+    }
+
+    &__bakgrunnskygge {
+        fill: #e7e9e9;
+    }
+
+    &__periode {
+        fill: #cce1f3;
+        border-radius: 2px;
+    }
+
+    &__inntekt {
+        fill: #cde7d8;
+        border-radius: 2px;
+    }
+
+    &__stripletLinje {
+        stroke: #66a4dc;
+        stroke-dasharray: 12, 6;
+        stroke-width: 2px;
+    }
+
+    &__ikon {
+        width: 24px;
+        height: 24px;
+    }
+
+    &__dataInfo {
+        display: none;
+
+        &--triangle {
+            stroke-width: 0;
+            fill: #737070;
+        }
+    }
+
+    &__infolabel {
+        pointer-events: none;
+        color: white;
+        display: none;
+        position: absolute;
+        width: 90px;
+        min-height: 140px;
+        background-color: #636363;
+        opacity: 0.9;
+        border-radius: 4px;
+        padding: 4px;
+        top: 2.5rem;
+    }
+
+    &__boldFont {
+        font-weight: 600;
+    }
+
+    &:hover {
+        .inntektsgraf__infolabel {
+            display: block;
+        }
+
+        .inntektsgraf__dataInfo {
+            display: block;
+        }
+    }
+
+    &__label-list {
+        padding: 0.2rem;
+        list-style-type: none;
+    }
+
+    .grid {
+        stroke: #ccc;
+        stroke-dasharray: 0;
+        stroke-width: 2;
+        z-index: 1000;
+    }
+}
+
+.test {
+}
