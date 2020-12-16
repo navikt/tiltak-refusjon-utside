@@ -25,7 +25,7 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                     <div className={cls.element('inntektslabel')}>
                         <Element>Periode med lønnstilskudd</Element>
                         <Normaltekst>
-                            {formatterDatoen(props.tilskuddsgrunnlag.tilskuddTom, 'DD.MMM')} -{' '}
+                            {formatterDatoen(props.tilskuddsgrunnlag.tilskuddFom, 'DD.MMM')} -{' '}
                             {formatterDatoen(props.tilskuddsgrunnlag.tilskuddTom, 'DD.MMM')}
                         </Normaltekst>
                     </div>
