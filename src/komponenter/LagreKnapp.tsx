@@ -1,20 +1,57 @@
-import * as React from 'react';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase, { KnappBaseProps } from 'nav-frontend-knapper';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Nettressurs, Status } from '../nettressurs';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import VerticalSpacer from './VerticalSpacer';
 
-interface LagreKnappProps {
-    nettressurs: Nettressurs<any>;
-}
+type Props = {
+    lagreFunksjon: () => Promise<void>;
+};
 
-export default (props: KnappBaseProps & LagreKnappProps) => {
-    const spinner = props.nettressurs.status === Status.LasterInn || props.nettressurs.status === Status.SenderInn;
-    const eventuellFeilmelding =
-        props.nettressurs.status === Status.Feil ? <AlertStripeFeil>{props.nettressurs.error}</AlertStripeFeil> : null;
+const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
+    const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
+
+    const knappBaseProps = Object.assign({}, props);
+    delete knappBaseProps.lagreFunksjon;
+
+    const feilRef = useRef<HTMLDivElement>(null);
+
+    const onClick = async () => {
+        try {
+            setOppslag({ status: Status.LasterInn });
+            await props.lagreFunksjon();
+            setOppslag({ status: Status.Sendt });
+        } catch (error) {
+            setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
+        }
+    };
+
+    useEffect(() => {
+        if (oppslag.status === Status.Feil) {
+            feilRef.current?.focus();
+        }
+    }, [oppslag.status]);
+
     return (
-        <>
-            <KnappBase spinner={spinner} {...props} />
-            {eventuellFeilmelding}
-        </>
+        <div>
+            <KnappBase
+                spinner={oppslag.status === Status.LasterInn}
+                disabled={oppslag.status === Status.LasterInn}
+                onClick={onClick}
+                {...knappBaseProps}
+            />
+            {oppslag.status === Status.Feil && (
+                <>
+                    <VerticalSpacer rem={0.5} />
+                    <AlertStripeAdvarsel>
+                        <div ref={feilRef} aria-live="polite">
+                            {oppslag.error}
+                        </div>
+                    </AlertStripeAdvarsel>
+                </>
+            )}
+        </div>
     );
 };
+
+export default LagreKnapp;

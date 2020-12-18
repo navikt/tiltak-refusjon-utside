@@ -1,7 +1,7 @@
-import { Knapp } from 'nav-frontend-knapper';
 import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
@@ -24,9 +24,9 @@ const InntektSteg: FunctionComponent = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
                     <div>
-                        <Knapp onClick={() => gjorInntektsoppslag(refusjonId)} mini>
+                        <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)} mini>
                             Synkroniser opplysninger med A-meldingen
-                        </Knapp>
+                        </LagreKnapp>
                     </div>
                 </div>
                 <VerticalSpacer rem={2} />

@@ -1,16 +1,15 @@
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import HvitBoks from '../../../komponenter/HvitBoks';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../../messages';
 import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
 import { formatterDato } from '../../../utils/datoUtils';
 import './StartSteg.less';
-import { Nettressurs, Status } from '../../../nettressurs';
-import LagreKnapp from '../../../komponenter/LagreKnapp';
 
 const cls = BEMHelper('startsteg');
 
@@ -19,23 +18,10 @@ const StartSteg: FunctionComponent = () => {
     const refusjon = useHentRefusjon(refusjonId);
     const history = useHistory();
 
-    const [inntektsoppslag, setInntektsoppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
-
     const startRefusjon = async () => {
-        try {
-            setInntektsoppslag({ status: Status.LasterInn });
-            await gjorInntektsoppslag(refusjonId);
-            setInntektsoppslag({ status: Status.Sendt });
-        } catch (e) {
-            setInntektsoppslag({ status: Status.Feil, error: e.feilmelding ?? 'Uventet feil' });
-        }
+        await gjorInntektsoppslag(refusjonId);
+        history.push({ pathname: `/refusjon/${refusjonId}/inntekt`, search: window.location.search });
     };
-
-    useEffect(() => {
-        if (inntektsoppslag.status === Status.Sendt) {
-            history.push({ pathname: `/refusjon/${refusjonId}/inntekt`, search: window.location.search });
-        }
-    }, [history, inntektsoppslag, refusjonId]);
 
     return (
         <>
@@ -77,7 +63,7 @@ const StartSteg: FunctionComponent = () => {
                         </Normaltekst>
                     </div>
                     <VerticalSpacer rem={2} />
-                    <LagreKnapp onClick={startRefusjon} nettressurs={inntektsoppslag} type="hoved">
+                    <LagreKnapp lagreFunksjon={startRefusjon} type="hoved">
                         Start
                     </LagreKnapp>
                 </HvitBoks>
