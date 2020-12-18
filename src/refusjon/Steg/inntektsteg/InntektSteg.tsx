@@ -21,20 +21,18 @@ const InntektSteg: FunctionComponent = () => {
         <>
             <VerticalSpacer rem={2} />
             <div className={cls.className}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
-                    <div>
-                        <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)} mini>
-                            Synkroniser opplysninger med A-meldingen
-                        </LagreKnapp>
-                    </div>
-                </div>
+                <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
+
                 <VerticalSpacer rem={2} />
                 <Normaltekst>
                     Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke
                     stemmer må det endres der.
                 </Normaltekst>
-                <VerticalSpacer rem={1} />
+                <VerticalSpacer rem={1.5} />
+                <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)}>
+                    Synkroniser opplysninger med A-meldingen
+                </LagreKnapp>
+                <VerticalSpacer rem={1.5} />
                 <LesMerPanel åpneLabel="Hvilke opplysninger henter vi?" lukkLabel="Lukk">
                     lalala
                 </LesMerPanel>

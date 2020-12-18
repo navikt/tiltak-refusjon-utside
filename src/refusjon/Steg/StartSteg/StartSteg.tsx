@@ -1,8 +1,7 @@
-import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
-import HvitBoks from '../../../komponenter/HvitBoks';
 import LagreKnapp from '../../../komponenter/LagreKnapp';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../../messages';
@@ -27,8 +26,10 @@ const StartSteg: FunctionComponent = () => {
         <>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <HvitBoks>
-                    <Undertittel>Refusjon av {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}</Undertittel>
+                <div>
+                    <Innholdstittel>
+                        Refusjon av {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
+                    </Innholdstittel>
                     <VerticalSpacer rem={2} />
                     <Element>Periode</Element>
                     <Normaltekst>
@@ -66,7 +67,7 @@ const StartSteg: FunctionComponent = () => {
                     <LagreKnapp lagreFunksjon={startRefusjon} type="hoved">
                         Start
                     </LagreKnapp>
-                </HvitBoks>
+                </div>
             </div>
         </>
     );
