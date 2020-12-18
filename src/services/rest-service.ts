@@ -1,8 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
-import { Refusjon } from '../refusjon/refusjon';
 import { feilmelding } from '../feilkodemapping';
+import { Refusjon } from '../refusjon/refusjon';
+import { Status } from '../refusjon/status';
+import { Tiltak } from '../refusjon/tiltak';
 
 export const API_URL = '/api/arbeidsgiver';
 
@@ -48,9 +50,12 @@ export const godkjennRefusjon = async (refusjonId: string) => {
     return response.data;
 };
 
-export const useHentRefusjoner = (bedriftnummer: string) => {
-    const { data } = useSWR<Refusjon[]>(`/refusjon?bedriftNr=${bedriftnummer}`, swrConfig);
-    return data;
+export const useHentRefusjoner = (bedriftnummer: string, status?: Status, tiltakstype?: Tiltak) => {
+    const { data } = useSWR<Refusjon[]>(
+        `/refusjon?bedriftNr=${bedriftnummer}&status=${status || ''}&tiltakstype=${tiltakstype || ''}`,
+        swrConfig
+    );
+    return data!;
 };
 
 export const useHentRefusjon = (refusjonId: string) => {

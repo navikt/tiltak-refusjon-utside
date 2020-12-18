@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Suspense } from 'react';
+import OversiktSkeleton from '../../komponenter/OversiktSkeleton/OversiktSkeleton';
 import BEMHelper from '../../utils/bem';
 import { FilterProvider } from '../oversikt/FilterContext';
 import Filtermeny from '../oversikt/Filtermeny';
@@ -16,7 +17,9 @@ const OversiktSide: FunctionComponent = () => {
                         <Filtermeny />
                     </div>
                     <div className={cls.element('container')}>
-                        <Oversikt />
+                        <Suspense fallback={<OversiktSkeleton />}>
+                            <Oversikt />
+                        </Suspense>
                     </div>
                 </FilterProvider>
             </div>

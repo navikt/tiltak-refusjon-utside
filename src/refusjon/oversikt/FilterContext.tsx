@@ -7,7 +7,7 @@ export interface Filter {
     tiltakstype: Tiltak | undefined;
 }
 
-type FilterContextType = { filter: Filter; oppdaterFilter: (nyttFilter: Filter) => void };
+type FilterContextType = { filter: Filter; oppdaterFilter: (nyttFilter: Partial<Filter>) => void };
 
 const FilterContext = React.createContext<FilterContextType | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export const FilterProvider: FunctionComponent = (props) => {
         tiltakstype: undefined,
     });
 
-    const oppdaterFilter = (nyttFilter: Filter) => {
+    const oppdaterFilter = (nyttFilter: Partial<Filter>) => {
         setFilter({ ...filter, ...nyttFilter });
     };
 

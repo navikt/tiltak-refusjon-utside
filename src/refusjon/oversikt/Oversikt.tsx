@@ -18,26 +18,17 @@ const Oversikt: FunctionComponent = () => {
     const brukerContext = useInnloggetBruker();
     const { filter } = useFilter();
 
-    const refusjoner = useHentRefusjoner(brukerContext.valgtBedrift);
-
-    const filtereListe = () => {
-        const behandletType = refusjoner ? refusjoner.filter((element) => element.status === filter.status) : [];
-        if (filter.tiltakstype) {
-            return behandletType.filter((element) => element.tilskuddsgrunnlag.tiltakstype === filter.tiltakstype);
-        }
-        return behandletType;
-    };
+    const refusjoner = useHentRefusjoner(brukerContext.valgtBedrift, filter.status, filter.tiltakstype);
 
     const settKolonne = (input: string | number): ReactNode => <div className={cls.element('kolonne')}>{input}</div>;
-    const filtrerteRefusjoner = filtereListe();
 
     const history = useHistory();
 
     return (
         <div className={cls.className}>
             <LabelRad className={cls.className} />
-            {filtrerteRefusjoner && filtrerteRefusjoner.length > 0 ? (
-                filtrerteRefusjoner.map((ref) => (
+            {refusjoner.length > 0 ? (
+                refusjoner.map((ref) => (
                     <div
                         className={cls.element('rad')}
                         key={ref.id}
@@ -64,7 +55,7 @@ const Oversikt: FunctionComponent = () => {
                 ))
             ) : (
                 <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                    Det er ikke Registert noen refusjoner pa org. nr: {brukerContext.valgtBedrift}.
+                    Finner ingen refusjoner på organisasjonsnummer: {brukerContext.valgtBedrift}.
                 </Veilederpanel>
             )}
         </div>
