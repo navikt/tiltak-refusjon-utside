@@ -6,77 +6,61 @@ import { ReactComponent as Sykepenger } from '@/asset/image/sykepenger.svg';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import Utregningsrad from './Utregningsrad';
+import { Refusjon } from '../../refusjon';
 
 interface Props {
-    bruttolonn: number;
-    fratrekkFerie: number;
-    sykepenger: number;
-    sumLonnsgrunnlag: number;
-    satsFeriepenger: number;
-    feriepenger: number;
-    satsOtp: number;
-    belopOtp: number;
-    satsArbeidsgiveravgift: number;
-    arbeidsgiverAvgift: number;
-    sumRefusjonsgrunnlag: number;
-    refusjonsbeløp: number;
-    lonnstilskuddsprosent: number;
+    refusjon: Refusjon;
 }
 
-const Utregning: FunctionComponent<Props> = (props: Props) => {
+const Utregning: FunctionComponent<Props> = (props) => {
+    if (!props.refusjon.beregning) {
+        return null;
+    }
+
     return (
         <div>
-            <Utregningsrad labelIkon={<Pengesekken />} labelTekst="Brutto lønn i perioden" verdi={props.bruttolonn} />
             <Utregningsrad
-                labelIkon={<Stranden />}
-                labelTekst="Avviklede feriedager"
-                verdiOperator="-"
-                verdi={props.fratrekkFerie}
-            />
-            <Utregningsrad
-                labelIkon={<Sykepenger />}
-                labelTekst="Sykepenger"
-                verdiOperator="-"
-                verdi={props.sykepenger}
-            />
-            <Utregningsrad
-                labelTekst="Sum refusjonsgrunnlag lønnsutgifter"
-                verdiOperator="="
-                verdi={props.sumLonnsgrunnlag}
+                labelIkon={<Pengesekken />}
+                labelTekst="Brutto lønn i perioden"
+                verdi={props.refusjon.beregning.lønn}
                 borderTykk={true}
             />
             <Utregningsrad
                 labelIkon={<Stranden />}
                 labelTekst="Feriepenger"
-                labelSats={props.satsFeriepenger}
+                labelSats={props.refusjon.tilskuddsgrunnlag.feriepengerSats}
                 verdiOperator="+"
-                verdi={props.feriepenger}
+                verdi={props.refusjon.beregning.feriepenger}
             />
             <Utregningsrad
                 labelIkon={<Sparegris />}
                 labelTekst="Innskudd obligatorisk tjenestepensjon"
-                labelSats={props.satsOtp}
+                labelSats={props.refusjon.tilskuddsgrunnlag.otpSats}
                 verdiOperator="+"
-                verdi={props.belopOtp}
+                verdi={props.refusjon.beregning.tjenestepensjon}
             />
             <Utregningsrad
                 labelIkon={<Bygg />}
                 labelTekst="Arbeidsgiveravgift"
-                labelSats={props.satsArbeidsgiveravgift}
+                labelSats={props.refusjon.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
                 verdiOperator="+"
-                verdi={props.arbeidsgiverAvgift}
+                verdi={props.refusjon.beregning.arbeidsgiveravgift}
             />
-            <Utregningsrad labelTekst="Refusjonsgrunnlag" verdiOperator="=" verdi={props.sumRefusjonsgrunnlag} />
+            <Utregningsrad
+                labelTekst="Refusjonsgrunnlag"
+                verdiOperator="="
+                verdi={props.refusjon.beregning.sumUtgifter}
+            />
             <Utregningsrad
                 labelTekst="Lønnstilskuddsprosent"
                 verdiOperator="%"
                 ikkePenger
-                verdi={props.lonnstilskuddsprosent}
+                verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
             />
             <Utregningsrad
                 labelTekst="Refusjonsbeløp"
                 verdiOperator="="
-                verdi={props.refusjonsbeløp}
+                verdi={props.refusjon.beregning.refusjonsbeløp}
                 borderTykk={true}
             />
             <VerticalSpacer rem={1} />

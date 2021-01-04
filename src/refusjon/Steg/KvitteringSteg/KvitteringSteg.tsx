@@ -12,6 +12,8 @@ import { formatterPenger } from '../../../utils/PengeUtils';
 import './KvitteringSteg.less';
 import { tiltakstypeTekst } from '../../../messages';
 import { formatterPeriode } from '../../../utils/datoUtils';
+import FordelingOversikt from '../inntektsteg/fordelingOversikt/FordelingOversikt';
+import Utregning from '../oppsummeringSteg/Utregning';
 
 type Props = {};
 
@@ -52,7 +54,7 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
-                        Pengene vil bli utbetalt til konoten NAV har registrert på dere innen X virkedager.
+                        Pengene vil bli utbetalt til kontoen NAV har registrert på dere innen X virkedager.
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
 
@@ -73,8 +75,17 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
             </div>
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Se tidligere refusjoner for dette tiltaket">
-                Forrige periode: 15. januar til 15. april
+            <Ekspanderbartpanel tittel="Inntektsopplysninger">
+                <FordelingOversikt
+                    tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
+                    inntektsgrunnlag={refusjon.inntektsgrunnlag}
+                />
+            </Ekspanderbartpanel>
+
+            <VerticalSpacer rem={1} />
+
+            <Ekspanderbartpanel tittel="Utregning">
+                <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
         </div>
     );

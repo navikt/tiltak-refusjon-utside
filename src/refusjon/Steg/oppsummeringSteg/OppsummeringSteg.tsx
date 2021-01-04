@@ -14,6 +14,7 @@ import { formatterPeriode } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import './OppsummeringSteg.less';
 import Utregning from './Utregning';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 
 const cls = BEMHelper('oppsummering');
 
@@ -61,21 +62,7 @@ const OppsummeringSteg: FunctionComponent = () => {
                 Her kommer informasjon som bruker kan lese om.
             </LesMerPanel>
             <Ekspanderbartpanel tittel="Utregningen" apen={true}>
-                <Utregning
-                    bruttolonn={refusjon.beregning.lønn}
-                    fratrekkFerie={refusjon.beregning.feriepenger}
-                    sykepenger={0}
-                    sumLonnsgrunnlag={0}
-                    satsFeriepenger={refusjon.tilskuddsgrunnlag.feriepengerSats}
-                    feriepenger={refusjon.beregning.feriepenger}
-                    satsOtp={refusjon.tilskuddsgrunnlag.otpSats}
-                    belopOtp={refusjon.beregning.tjenestepensjon}
-                    satsArbeidsgiveravgift={refusjon.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
-                    arbeidsgiverAvgift={refusjon.beregning.arbeidsgiveravgift}
-                    sumRefusjonsgrunnlag={refusjon.beregning.sumUtgifter}
-                    lonnstilskuddsprosent={refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
-                    refusjonsbeløp={refusjon.beregning.refusjonsbeløp}
-                />
+                <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
             <div className={cls.element('summeringsboks')}>
                 <div className={cls.element('summering-ikon')}>
@@ -101,7 +88,7 @@ const OppsummeringSteg: FunctionComponent = () => {
             <div className={cls.element('bekreftelse', alertStripe ? 'ikkeBekreftet' : '')}>
                 <AlertStripeAdvarsel>Mangler bekreftelse på at opplysningene er korrekte.</AlertStripeAdvarsel>
             </div>
-            <Hovedknapp onClick={() => fullforeRefusjon()}>Fullfør</Hovedknapp>
+            <LagreKnapp lagreFunksjon={() => fullforeRefusjon()}>Fullfør</LagreKnapp>
         </>
     );
 };
