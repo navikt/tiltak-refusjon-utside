@@ -7,7 +7,7 @@ import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../../messages';
 import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
-import { formatterDato } from '../../../utils/datoUtils';
+import { formatterPeriode } from '../../../utils/datoUtils';
 import './StartSteg.less';
 
 const cls = BEMHelper('startsteg');
@@ -33,8 +33,10 @@ const StartSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                     <Element>Periode</Element>
                     <Normaltekst>
-                        {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} -{' '}
-                        {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddTom)}
+                        {formatterPeriode(
+                            refusjon.tilskuddsgrunnlag.tilskuddFom,
+                            refusjon.tilskuddsgrunnlag.tilskuddTom
+                        )}
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <Element>Deltaker</Element>

@@ -3,7 +3,7 @@ import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../refusjon';
 
 import FordelingGraphProvider from './grafiskfremvisning/FordelingGraphProvider';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { formatterDatoen } from '../../../../utils/datoUtils';
+import { formatterPeriode } from '../../../../utils/datoUtils';
 import BEMHelper from '../../../../utils/bem';
 
 interface Props {
@@ -25,8 +25,11 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                     <div className={cls.element('inntektslabel')}>
                         <Element>Periode med lønnstilskudd</Element>
                         <Normaltekst>
-                            {formatterDatoen(props.tilskuddsgrunnlag.tilskuddFom, 'DD.MMM')} -{' '}
-                            {formatterDatoen(props.tilskuddsgrunnlag.tilskuddTom, 'DD.MMM')}
+                            {formatterPeriode(
+                                props.tilskuddsgrunnlag.tilskuddFom,
+                                props.tilskuddsgrunnlag.tilskuddTom,
+                                'DD.MMM'
+                            )}
                         </Normaltekst>
                     </div>
                     {props.inntektsgrunnlag.inntekter.map((inntekt, index) => {
@@ -34,8 +37,7 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                             <div className={cls.element('inntektslabel')} key={index}>
                                 <Element>Inntekt</Element>
                                 <Normaltekst>
-                                    {formatterDatoen(inntekt.inntektFordelesFom, 'DD.MMM')} -
-                                    {formatterDatoen(inntekt.inntektFordelesTom, 'DD.MMM')}
+                                    {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom, 'DD.MMM')}
                                 </Normaltekst>
                             </div>
                         );

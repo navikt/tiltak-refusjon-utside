@@ -6,7 +6,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../utils/bem';
-import { formatterDato } from '../../../utils/datoUtils';
+import { formatterPeriode } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import { Refusjon } from '../../refusjon';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
@@ -33,9 +33,12 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                     <KalenderIkon />
                 </span>
                 <b>Periode:</b>{' '}
-                <span>{`${formatterDato(props.refusjon.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
-                    props.refusjon.tilskuddsgrunnlag.tilskuddTom
-                )}`}</span>
+                <span>
+                    {formatterPeriode(
+                        props.refusjon.tilskuddsgrunnlag.tilskuddFom,
+                        props.refusjon.tilskuddsgrunnlag.tilskuddTom
+                    )}
+                </span>
             </div>
 
             <div className={cls.element('rad')}>
