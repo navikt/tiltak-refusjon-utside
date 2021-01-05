@@ -7486,10 +7486,10 @@ nav-frontend-js-utils@^1.0.15:
   dependencies:
     lodash.throttle "^4.1.1"
 
-nav-frontend-knapper-style@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/nav-frontend-knapper-style/-/nav-frontend-knapper-style-1.0.6.tgz#3e811abbc854bfb676564e97c5983f9b65e4b2d0"
-  integrity sha512-kf0UXJVQ/bdM2vl0lExiZ75SPU8HiAkLqK9kGolsZoLhT8+A0ffHxeTge9DwnLMFGxhSj4Q5yjw9DfmPVciYtg==
+nav-frontend-knapper-style@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/nav-frontend-knapper-style/-/nav-frontend-knapper-style-1.0.11.tgz#0b3bcf75e84fcde714d6dda9ec47b417c7cecc5b"
+  integrity sha512-xKA0qx2RmkX+P5sNO94HgM2joP7d8zkwgG54dCzcYMqhiK1hx+Sa3MZSeLlTj7e/X8g3+1vh+0lttw0ZJKtiEg==
 
 nav-frontend-knapper@^2.0.18:
   version "2.0.18"
@@ -7530,6 +7530,16 @@ nav-frontend-stegindikator@^0.0.65:
   version "0.0.65"
   resolved "https://registry.yarnpkg.com/nav-frontend-stegindikator/-/nav-frontend-stegindikator-0.0.65.tgz#792d5b981378bdea4f58f55bd22d56bb8c9df8eb"
   integrity sha512-IMjE4z7WUTMT/o7eK+1EtBClNe/HUqVb7l92ZZrqwTmbxJ4SzRQZ+xYb7aKTMmNsLX/qTDTf8lt5Qa/B0v5FFw==
+
+nav-frontend-toggle-style@^0.0.46:
+  version "0.0.46"
+  resolved "https://registry.yarnpkg.com/nav-frontend-toggle-style/-/nav-frontend-toggle-style-0.0.46.tgz#be25d69d51322cbd18c4c3d0402dda64025ea7d1"
+  integrity sha512-5ejb3YhF3tqLHoA+PZntPmF+H6KpoysuaFfGauKJjTw7yuch6IPXtyZ2rY22LYXgRgFT3f62XaNTpDG6cuSsHA==
+
+nav-frontend-toggle@^0.0.57:
+  version "0.0.57"
+  resolved "https://registry.yarnpkg.com/nav-frontend-toggle/-/nav-frontend-toggle-0.0.57.tgz#d94fe016cbbcab89508c100f8467b877f7dbd9a0"
+  integrity sha512-bozPtfSFR5PnZHhA5DGC4R/CKY4bmad8j8/sjTcHMaBW4nHZzCwhka2+BWhIH03O+TjG5bETzFOo0CWDmwOXdA==
 
 nav-frontend-typografi-style@^1.0.31:
   version "1.0.31"

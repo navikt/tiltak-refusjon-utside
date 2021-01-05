@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../refusjon';
-
-import FordelingGraphProvider from './grafiskfremvisning/FordelingGraphProvider';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { formatterPeriode } from '../../../../utils/datoUtils';
+import { ToggleGruppe, ToggleKnapp } from 'nav-frontend-skjema';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import VerticalSpacer from '../../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../../utils/bem';
+import { formatterDato, formatterPeriode } from '../../../../utils/datoUtils';
+import { formatterPenger } from '../../../../utils/PengeUtils';
+import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../refusjon';
+import FordelingGraphProvider from './grafiskfremvisning/FordelingGraphProvider';
 
 interface Props {
     inntektsgrunnlag?: Inntektsgrunnlag;
@@ -13,12 +15,19 @@ interface Props {
 
 const cls = BEMHelper('fordelinggraph');
 
+enum Visning {
+    'Graf' = 'Graf',
+    'Liste' = 'Liste',
+}
+
 const FordelingOversikt: FunctionComponent<Props> = (props) => {
+    const [visning, setVisning] = useState<Visning>(Visning.Graf);
+
     if (!props.inntektsgrunnlag) {
         return null;
     }
 
-    return (
+    const graf = (
         <>
             <div className={cls.element('fordelingsOversikt')}>
                 <div className={cls.element('inntektsKolonne')}>
@@ -48,6 +57,46 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                     inntektsgrunnlag={props.inntektsgrunnlag}
                 />
             </div>
+        </>
+    );
+
+    const listeInntekter = props.inntektsgrunnlag.inntekter.map((inntekt) => {
+        return (
+            <li style={{ marginBottom: '0.5rem' }}>
+                Inntekt rapportert for {formatterDato(inntekt.måned, 'MMMM')}: {formatterPenger(inntekt.beløp)} <br />{' '}
+                Opptjeningsperiode:{' '}
+                {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
+                    ? formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
+                    : `ikke oppgitt (inntekt fordeles for perioden ${formatterPeriode(
+                          inntekt.inntektFordelesFom,
+                          inntekt.inntektFordelesTom
+                      )})`}
+            </li>
+        );
+    });
+
+    return (
+        <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <Undertittel>Slik fordeler inntektene seg</Undertittel>
+                </div>
+                <div>
+                    <ToggleGruppe name="visning" onChange={(event: any) => setVisning(event.currentTarget.value)}>
+                        <ToggleKnapp value={Visning.Graf} checked={visning === Visning.Graf}>
+                            Graf
+                        </ToggleKnapp>
+                        <ToggleKnapp value={Visning.Liste} checked={visning === Visning.Liste}>
+                            Liste
+                        </ToggleKnapp>
+                    </ToggleGruppe>
+                </div>
+            </div>
+
+            <VerticalSpacer rem={1} />
+
+            {visning === Visning.Graf && graf}
+            {visning === Visning.Liste && <ul>{listeInntekter}</ul>}
         </>
     );
 };

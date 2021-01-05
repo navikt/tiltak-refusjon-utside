@@ -1,4 +1,4 @@
-import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import LagreKnapp from '../../../komponenter/LagreKnapp';
@@ -42,16 +42,6 @@ const InntektSteg: FunctionComponent = () => {
                 </LesMerPanel>
                 <LonnsOpplysninger refusjon={refusjon} />
 
-                <VerticalSpacer rem={2} />
-
-                <Undertittel>Slik fordeler inntektene seg</Undertittel>
-                <VerticalSpacer rem={1} />
-                <LesMerPanel
-                    åpneLabel="Hvordan beregner vi lønnsintekter som er opparbeidet utenfor perioden?"
-                    lukkLabel="Lukk"
-                >
-                    lalala
-                </LesMerPanel>
                 <VerticalSpacer rem={2} />
 
                 <FordelingOversikt
