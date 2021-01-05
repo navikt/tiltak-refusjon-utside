@@ -1,7 +1,7 @@
 import {
     DatoKoordinater,
     Inntekt,
-} from '../refusjon/Steg/inntektsteg/fordelingOversikt/grafiskfremvisning/fordelingTypes';
+} from '../refusjon/Steg/InntektSteg/fordelingOversikt/grafiskfremvisning/fordelingTypes';
 import moment from 'moment';
 import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../refusjon/refusjon';
 import { getAntallMndTilSVGGrid, getEnheterMellomStandardFormat } from './datoUtils';

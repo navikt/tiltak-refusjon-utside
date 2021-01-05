@@ -8,7 +8,7 @@ import HvitBoks from '../../komponenter/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import InntektSteg from '../Steg/inntektsteg/InntektSteg';
+import InntektSteg from '../Steg/InntektSteg/InntektSteg';
 import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/oppsummeringSteg/OppsummeringSteg';
 import StartSteg from '../Steg/StartSteg/StartSteg';
