@@ -11,6 +11,7 @@ export interface Refusjon {
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     inntektsgrunnlag?: Inntektsgrunnlag;
     beregning?: Beregning;
+    fristForGodkjenning: string;
 }
 
 export interface Tilskuddsgrunnlag {
