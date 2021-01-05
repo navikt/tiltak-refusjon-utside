@@ -2,7 +2,6 @@ import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
 import { ReactComponent as Pengesekken } from '@/asset/image/pengesekkdollar.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
-import { ReactComponent as Sykepenger } from '@/asset/image/sykepenger.svg';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import Utregningsrad from './Utregningsrad';

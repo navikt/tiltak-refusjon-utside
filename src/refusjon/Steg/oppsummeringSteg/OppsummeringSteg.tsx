@@ -1,7 +1,6 @@
 import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
