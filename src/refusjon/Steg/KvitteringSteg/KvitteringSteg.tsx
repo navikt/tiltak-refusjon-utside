@@ -12,7 +12,7 @@ import { formatterPenger } from '../../../utils/PengeUtils';
 import './KvitteringSteg.less';
 import { tiltakstypeTekst } from '../../../messages';
 import { formatterPeriode } from '../../../utils/datoUtils';
-import Utregning from '../oppsummeringSteg/Utregning';
+import Utregning from '../OppsummeringSteg/Utregning';
 import FordelingOversikt from '../InntektSteg/fordelingOversikt/FordelingOversikt';
 
 type Props = {};
