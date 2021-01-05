@@ -11,6 +11,7 @@ import { storForbokstav } from '../../utils/stringUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
+import { statusTekst } from '../../messages';
 
 const cls = BEMHelper('oversikt');
 
@@ -50,7 +51,7 @@ const Oversikt: FunctionComponent = () => {
                         </Kolonne>
                         <Kolonne>{formatterDato(refusjon.fristForGodkjenning)}</Kolonne>
                         <Kolonne>
-                            <EtikettInfo>{storForbokstav(refusjon.status)}</EtikettInfo>
+                            <EtikettInfo>{storForbokstav(statusTekst[refusjon.status])}</EtikettInfo>
                         </Kolonne>
                     </div>
                 ))

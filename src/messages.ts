@@ -1,7 +1,18 @@
 import { Tiltak } from './refusjon/tiltak';
+import { Status } from './refusjon/status';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
-    [Tiltak.MIDLERTIDIG_LØNNSTILSKUDD]: 'midlertidig lønnstilskudd',
-    [Tiltak.VARIG_LØNNSTILSKUDD]: 'varig lønnstilskudd',
-    [Tiltak.MENTOR]: 'mentor',
+    MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
+    VARIG_LONNSTILSKUDD: 'varig lønnstilskudd',
+    MENTOR: 'mentor',
+};
+
+export const statusTekst: { [key in Status]: string } = {
+    AVSLÅTT: 'avslått',
+    BEHANDLET: 'behandlet',
+    BEREGNET: 'beregnet',
+    KRAV_FREMMET: 'krav fremmet',
+    UTBETALT: 'utbetalt',
+    UTGÅTT: 'utgått',
+    NY: 'ny',
 };
