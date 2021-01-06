@@ -27,16 +27,16 @@ const Filtermeny: FunctionComponent = () => {
                         onChange={() => oppdaterFilter({ status: Status.BEREGNET })}
                     />
                     <Radio
-                        label={storForbokstav(statusTekst[Status.BEHANDLET])}
-                        checked={filter.status === Status.BEHANDLET}
-                        name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.BEHANDLET })}
-                    />
-                    <Radio
                         label={storForbokstav(statusTekst[Status.KRAV_FREMMET])}
                         checked={filter.status === Status.KRAV_FREMMET}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.KRAV_FREMMET })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.BEHANDLET])}
+                        checked={filter.status === Status.BEHANDLET}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.BEHANDLET })}
                     />
                     <Radio
                         label={storForbokstav(statusTekst[Status.AVSLÅTT])}

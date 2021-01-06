@@ -62,3 +62,8 @@ export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
     return data!;
 };
+
+export const useHentTidligereRefusjoner = (refusjonId: string) => {
+    const { data } = useSWR<Refusjon[]>(`/refusjon/${refusjonId}/tidligere-refusjoner`, swrConfig);
+    return data!;
+};

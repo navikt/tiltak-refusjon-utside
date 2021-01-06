@@ -14,6 +14,7 @@ import { tiltakstypeTekst } from '../../../messages';
 import { formatterPeriode } from '../../../utils/datoUtils';
 import Utregning from '../OppsummeringSteg/Utregning';
 import FordelingOversikt from '../InntektSteg/fordelingOversikt/FordelingOversikt';
+import TidligereRefusjonerForAvtale from '../../TidligereRefusjonerForAvtale/TidligereRefusjonerForAvtale';
 
 type Props = {};
 
@@ -87,6 +88,9 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
             <Ekspanderbartpanel tittel="Utregning" apen={true}>
                 <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
+
+            <VerticalSpacer rem={3} />
+            <TidligereRefusjonerForAvtale refusjonId={refusjon.id} />
         </div>
     );
 };
