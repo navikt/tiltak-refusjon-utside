@@ -3,8 +3,9 @@ import BEMHelper from '../../../../../utils/bem';
 import debounce from 'lodash.debounce';
 import './fordelingGraph.less';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import moment from 'moment';
 import { Enhet, Inntekt, PositionInfo } from './fordelingTypes';
+import { formatterDato, formatterPeriode } from '../../../../../utils/datoUtils';
+import { formatterPenger } from '../../../../../utils/PengeUtils';
 
 interface Props {
     svgWidth: number;
@@ -40,12 +41,10 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                 return (
                     <ul className={cls.element('label-list')} key={dex}>
                         <li>
-                            <Normaltekst>
-                                {moment(i.fraDato).format('MM.DD')}-{moment(i.tilDato).format('DD-MM')}
-                            </Normaltekst>
+                            <Normaltekst>{formatterPeriode(i.fraDato, i.tilDato, 'DD.MM')}</Normaltekst>
                         </li>
                         <li>
-                            <Normaltekst>{i.belop}kr</Normaltekst>
+                            <Normaltekst>{formatterPenger(i.belop)}</Normaltekst>
                         </li>
                     </ul>
                 );
@@ -71,7 +70,9 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                     className={cls.element('infolabel')}
                 >
                     <Element className={cls.element('boldFont')}>Dato</Element>
-                    <Normaltekst className={cls.element('boldFont')}>{(position && position.dato) || ''}</Normaltekst>
+                    <Normaltekst className={cls.element('boldFont')}>
+                        {(position && position.dato && formatterDato(position.dato)) || ''}
+                    </Normaltekst>
                     {position && position.inntektLabel}
                 </label>
                 <figcaption>

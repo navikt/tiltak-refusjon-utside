@@ -1,7 +1,7 @@
 import {
     DatoKoordinater,
     Inntekt,
-} from '../refusjon/Steg/inntektsteg/fordelingOversikt/grafiskfremvisning/fordelingTypes';
+} from '../refusjon/Steg/InntektSteg/fordelingOversikt/grafiskfremvisning/fordelingTypes';
 import moment from 'moment';
 import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../refusjon/refusjon';
 import { getAntallMndTilSVGGrid, getEnheterMellomStandardFormat } from './datoUtils';
@@ -58,7 +58,7 @@ export const getGridMap = (datoKordinater: DatoKoordinater[], inntekt: Inntekt[]
 export const getInntekt = (inntektsgrunnlag: Inntektsgrunnlag, datoKoordinater: DatoKoordinater[]) => {
     return inntektsgrunnlag.inntekter.map((inntekt, index) => {
         const inntekter = datoKoordinater.filter(
-            (d) => d.dato === inntekt.opptjeningsperiodeTom || d.dato === inntekt.opptjeningsperiodeFom
+            (d) => d.dato === inntekt.inntektFordelesFom || d.dato === inntekt.inntektFordelesTom
         );
         if (!inntekter[1]) {
             const setsluttDato = datoKoordinater.find(

@@ -6,17 +6,7 @@ moment.locale('nb');
 
 export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
 
-export const formatterDato = (dato: string) => {
-    try {
-        const formattertDato = moment(dato).format(NORSK_DATO_FORMAT);
-        return !formattertDato.includes('NaN') ? formattertDato : dato;
-    } catch (e) {
-        // Kunne ikke caste stringen til dato.
-        return dato;
-    }
-};
-
-export const formatterDatoen = (dato: string, format: string) => {
+export const formatterDato = (dato: string, format: string = NORSK_DATO_FORMAT) => {
     try {
         const formattertDato = moment(dato).format(format);
         return !formattertDato.includes('NaN') ? formattertDato : dato;
@@ -24,6 +14,10 @@ export const formatterDatoen = (dato: string, format: string) => {
         // Kunne ikke caste stringen til dato.
         return dato;
     }
+};
+
+export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
+    return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
 };
 
 export const getMåned = (dato: string) => {

@@ -1,7 +1,6 @@
 import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
@@ -10,10 +9,11 @@ import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { godkjennRefusjon, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
-import { formatterDato } from '../../../utils/datoUtils';
+import { formatterPeriode } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import './OppsummeringSteg.less';
 import Utregning from './Utregning';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 
 const cls = BEMHelper('oppsummering');
 
@@ -61,21 +61,7 @@ const OppsummeringSteg: FunctionComponent = () => {
                 Her kommer informasjon som bruker kan lese om.
             </LesMerPanel>
             <Ekspanderbartpanel tittel="Utregningen" apen={true}>
-                <Utregning
-                    bruttolonn={refusjon.beregning.lønn}
-                    fratrekkFerie={refusjon.beregning.feriepenger}
-                    sykepenger={0}
-                    sumLonnsgrunnlag={0}
-                    satsFeriepenger={refusjon.tilskuddsgrunnlag.feriepengerSats}
-                    feriepenger={refusjon.beregning.feriepenger}
-                    satsOtp={refusjon.tilskuddsgrunnlag.otpSats}
-                    belopOtp={refusjon.beregning.tjenestepensjon}
-                    satsArbeidsgiveravgift={refusjon.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
-                    arbeidsgiverAvgift={refusjon.beregning.arbeidsgiveravgift}
-                    sumRefusjonsgrunnlag={refusjon.beregning.sumUtgifter}
-                    lonnstilskuddsprosent={refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
-                    refusjonsbeløp={refusjon.beregning.refusjonsbeløp}
-                />
+                <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
             <div className={cls.element('summeringsboks')}>
                 <div className={cls.element('summering-ikon')}>
@@ -83,26 +69,25 @@ const OppsummeringSteg: FunctionComponent = () => {
                 </div>
                 <div className={cls.element('summering-tekst')}>
                     <Element>Dere søker om å få utbetalt</Element>
-                    <VerticalSpacer rem={0.25} />
-                    {/* <Undertittel>{refusjon.refusjonPrMåned + ' '}kr</Undertittel> */}
-                    <VerticalSpacer rem={0.25} />
+                    <VerticalSpacer rem={0.5} />
                     <Normaltekst>
-                        <b>{formatterPenger(refusjon.beregning.refusjonsbeløp)}</b> For perioden{' '}
-                        {`${formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} - ${formatterDato(
+                        <b>{formatterPenger(refusjon.beregning.refusjonsbeløp)}</b> for perioden{' '}
+                        {formatterPeriode(
+                            refusjon.tilskuddsgrunnlag.tilskuddFom,
                             refusjon.tilskuddsgrunnlag.tilskuddTom
-                        )}`}
+                        )}
                     </Normaltekst>
                 </div>
             </div>
             <BekreftCheckboksPanel
                 onChange={() => bekrefterSamtykke(!samtykker)}
                 checked={samtykker}
-                label="Jeg Bekrefter at Joe Biden blir USA neste president."
+                label="Jeg bekrefter at opplysningene er korrekte."
             />
             <div className={cls.element('bekreftelse', alertStripe ? 'ikkeBekreftet' : '')}>
-                <AlertStripeAdvarsel>Mangler bekreftelse på at Joe Biden blir USA neste president.</AlertStripeAdvarsel>
+                <AlertStripeAdvarsel>Mangler bekreftelse på at opplysningene er korrekte.</AlertStripeAdvarsel>
             </div>
-            <Hovedknapp onClick={() => fullforeRefusjon()}>Fullfør</Hovedknapp>
+            <LagreKnapp lagreFunksjon={() => fullforeRefusjon()}>Fullfør</LagreKnapp>
         </>
     );
 };

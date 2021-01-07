@@ -10,6 +10,11 @@ import { useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import './KvitteringSteg.less';
+import { tiltakstypeTekst } from '../../../messages';
+import { formatterPeriode } from '../../../utils/datoUtils';
+import Utregning from '../OppsummeringSteg/Utregning';
+import FordelingOversikt from '../InntektSteg/fordelingOversikt/FordelingOversikt';
+import TidligereRefusjonerForAvtale from '../../TidligereRefusjonerForAvtale/TidligereRefusjonerForAvtale';
 
 type Props = {};
 
@@ -34,16 +39,23 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
                     <CheckIkon />
                 </div>
                 <div>
-                    <Element>Du har bedt om refusjon for Navn Navnesen </Element>
+                    <Element>
+                        Du har søkt om refusjon for {refusjon.tilskuddsgrunnlag.deltakerFornavn}{' '}
+                        {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
+                    </Element>
+                    <VerticalSpacer rem={0.5} />
                     <Normaltekst>
-                        Virksomheten vil få {formatterPenger(refusjon.beregning.refusjonsbeløp)} i refusjon av
-                        midlertidig lønnstilksudd for perioden 15. april til 15. juli.
+                        Virksomheten vil få {formatterPenger(refusjon.beregning.refusjonsbeløp)} i refusjon av{' '}
+                        {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]} for perioden{' '}
+                        {formatterPeriode(
+                            refusjon.tilskuddsgrunnlag.tilskuddFom,
+                            refusjon.tilskuddsgrunnlag.tilskuddTom
+                        )}
+                        .
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
-                        Pengene vil bli utbetalt til konoten NAV har registrert på dere innen X virkedager. Det vil bli
-                        trukket skatt av pengene, så beløpet vil bli lavere{' '}
-                        {formatterPenger(refusjon.beregning.refusjonsbeløp)}.
+                        Pengene vil bli utbetalt til kontoen NAV har registrert på dere innen X virkedager.
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
 
@@ -58,15 +70,27 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
                     <InfoIkon />
                 </div>
                 <div>
-                    <Element>Husk at dere må ... samme prosess når neste periode er fullført </Element>
+                    <Element>Husk at dere må ... samme prosess når neste periode er fullført</Element>
                     <Normaltekst>Dere vil da få et varsel bla bla bla</Normaltekst>
                 </div>
             </div>
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Se tidligere refusjoner for dette tiltaket">
-                Forrige periode: 15. januar til 15. april (?????)
+            <Ekspanderbartpanel tittel="Inntektsopplysninger" apen={true}>
+                <FordelingOversikt
+                    tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
+                    inntektsgrunnlag={refusjon.inntektsgrunnlag}
+                />
             </Ekspanderbartpanel>
+
+            <VerticalSpacer rem={1} />
+
+            <Ekspanderbartpanel tittel="Utregning" apen={true}>
+                <Utregning refusjon={refusjon} />
+            </Ekspanderbartpanel>
+
+            <VerticalSpacer rem={3} />
+            <TidligereRefusjonerForAvtale refusjonId={refusjon.id} />
         </div>
     );
 };

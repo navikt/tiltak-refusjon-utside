@@ -5,12 +5,13 @@ export interface Refusjon {
     id: string;
     bedriftNr: string;
     deltakerFnr: string;
-    godkjentAvArbeidsgiver?: boolean;
-    godkjentAvSaksbehandler?: boolean;
+    godkjentAvArbeidsgiver?: string;
+    godkjentAvSaksbehandler?: string;
     status: Status;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     inntektsgrunnlag?: Inntektsgrunnlag;
     beregning?: Beregning;
+    fristForGodkjenning: string;
 }
 
 export interface Tilskuddsgrunnlag {

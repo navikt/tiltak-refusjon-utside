@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
-import HvitBoks from '../../../komponenter/HvitBoks';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
 import './StartSteg.less';
-import { Nettressurs, Status } from '../../../nettressurs';
-import LagreKnapp from '../../../komponenter/LagreKnapp';
 import RefusjonsInfo from './RefusjonsInfo';
+import HvitBoks from '../../../komponenter/HvitBoks';
 import ForDuBegynnerInfo from './ForDuBegynnerInfo';
 
 const cls = BEMHelper('startsteg');
@@ -22,23 +21,10 @@ const StartSteg: FunctionComponent<Props> = (props) => {
     const refusjon = useHentRefusjon(refusjonId);
     const history = useHistory();
 
-    const [inntektsoppslag, setInntektsoppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
-
     const startRefusjon = async () => {
-        try {
-            setInntektsoppslag({ status: Status.LasterInn });
-            await gjorInntektsoppslag(refusjonId);
-            setInntektsoppslag({ status: Status.Sendt });
-        } catch (e) {
-            setInntektsoppslag({ status: Status.Feil, error: e.feilmelding ?? 'Uventet feil' });
-        }
+        await gjorInntektsoppslag(refusjonId);
+        history.push({ pathname: `/refusjon/${refusjonId}/inntekt`, search: window.location.search });
     };
-
-    useEffect(() => {
-        if (inntektsoppslag.status === Status.Sendt) {
-            history.push({ pathname: `/refusjon/${refusjonId}/inntekt`, search: window.location.search });
-        }
-    }, [history, inntektsoppslag, refusjonId]);
 
     return (
         <>
@@ -51,7 +37,7 @@ const StartSteg: FunctionComponent<Props> = (props) => {
                         <>
                             <ForDuBegynnerInfo />
                             <VerticalSpacer rem={2} />
-                            <LagreKnapp onClick={startRefusjon} nettressurs={inntektsoppslag} type="hoved">
+                            <LagreKnapp lagreFunksjon={startRefusjon} type="hoved">
                                 Start
                             </LagreKnapp>
                         </>

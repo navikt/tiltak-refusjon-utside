@@ -3,78 +3,87 @@ import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent } from 'react';
 import { Status } from '../status';
 import { Tiltak } from '../tiltak';
-import { Filter, useFilter } from './FilterContext';
+import { useFilter } from './FilterContext';
+import { statusTekst } from '../../messages';
+import { storForbokstav } from '../../utils/stringUtils';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
-
-    const getNyttStatusFilter = (statusFilter: Status): Filter => ({
-        status: statusFilter,
-        tiltakstype: filter.tiltakstype,
-    });
-    const getNyttTiltakFilter = (tiltakFilter: Tiltak | undefined): Filter => ({
-        status: filter.status,
-        tiltakstype: tiltakFilter,
-    });
-
-    const setFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-        switch (event.target.name) {
-            case Status.NY:
-                return oppdaterFilter(getNyttStatusFilter(Status.NY));
-            case Status.BEHANDLET:
-                return oppdaterFilter(getNyttStatusFilter(Status.BEHANDLET));
-            case Tiltak.MENTOR:
-                return oppdaterFilter(getNyttTiltakFilter(Tiltak.MENTOR));
-            case Tiltak.MIDLERTIDIG_LØNNSTILSKUDD:
-                return oppdaterFilter(getNyttTiltakFilter(Tiltak.MIDLERTIDIG_LØNNSTILSKUDD));
-            case Tiltak.VARIG_LØNNSTILSKUDD:
-                return oppdaterFilter(getNyttTiltakFilter(Tiltak.VARIG_LØNNSTILSKUDD));
-            case 'ALLE':
-                return oppdaterFilter(getNyttTiltakFilter(undefined));
-            default:
-                return oppdaterFilter({ status: Status.NY, tiltakstype: undefined });
-        }
-    };
 
     return (
         <>
             <Ekspanderbartpanel tittel="Status" apen={true}>
                 <RadioGruppe legend="">
                     <Radio
-                        label={'Ubehandlet'}
+                        label={storForbokstav(statusTekst[Status.NY])}
                         checked={filter.status === Status.NY}
-                        name={Status.NY}
-                        onChange={setFilter}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.NY })}
                     />
                     <Radio
-                        label={'Behandlet'}
+                        label={storForbokstav(statusTekst[Status.BEREGNET])}
+                        checked={filter.status === Status.BEREGNET}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.BEREGNET })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.KRAV_FREMMET])}
+                        checked={filter.status === Status.KRAV_FREMMET}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.KRAV_FREMMET })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.BEHANDLET])}
                         checked={filter.status === Status.BEHANDLET}
-                        name={Status.BEHANDLET}
-                        onChange={setFilter}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.BEHANDLET })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.AVSLÅTT])}
+                        checked={filter.status === Status.AVSLÅTT}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.AVSLÅTT })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.UTBETALT])}
+                        checked={filter.status === Status.UTBETALT}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.UTBETALT })}
+                    />
+                    <Radio
+                        label={storForbokstav(statusTekst[Status.UTGÅTT])}
+                        checked={filter.status === Status.UTGÅTT}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.UTGÅTT })}
                     />
                 </RadioGruppe>
             </Ekspanderbartpanel>
             <div style={{ marginTop: '1.25rem' }} />
             <Ekspanderbartpanel tittel="Tiltakstype" apen={true}>
                 <RadioGruppe legend="">
-                    <Radio label={'Alle'} name="ALLE" checked={filter.tiltakstype === undefined} onChange={setFilter} />
+                    <Radio
+                        label={'Alle'}
+                        name="ALLE"
+                        checked={filter.tiltakstype === undefined}
+                        onChange={() => oppdaterFilter({ tiltakstype: undefined })}
+                    />
                     <Radio
                         label={'Mentor'}
                         name={Tiltak.MENTOR}
                         checked={filter.tiltakstype === Tiltak.MENTOR}
-                        onChange={setFilter}
+                        onChange={() => oppdaterFilter({ tiltakstype: Tiltak.MENTOR })}
                     />
                     <Radio
                         label={'Midlertidig lønnstilskudd'}
                         checked={filter.tiltakstype === Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
                         name={Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
-                        onChange={setFilter}
+                        onChange={() => oppdaterFilter({ tiltakstype: Tiltak.MIDLERTIDIG_LØNNSTILSKUDD })}
                     />
                     <Radio
                         label={'Varig lønnstilskudd'}
                         name={Tiltak.VARIG_LØNNSTILSKUDD}
                         checked={filter.tiltakstype === Tiltak.VARIG_LØNNSTILSKUDD}
-                        onChange={setFilter}
+                        onChange={() => oppdaterFilter({ tiltakstype: Tiltak.VARIG_LØNNSTILSKUDD })}
                     />
                 </RadioGruppe>
             </Ekspanderbartpanel>
