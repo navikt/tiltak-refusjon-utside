@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { getEnheterMellomStandardFormat } from '../../../../../utils/datoUtils';
+import { getEnheterMellomStandardFormat, sjekkOmSluttDatoErSatt } from '../../../../../utils/datoUtils';
 import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../../refusjon';
 import {
     getDatoer,
@@ -28,7 +28,9 @@ const FordelingGraphProvider: FunctionComponent<Props> = (props) => {
         props.inntektsgrunnlag.inntekter.map((inntekt) => moment(inntekt.inntektFordelesFom))
     );
     const sisteInntektsDato = moment.max(
-        props.inntektsgrunnlag.inntekter.map((inntekt) => moment(inntekt.inntektFordelesTom))
+        props.inntektsgrunnlag.inntekter.map((inntekt) =>
+            sjekkOmSluttDatoErSatt(moment(inntekt.inntektFordelesTom), moment(inntekt.inntektFordelesFom))
+        )
     );
 
     const datoerTilskuddsGrunnlag = getEnheterMellomStandardFormat(tilskuddFom, tilskuddTom);

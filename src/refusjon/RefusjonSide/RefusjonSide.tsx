@@ -13,6 +13,7 @@ import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/oppsummeringSteg/OppsummeringSteg';
 import StartSteg from '../Steg/StartSteg/StartSteg';
 import './RefusjonSide.less';
+import moment from 'moment';
 
 const cls = BEMHelper('refusjonside');
 
@@ -21,12 +22,13 @@ const RefusjonSide: FunctionComponent = () => {
     const history = useHistory();
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const kanStarteRefusjon = moment(refusjon.tilskuddsgrunnlag.tilskuddTom).diff(moment().format('YYYY-MM-DD')) <= 0;
 
     const alleSteg = [
         {
             path: 'start',
             label: 'Start',
-            komponent: <StartSteg />,
+            komponent: <StartSteg kanStarteRefusjon={kanStarteRefusjon} />,
             disabled: refusjon.inntektsgrunnlag !== null,
         },
         {
@@ -103,7 +105,9 @@ const RefusjonSide: FunctionComponent = () => {
                                 </Route>
                             ))}
                     </HvitBoks>
-                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
+                    {kanStarteRefusjon && (
+                        <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
+                    )}
                 </div>
             </div>
         </>
