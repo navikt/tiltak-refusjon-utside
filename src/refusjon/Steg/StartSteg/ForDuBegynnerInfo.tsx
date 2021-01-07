@@ -6,7 +6,7 @@ import BEMHelper from '../../../utils/bem';
 const ForDuBegynnerInfo: FunctionComponent = () => {
     const cls = BEMHelper('startsteg');
     return (
-        <div className={cls.element('infoboks')} role="comment" aria-label="informasjon rundt refusjon">
+        <div className={cls.element('infoboks')} role="note" aria-label="informasjon rundt refusjon">
             <Systemtittel role="heading">Før du begynner</Systemtittel>
             <VerticalSpacer rem={2} />
             <Element id="Slik_fungerer_det">Slik fungerer det</Element>

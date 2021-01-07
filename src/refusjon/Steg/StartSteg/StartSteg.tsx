@@ -1,4 +1,3 @@
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
