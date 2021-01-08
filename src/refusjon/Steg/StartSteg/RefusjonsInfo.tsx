@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { tiltakstypeTekst } from '../../../messages';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { formatterDato } from '../../../utils/datoUtils';
+import { formatterDato, formatterPeriode } from '../../../utils/datoUtils';
 import { Refusjon } from '../../refusjon';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import BEMHelper from '../../../utils/bem';
@@ -24,7 +24,8 @@ const RefusjonsInfo: FunctionComponent<Props> = (props) => {
             {!kanStarteRefusjon && (
                 <AlertStripeInfo className={cls.element('alertstripe')}>
                     <Element>
-                        Dere kan ikke be om refusjobn før perioden er over den {refusjon.tilskuddsgrunnlag.tilskuddTom}
+                        Dere kan ikke be om refusjon før perioden er over den{' '}
+                        {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddTom)}
                     </Element>
                     <Normaltekst>Når perioden er over har dere to måneder på dere på å be om refusjon</Normaltekst>
                 </AlertStripeInfo>
@@ -32,8 +33,7 @@ const RefusjonsInfo: FunctionComponent<Props> = (props) => {
             <VerticalSpacer rem={2} />
             <Element aria-label="label">Periode</Element>
             <Normaltekst aria-labelledby="gjennomføring av refusjonsperioden">
-                {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddFom)} -{' '}
-                {formatterDato(refusjon.tilskuddsgrunnlag.tilskuddTom)}
+                {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
             </Normaltekst>
             <VerticalSpacer rem={1} />
             <Element aria-label="label">Deltaker</Element>
