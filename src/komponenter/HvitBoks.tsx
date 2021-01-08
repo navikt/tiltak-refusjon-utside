@@ -10,6 +10,7 @@ const HvitBoks: FunctionComponent<Props> = (props) => {
         backgroundColor: 'white',
         marginBottom: '1rem',
         maxWidth: '50rem',
+        width: '100%',
     };
 
     return <div className="hvitcontainer" style={styling} {...props} />;
