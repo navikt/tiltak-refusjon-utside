@@ -9,17 +9,15 @@ import './StartSteg.less';
 import RefusjonsInfo from './RefusjonsInfo';
 import HvitBoks from '../../../komponenter/HvitBoks';
 import ForDuBegynnerInfo from './ForDuBegynnerInfo';
+import moment from 'moment';
 
 const cls = BEMHelper('startsteg');
-interface Props {
-    kanStarteRefusjon: boolean;
-}
 
-const StartSteg: FunctionComponent<Props> = (props) => {
-    const { kanStarteRefusjon } = props;
+const StartSteg: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
     const history = useHistory();
+    const kanStarteRefusjon = moment(refusjon.tilskuddsgrunnlag.tilskuddTom).diff(moment().format('YYYY-MM-DD')) <= 0;
 
     const startRefusjon = async () => {
         await gjorInntektsoppslag(refusjonId);
