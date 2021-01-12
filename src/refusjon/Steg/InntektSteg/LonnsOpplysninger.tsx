@@ -28,7 +28,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
         <div className={cls.element('illustrajon')}>
             <Undertittel>Inntektsopplysninger for {deltakerNavn} i perioden</Undertittel>
             <VerticalSpacer rem={1} />
-            <div className={cls.element('rad')} style={{ borderBottom: '2px solid #CCE1F3', paddingBottom: '1rem' }}>
+            <div className={cls.element('rad')}>
                 <span className={cls.element('ikon')}>
                     <KalenderIkon />
                 </span>
