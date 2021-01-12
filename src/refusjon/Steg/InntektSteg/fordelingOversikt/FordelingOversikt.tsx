@@ -1,4 +1,4 @@
-import { ToggleGruppe, ToggleKnapp } from 'nav-frontend-skjema';
+import { ToggleGruppe } from 'nav-frontend-toggle';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../../../komponenter/VerticalSpacer';
@@ -60,9 +60,9 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
         </>
     );
 
-    const listeInntekter = props.inntektsgrunnlag.inntekter.map((inntekt) => {
+    const listeInntekter = props.inntektsgrunnlag.inntekter.map((inntekt, index) => {
         return (
-            <li style={{ marginBottom: '0.5rem' }}>
+            <li style={{ marginBottom: '0.5rem' }} key={index}>
                 Inntekt rapportert for {formatterDato(inntekt.måned, 'MMMM')}: {formatterPenger(inntekt.beløp)} <br />{' '}
                 Opptjeningsperiode:{' '}
                 {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
@@ -82,14 +82,20 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                     <Undertittel>Slik fordeler inntektene seg</Undertittel>
                 </div>
                 <div>
-                    <ToggleGruppe name="visning" onChange={(event: any) => setVisning(event.currentTarget.value)}>
-                        <ToggleKnapp value={Visning.Graf} checked={visning === Visning.Graf}>
-                            Graf
-                        </ToggleKnapp>
-                        <ToggleKnapp value={Visning.Liste} checked={visning === Visning.Liste}>
-                            Liste
-                        </ToggleKnapp>
-                    </ToggleGruppe>
+                    <ToggleGruppe
+                        defaultToggles={[
+                            {
+                                children: Visning.Graf,
+                                pressed: visning === Visning.Graf,
+                                onClick: () => setVisning(Visning.Graf),
+                            },
+                            {
+                                children: Visning.Liste,
+                                pressed: visning === Visning.Liste,
+                                onClick: () => setVisning(Visning.Liste),
+                            },
+                        ]}
+                    />
                 </div>
             </div>
 
