@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { Route, useHistory, useRouteMatch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
-import HvitBoks from '../../komponenter/HvitBoks';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
@@ -53,6 +53,8 @@ const RefusjonSide: FunctionComponent = () => {
         .filter((steg) => !steg.disabled)
         .find((steg) => window.location.pathname.includes(steg.path))?.index;
 
+    const erStartSteget = window.location.pathname.includes('start');
+
     if (aktivtStegIndex === undefined) {
         if (!refusjon.inntektsgrunnlag) {
             history.replace({ pathname: `${url}/start`, search: window.location.search });
@@ -87,6 +89,7 @@ const RefusjonSide: FunctionComponent = () => {
                                 visLabel
                                 steg={alleSteg}
                                 aktivtSteg={aktivtStegIndex}
+                                autoResponsiv={true}
                                 onChange={(index) => {
                                     history.push({
                                         pathname: alleSteg[index].path,
@@ -103,7 +106,7 @@ const RefusjonSide: FunctionComponent = () => {
                                 </Route>
                             ))}
                     </HvitBoks>
-                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
+                    {!erStartSteget && <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />}
                 </div>
             </div>
         </>

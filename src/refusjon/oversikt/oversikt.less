@@ -1,7 +1,7 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .oversikt {
-    padding-left: 1rem;
+    padding-top: 1.25rem;
 
     &__rad,
     &__label-rad {
@@ -9,7 +9,7 @@
         flex-direction: column;
         justify-content: space-between;
         height: fit-content;
-        width: calc(100% - 1.5rem);
+        width: calc(100% - 2rem);
         max-width: 52.5rem;
         background-color: white;
         border-radius: 4px;
@@ -63,6 +63,9 @@
     }
 
     @media (min-width: @screen-sm-min) {
+        padding-left: 1rem;
+        padding-top: 0;
+
         &__label-rad {
             display: flex;
         }
@@ -82,6 +85,7 @@
         &__label-rad {
             flex-direction: row;
             height: 3.5rem;
+            width: calc(100% - 1.5rem);
         }
 
         .lenkepanel__indikator {

@@ -31,12 +31,14 @@ const Oversikt: FunctionComponent = () => {
                     <LenkepanelBase
                         className={cls.element('rad')}
                         key={refusjon.id}
-                        onClick={() =>
+                        onClick={(event) => {
+                            event.preventDefault();
                             history.push({
                                 pathname: `/refusjon/${refusjon.id}`,
                                 search: window.location.search,
-                            })
-                        }
+                            });
+                        }}
+                        href={`/refusjon/${refusjon.id}`}
                     >
                         <Kolonne>
                             {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}

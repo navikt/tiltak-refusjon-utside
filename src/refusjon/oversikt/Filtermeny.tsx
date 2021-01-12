@@ -1,6 +1,6 @@
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import Ekspanderbartpanel, { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Status } from '../status';
 import { Tiltak } from '../tiltak';
 import { useFilter } from './FilterContext';
@@ -9,10 +9,31 @@ import { storForbokstav } from '../../utils/stringUtils';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
+    const [statusPanelOpen, setStatusPanelOpen] = useState(window.innerWidth > 768);
+    const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(window.innerWidth > 768);
+
+    useEffect(() => {
+        const sjekkOmEkspanderPanel = (): void => {
+            setStatusPanelOpen(window.innerWidth > 768);
+            setTiltaksPanelOpen(window.innerWidth > 768);
+        };
+        window.addEventListener('resize', sjekkOmEkspanderPanel);
+        return () => window.removeEventListener('resize', sjekkOmEkspanderPanel);
+    }, [setStatusPanelOpen]);
 
     return (
         <>
-            <Ekspanderbartpanel tittel="Status" apen={true}>
+            <EkspanderbartpanelBase
+                tittel="Status"
+                apen={statusPanelOpen}
+                collapseProps={{
+                    isOpened: statusPanelOpen,
+                }}
+                onClick={(event) => {
+                    setStatusPanelOpen(!statusPanelOpen);
+                }}
+                style={{ minWidth: '14.375rem' }}
+            >
                 <RadioGruppe legend="">
                     <Radio
                         label={storForbokstav(statusTekst[Status.NY])}
@@ -57,9 +78,15 @@ const Filtermeny: FunctionComponent = () => {
                         onChange={() => oppdaterFilter({ status: Status.UTGÅTT })}
                     />
                 </RadioGruppe>
-            </Ekspanderbartpanel>
+            </EkspanderbartpanelBase>
             <div style={{ marginTop: '1.25rem' }} />
-            <Ekspanderbartpanel tittel="Tiltakstype" apen={true}>
+            <EkspanderbartpanelBase
+                tittel="Tiltakstype"
+                apen={tiltaksPanelOpen}
+                collapseProps={{ isOpened: tiltaksPanelOpen }}
+                onClick={() => setTiltaksPanelOpen(!tiltaksPanelOpen)}
+                style={{ minWidth: '14.375rem' }}
+            >
                 <RadioGruppe legend="">
                     <Radio
                         label={'Alle'}
@@ -86,7 +113,7 @@ const Filtermeny: FunctionComponent = () => {
                         onChange={() => oppdaterFilter({ tiltakstype: Tiltak.VARIG_LØNNSTILSKUDD })}
                     />
                 </RadioGruppe>
-            </Ekspanderbartpanel>
+            </EkspanderbartpanelBase>
         </>
     );
 };
