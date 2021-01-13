@@ -37,24 +37,6 @@ const InntektsTabell: FunctionComponent<Props> = (props) => {
                     ))}
                 </tbody>
             </table>
-
-            {/*      <ul>
-                {props.inntektsgrunnlag.inntekter.map((inntekt, index) => {
-                    return (
-                        <li style={{ marginBottom: '0.5rem' }} key={index}>
-                            Inntekt rapportert for {formatterDato(inntekt.måned, 'MMMM')}:{' '}
-                            {formatterPenger(inntekt.beløp)}
-                            <br /> Opptjeningsperiode:{' '}
-                            {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
-                                ? formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
-                                : `ikke oppgitt (inntekt fordeles for perioden ${formatterPeriode(
-                                      inntekt.inntektFordelesFom,
-                                      inntekt.inntektFordelesTom
-                                  )})`}
-                        </li>
-                    );
-                })}
-            </ul>*/}
         </>
     );
 };
