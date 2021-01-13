@@ -3,10 +3,10 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../../utils/bem';
-import { formatterDato, formatterPeriode } from '../../../../utils/datoUtils';
-import { formatterPenger } from '../../../../utils/PengeUtils';
+import { formatterPeriode } from '../../../../utils/datoUtils';
 import { Inntektsgrunnlag, Tilskuddsgrunnlag } from '../../../refusjon';
 import FordelingGraphProvider from './grafiskfremvisning/FordelingGraphProvider';
+import InntektsTabell from './inntektsTabell/InntektsTabell';
 
 interface Props {
     inntektsgrunnlag?: Inntektsgrunnlag;
@@ -60,21 +60,6 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
         </>
     );
 
-    const listeInntekter = props.inntektsgrunnlag.inntekter.map((inntekt, index) => {
-        return (
-            <li style={{ marginBottom: '0.5rem' }} key={index}>
-                Inntekt rapportert for {formatterDato(inntekt.måned, 'MMMM')}: {formatterPenger(inntekt.beløp)} <br />{' '}
-                Opptjeningsperiode:{' '}
-                {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
-                    ? formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
-                    : `ikke oppgitt (inntekt fordeles for perioden ${formatterPeriode(
-                          inntekt.inntektFordelesFom,
-                          inntekt.inntektFordelesTom
-                      )})`}
-            </li>
-        );
-    });
-
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -100,9 +85,8 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
             </div>
 
             <VerticalSpacer rem={1} />
-
             {visning === Visning.Graf && graf}
-            {visning === Visning.Liste && <ul>{listeInntekter}</ul>}
+            {visning === Visning.Liste && <InntektsTabell inntektsgrunnlag={props.inntektsgrunnlag} />}
         </>
     );
 };

@@ -1,4 +1,4 @@
-import Ekspanderbartpanel, { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Status } from '../status';
