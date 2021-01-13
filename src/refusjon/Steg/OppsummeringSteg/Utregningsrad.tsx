@@ -1,5 +1,5 @@
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import BEMHelper from '../../../utils/bem';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import { visSatsMedEttDesimal } from '../../../utils/utregningUtil';
@@ -8,7 +8,7 @@ interface Props {
     labelIkon?: React.ReactNode;
     labelTekst: string;
     labelSats?: number;
-    verdiOperator?: string;
+    verdiOperator?: string | ReactNode;
     verdi: number;
     borderTykk?: boolean;
     ikkePenger?: boolean;
@@ -19,7 +19,7 @@ const cls = BEMHelper('oppsummering');
 const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setIkon = (ikon?: React.ReactNode) => (ikon ? ikon : <div className={cls.element('ikon-placeholder')} />);
 
-    const setOperator = (operator?: string) =>
+    const setOperator = (operator?: string | ReactNode) =>
         operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
 
     const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
