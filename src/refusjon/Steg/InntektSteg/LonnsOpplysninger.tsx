@@ -1,7 +1,5 @@
 import { ReactComponent as KalenderIkon } from '@/asset/image/calender.svg';
-import { ReactComponent as HelseKoffertIkon } from '@/asset/image/health-case.svg';
 import { ReactComponent as PengeIkon } from '@/asset/image/money.svg';
-import { ReactComponent as FerieIkon } from '@/asset/image/vacation.svg';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
@@ -32,7 +30,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                 <span className={cls.element('ikon')}>
                     <KalenderIkon />
                 </span>
-                <b>Periode:</b>{' '}
+                <b className={cls.element('rad-label')}>Periode:</b>
                 <span>
                     {formatterPeriode(
                         props.refusjon.tilskuddsgrunnlag.tilskuddFom,
@@ -45,24 +43,8 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                 <span className={cls.element('ikon')}>
                     <PengeIkon />
                 </span>
-                <b>Total utbetalt lønn i perioden: </b>
+                <b className={cls.element('rad-label')}>Total utbetalt lønn i perioden:</b>
                 <span>{formatterPenger(props.refusjon.beregning.lønn)}</span>
-            </div>
-
-            <div className={cls.element('rad')}>
-                <span className={cls.element('ikon')}>
-                    <HelseKoffertIkon />
-                </span>
-                <b>Utbetalt feriepenger i perioden: </b>
-                <span>{formatterPenger(0)}</span>
-            </div>
-
-            <div className={cls.element('rad')}>
-                <span className={cls.element('ikon')}>
-                    <FerieIkon />
-                </span>
-                <b>Utbetalt sykepenger i perioden: </b>
-                <span>{formatterPenger(0)}</span>
             </div>
         </div>
     );
