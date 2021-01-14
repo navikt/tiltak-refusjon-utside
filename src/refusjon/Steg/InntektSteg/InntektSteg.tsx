@@ -1,10 +1,9 @@
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import LagreKnapp from '../../../komponenter/LagreKnapp';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-service';
+import { useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
 import FordelingOversikt from './fordelingOversikt/FordelingOversikt';
 import './InntektSteg.less';
