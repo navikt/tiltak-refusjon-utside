@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../../../../utils/bem';
 import debounce from 'lodash.debounce';
 import './fordelingGraph.less';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { Enhet, Inntekt, PositionInfo } from './fordelingTypes';
 import { formatterDato, formatterPeriode } from '../../../../../utils/datoUtils';
 import { formatterPenger } from '../../../../../utils/PengeUtils';
@@ -73,7 +73,9 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                     className={cls.element('infolabel')}
                 >
                     <Normaltekst>Dato</Normaltekst>
-                    <Undertittel>{(position && position.dato && formatterDato(position.dato)) || ''}</Undertittel>
+                    <Element className={cls.element('label-dato')}>
+                        {(position && position.dato && formatterDato(position.dato)) || ''}
+                    </Element>
                     {position && position.inntektLabel}
                 </label>
                 <figcaption>

@@ -3,9 +3,11 @@
 
     &__fordelingsOversikt {
         display: flex;
+        justify-content: flex-end;
     }
     &__inntektsKolonne {
         padding-top: 4rem;
+        max-width: 9rem;
     }
 
     &__inntektslabel {
@@ -76,7 +78,6 @@
         }
 
         .fordelinggraph__dataInfo {
-            pointer-events: none;
             display: block;
         }
     }
@@ -89,6 +90,10 @@
 
     &__label-periode {
         margin: 0;
+    }
+
+    &__label-dato {
+        font-size: 1.125rem;
     }
 
     &__list-item {
