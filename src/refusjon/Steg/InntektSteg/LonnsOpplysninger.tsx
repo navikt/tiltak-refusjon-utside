@@ -31,7 +31,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
             <Undertittel>Inntektsopplysninger for {deltakerNavn} i perioden</Undertittel>
             <div className={cls.element('hentopplysninger')}>
                 <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)}>
-                    Synkroniser opplysninger med A-meldingen
+                    Hent opplysninger fra A-meldingen
                 </LagreKnapp>
                 <Normaltekst>
                     Sist ble hentet: {moment(props.refusjon.inntektsgrunnlag?.innhentetTidspunkt).format('LLLL')}
