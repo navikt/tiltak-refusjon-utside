@@ -22,37 +22,25 @@ const InntektSteg: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div className={cls.className}>
                 <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
-
-                <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={1.5} />
                 <Normaltekst>
                     Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke
                     stemmer må det endres der.
                 </Normaltekst>
-                <VerticalSpacer rem={1.5} />
-                <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)}>
-                    Synkroniser opplysninger med A-meldingen
-                </LagreKnapp>
-                <VerticalSpacer rem={1.5} />
+                <VerticalSpacer rem={1} />
                 <LesMerPanel åpneLabel="Hvilke opplysninger henter vi?" lukkLabel="Lukk">
-                    lalala
+                    Her kommer informasjon rundt opplysninger nav innhenter.
                 </LesMerPanel>
                 <VerticalSpacer rem={1} />
                 <LesMerPanel åpneLabel="Hvilke opplysninger fører til reduksjon i refusjon?" lukkLabel="Lukk">
-                    lalala
+                    Her kommer informasjon hvilken opplysninger som fører til reduksjon av refusjoner.
                 </LesMerPanel>
-                <LonnsOpplysninger refusjon={refusjon} />
-
+                <LonnsOpplysninger refusjon={refusjon} refusjonId={refusjonId} />
                 <VerticalSpacer rem={2} />
-
                 <FordelingOversikt
                     inntektsgrunnlag={refusjon.inntektsgrunnlag}
                     tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
                 />
-
-                {/* <UtbetalingsOpplysninger nettoMånedslønn={refusjon.nettoMånedslønn} /> */}
-                {/* <UtbetalingsOpplysninger nettoMånedslønn={0} />
-                {/* <FerieOgSykdomOpplysninger feriepenger={refusjon.feriepenger} sykepenger={refusjon.sykepenger} /> */}
-                {/* <FerieOgSykdomOpplysninger feriepenger={0} sykepenger={0} /> */}
             </div>
         </>
     );

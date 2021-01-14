@@ -1,6 +1,6 @@
 import { ReactComponent as KalenderIkon } from '@/asset/image/calender.svg';
 import { ReactComponent as PengeIkon } from '@/asset/image/money.svg';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../utils/bem';
@@ -8,14 +8,18 @@ import { formatterPeriode } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import { Refusjon } from '../../refusjon';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
+import { gjorInntektsoppslag } from '../../../services/rest-service';
+import moment from 'moment';
 
 interface Props {
     refusjon: Refusjon;
+    refusjonId: string;
 }
 
 const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
     const cls = BEMHelper(INNTEKTSTEGCLASSNAME);
-
+    const { refusjonId } = props;
     const deltakerNavn = `${props.refusjon.tilskuddsgrunnlag.deltakerFornavn} ${props.refusjon.tilskuddsgrunnlag.deltakerEtternavn}`;
 
     if (!props.refusjon.beregning) {
@@ -25,6 +29,14 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
     return (
         <div className={cls.element('illustrajon')}>
             <Undertittel>Inntektsopplysninger for {deltakerNavn} i perioden</Undertittel>
+            <div className={cls.element('hentopplysninger')}>
+                <LagreKnapp lagreFunksjon={() => gjorInntektsoppslag(refusjonId)}>
+                    Synkroniser opplysninger med A-meldingen
+                </LagreKnapp>
+                <Normaltekst>
+                    Sist ble hentet: {moment(props.refusjon.inntektsgrunnlag?.innhentetTidspunkt).format('LLLL')}
+                </Normaltekst>
+            </div>
             <VerticalSpacer rem={1} />
             <div className={cls.element('rad')}>
                 <span className={cls.element('ikon')}>
