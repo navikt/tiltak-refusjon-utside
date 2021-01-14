@@ -56,7 +56,7 @@ const FordelingGraphProvider: FunctionComponent<Props> = (props) => {
         sisteInntektsDato.format('YYYY-MM-DD')
     ).map((dato, i) => {
         const koordinatStart = gridMaaleEnhetPrDag + gridMaaleEnhetPrDag * i;
-        const koordinatSlutt = gridMaaleEnhetPrDag + (gridMaaleEnhetPrDag * (i + 1) - 0.1);
+        const koordinatSlutt = gridMaaleEnhetPrDag + gridMaaleEnhetPrDag * (i + 1);
         return { dato, koordinatStart, koordinatSlutt };
     });
 
