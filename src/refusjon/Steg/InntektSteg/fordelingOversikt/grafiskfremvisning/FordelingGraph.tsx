@@ -69,7 +69,7 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
         <>
             <figure className={cls.className}>
                 <label
-                    style={{ left: `${(position && (position.xPos - 135).toString().concat('px')) || '0'}` }}
+                    style={{ left: `${(position && (position.xPos - 148).toString().concat('px')) || '0'}` }}
                     className={cls.element('infolabel')}
                 >
                     <Normaltekst>Dato</Normaltekst>
