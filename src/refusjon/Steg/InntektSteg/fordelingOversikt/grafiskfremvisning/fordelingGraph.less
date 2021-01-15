@@ -3,9 +3,11 @@
 
     &__fordelingsOversikt {
         display: flex;
+        justify-content: flex-end;
     }
     &__inntektsKolonne {
         padding-top: 4rem;
+        max-width: 9rem;
     }
 
     &__inntektslabel {
@@ -13,7 +15,7 @@
     }
 
     &__grid {
-        stroke: #ccc;
+        stroke: #3e3832;
         stroke-dasharray: 0;
         stroke-width: 1;
     }
@@ -57,10 +59,10 @@
         color: white;
         display: none;
         position: absolute;
-        width: 95px;
+        width: 120px;
         min-height: 140px;
-        background-color: #636363;
-        opacity: 0.9;
+        background-color: #555555;
+        opacity: 1;
         border-radius: 4px;
         padding: 4px;
         top: 2.5rem;
@@ -81,17 +83,42 @@
     }
 
     &__label-list {
-        padding: 0.2rem;
+        padding: 0.125rem 0.125rem 0.125rem 0.25rem;
         list-style-type: none;
+        margin: 0;
+    }
+
+    &__label-periode {
+        margin: 0;
+    }
+
+    &__label-dato {
+        font-size: 1.125rem;
+    }
+
+    &__list-item {
+        display: flex;
+        align-items: center;
+
+        &:before {
+            content: '\2022';
+            font-weight: bolder;
+            font-size: 1.5rem;
+            display: inline-block;
+            width: 0.75rem;
+        }
+        &--dato:before {
+            color: #66a4dc;
+        }
+        &--belop:before {
+            color: #6ab889;
+        }
     }
 
     .grid {
-        stroke: #ccc;
+        stroke: #555555;
         stroke-dasharray: 0;
         stroke-width: 2;
         z-index: 1000;
     }
-}
-
-.test {
 }

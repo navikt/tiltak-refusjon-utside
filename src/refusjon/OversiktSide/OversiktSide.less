@@ -1,5 +1,5 @@
 .OversiktSide {
-    padding: 0.25rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -9,6 +9,7 @@
         width: 100%;
         max-width: 1024px;
         display: flex;
+        flex-direction: column;
         margin-bottom: 2rem;
     }
 
@@ -17,11 +18,11 @@
         max-width: 740px;
     }
 
-    &__meny {
-        // min-width: 240px;
-    }
+    @media (min-width: 768px) {
+        padding: 0.75rem;
 
-    @media (max-width: 768px) {
-        padding: 1.5rem;
+        &__wrapper {
+            flex-direction: row;
+        }
     }
 }

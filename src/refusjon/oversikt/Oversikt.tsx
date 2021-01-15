@@ -1,8 +1,6 @@
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import Veilederpanel from 'nav-frontend-veilederpanel';
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as SnakkeBoble } from '../../asset/image/snakkeboble.svg';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
@@ -12,6 +10,8 @@ import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
 import { statusTekst } from '../../messages';
+import FinnerIngenRefusjoner from './FinnerIngenRefusjon/FinnerIngenRefusjoner';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 
 const cls = BEMHelper('oversikt');
 
@@ -20,9 +20,7 @@ const Kolonne: FunctionComponent = (props) => <div className={cls.element('kolon
 const Oversikt: FunctionComponent = () => {
     const brukerContext = useInnloggetBruker();
     const { filter } = useFilter();
-
     const refusjoner = useHentRefusjoner(brukerContext.valgtBedrift, filter.status, filter.tiltakstype);
-
     const history = useHistory();
 
     return (
@@ -30,15 +28,17 @@ const Oversikt: FunctionComponent = () => {
             <LabelRad className={cls.className} />
             {refusjoner.length > 0 ? (
                 refusjoner.map((refusjon) => (
-                    <div
+                    <LenkepanelBase
                         className={cls.element('rad')}
                         key={refusjon.id}
-                        onClick={() =>
+                        onClick={(event) => {
+                            event.preventDefault();
                             history.push({
                                 pathname: `/refusjon/${refusjon.id}`,
                                 search: window.location.search,
-                            })
-                        }
+                            });
+                        }}
+                        href={`/refusjon/${refusjon.id}`}
                     >
                         <Kolonne>
                             {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
@@ -53,12 +53,10 @@ const Oversikt: FunctionComponent = () => {
                         <Kolonne>
                             <EtikettInfo>{storForbokstav(statusTekst[refusjon.status])}</EtikettInfo>
                         </Kolonne>
-                    </div>
+                    </LenkepanelBase>
                 ))
             ) : (
-                <Veilederpanel kompakt={true} svg={<SnakkeBoble />}>
-                    Finner ingen refusjoner på organisasjonsnummer: {brukerContext.valgtBedrift}.
-                </Veilederpanel>
+                <FinnerIngenRefusjoner orgnr={brukerContext.valgtBedrift} />
             )}
         </div>
     );

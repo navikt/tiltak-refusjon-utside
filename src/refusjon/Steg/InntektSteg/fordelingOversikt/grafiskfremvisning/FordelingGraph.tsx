@@ -39,14 +39,17 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
 
             inntektInfo = inntekter.inntekt.map((i, dex) => {
                 return (
-                    <ul className={cls.element('label-list')} key={dex}>
-                        <li>
-                            <Normaltekst>{formatterPeriode(i.fraDato, i.tilDato, 'DD.MM')}</Normaltekst>
-                        </li>
-                        <li>
-                            <Normaltekst>{formatterPenger(i.belop)}</Normaltekst>
-                        </li>
-                    </ul>
+                    <div key={dex}>
+                        <Normaltekst className={cls.element('label-periode')}>Periode</Normaltekst>
+                        <ul className={cls.element('label-list')}>
+                            <li className={cls.element('list-item', 'dato')}>
+                                <Element>{formatterPeriode(i.fraDato, i.tilDato, 'DD.MM')}</Element>
+                            </li>
+                            <li className={cls.element('list-item', 'belop')}>
+                                <Element>{formatterPenger(i.belop)}</Element>
+                            </li>
+                        </ul>
+                    </div>
                 );
             });
         }
@@ -66,13 +69,13 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
         <>
             <figure className={cls.className}>
                 <label
-                    style={{ left: `${(position && (position.xPos - 110).toString().concat('px')) || '0'}` }}
+                    style={{ left: `${(position && (position.xPos - 148).toString().concat('px')) || '0'}` }}
                     className={cls.element('infolabel')}
                 >
-                    <Element className={cls.element('boldFont')}>Dato</Element>
-                    <Normaltekst className={cls.element('boldFont')}>
+                    <Normaltekst>Dato</Normaltekst>
+                    <Element className={cls.element('label-dato')}>
                         {(position && position.dato && formatterDato(position.dato)) || ''}
-                    </Normaltekst>
+                    </Element>
                     {position && position.inntektLabel}
                 </label>
                 <figcaption>
@@ -95,14 +98,14 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     x2={(position && position.xPos) || '0'}
                                 />
 
-                                <polygon
+                                {/*       <polygon
                                     className={cls.element('dataInfo', 'triangle')}
                                     points="12,12 0,12 6,24"
                                     transform={`translate(${(position && position.xPos - 6) || 0}, 40)`}
                                     x={(position && position.xPos) || '0'}
                                     y="50"
                                     stroke="0"
-                                />
+                                />*/}
                                 {position?.inntektFeltId?.map((felt, index) => {
                                     return (
                                         <g key={index}>
@@ -110,20 +113,38 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                                 className={cls.element('dataInfo')}
                                                 cx={(position && position.xPos) || '0'}
                                                 cy={128 + parseInt(felt.id) * 64}
-                                                r="2"
-                                                strokeWidth="1"
-                                                opacity="0.6"
+                                                r="3"
+                                                strokeWidth="0"
+                                                opacity="0.9"
                                                 fill="black"
                                             />
                                             <circle
                                                 className={cls.element('dataInfo')}
                                                 cx={(position && position.xPos) || '0'}
                                                 cy={128 + parseInt(felt.id) * 64}
-                                                r="5"
+                                                r="8"
                                                 strokeWidth="0"
                                                 opacity="0.6"
                                                 fill="#B7CFC0"
                                             />
+                                            {/*            <circle
+                                                className={cls.element('dataInfo')}
+                                                cx={(position && position.xPos) || '0'}
+                                                cy={176 + parseInt(felt.id) * 64}
+                                                r="3"
+                                                strokeWidth="0"
+                                                opacity="0.9"
+                                                fill="black"
+                                            />
+                                            <circle
+                                                className={cls.element('dataInfo')}
+                                                cx={(position && position.xPos) || '0'}
+                                                cy={176 + parseInt(felt.id) * 64}
+                                                r="8"
+                                                strokeWidth="0"
+                                                opacity="0.6"
+                                                fill="#B7CFC0"
+                                            />*/}
                                         </g>
                                     );
                                 })}

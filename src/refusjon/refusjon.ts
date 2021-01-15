@@ -1,5 +1,6 @@
 import { Status } from './status';
 import { Tiltak } from './tiltak';
+import React from 'react';
 
 export interface Refusjon {
     id: string;
@@ -59,4 +60,11 @@ interface Beregning {
     refusjonsbeløp: number;
     sumUtgifter: number;
     tjenestepensjon: number;
+}
+
+export interface AlleSteg {
+    path: string;
+    label: string;
+    komponent: React.ReactNode;
+    disabled: boolean;
 }

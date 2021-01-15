@@ -7,7 +7,7 @@ import { gjorInntektsoppslag, useHentRefusjon } from '../../../services/rest-ser
 import BEMHelper from '../../../utils/bem';
 import './StartSteg.less';
 import RefusjonsInfo from './RefusjonsInfo';
-import HvitBoks from '../../../komponenter/HvitBoks';
+import HvitBoks from '../../../komponenter/hvitboks/HvitBoks';
 import ForDuBegynnerInfo from './ForDuBegynnerInfo';
 import moment from 'moment';
 

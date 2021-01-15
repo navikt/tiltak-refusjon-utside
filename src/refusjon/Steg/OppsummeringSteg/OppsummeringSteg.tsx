@@ -1,5 +1,4 @@
 import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
@@ -80,14 +79,15 @@ const OppsummeringSteg: FunctionComponent = () => {
                 </div>
             </div>
             <BekreftCheckboksPanel
+                className={cls.element('bekrefthandling')}
                 onChange={() => bekrefterSamtykke(!samtykker)}
                 checked={samtykker}
                 label="Jeg bekrefter at opplysningene er korrekte."
+                feil={alertStripe ? 'Du må samtykke at opplysningene er riktig, før du kan sende inn skjemaet.' : null}
             />
-            <div className={cls.element('bekreftelse', alertStripe ? 'ikkeBekreftet' : '')}>
-                <AlertStripeAdvarsel>Mangler bekreftelse på at opplysningene er korrekte.</AlertStripeAdvarsel>
-            </div>
-            <LagreKnapp lagreFunksjon={() => fullforeRefusjon()}>Fullfør</LagreKnapp>
+            <LagreKnapp type="hoved" lagreFunksjon={() => fullforeRefusjon()}>
+                Fullfør
+            </LagreKnapp>
         </>
     );
 };

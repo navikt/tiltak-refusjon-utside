@@ -76,7 +76,7 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
             </div>
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Inntektsopplysninger" apen={true}>
+            <Ekspanderbartpanel tittel="Inntektsopplysninger" apen={false}>
                 <FordelingOversikt
                     tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
                     inntektsgrunnlag={refusjon.inntektsgrunnlag}
@@ -85,7 +85,7 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
 
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Utregning" apen={true}>
+            <Ekspanderbartpanel tittel="Utregning" apen={false}>
                 <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
 

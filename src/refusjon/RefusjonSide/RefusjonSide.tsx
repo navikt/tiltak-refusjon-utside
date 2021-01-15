@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { Route, useHistory, useRouteMatch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
-import HvitBoks from '../../komponenter/HvitBoks';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
@@ -87,6 +87,7 @@ const RefusjonSide: FunctionComponent = () => {
                                 visLabel
                                 steg={alleSteg}
                                 aktivtSteg={aktivtStegIndex}
+                                autoResponsiv={true}
                                 onChange={(index) => {
                                     history.push({
                                         pathname: alleSteg[index].path,

@@ -2,13 +2,10 @@ import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import BEMHelper from '../utils/bem';
+import { AlleSteg } from '../refusjon/refusjon';
 
 interface Props {
-    alleSteg: {
-        path: string;
-        label: string;
-        komponent: React.ReactNode;
-    }[];
+    alleSteg: AlleSteg[];
     index: number;
     url: string;
 }
@@ -16,7 +13,9 @@ interface Props {
 const cls = BEMHelper('refusjonside');
 
 const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
-    return (
+    const skalViseNavigasjon = props.alleSteg.filter((steg) => !steg.disabled).length > 1;
+
+    return skalViseNavigasjon ? (
         <div className={cls.element('fremTilbakeNavigasjon')}>
             <Link
                 to={{
@@ -30,9 +29,7 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
             <Link
                 to={{
                     pathname: `${props.url}/${
-                        props.alleSteg[
-                            props.index === props.alleSteg.length - 1 ? props.alleSteg.length - 1 : props.index + 1
-                        ].path
+                        props.alleSteg[props.index === props.alleSteg.length - 2 ? props.index : props.index + 1].path
                     }`,
                     search: window.location.search,
                 }}
@@ -41,7 +38,7 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
                 <HoyreChevron />
             </Link>
         </div>
-    );
+    ) : null;
 };
 
 export default FremTilbakeNavigasjon;
