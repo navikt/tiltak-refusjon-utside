@@ -10,7 +10,6 @@ import { Refusjon } from '../../refusjon';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
 import LagreKnapp from '../../../komponenter/LagreKnapp';
 import { gjorInntektsoppslag } from '../../../services/rest-service';
-import moment from 'moment';
 
 interface Props {
     refusjon: Refusjon;
