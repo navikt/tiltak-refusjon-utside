@@ -4,7 +4,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import BEMHelper from '../../../utils/bem';
-import { formatterPeriode } from '../../../utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import { Refusjon } from '../../refusjon';
 import { INNTEKTSTEGCLASSNAME } from './InntektSteg';
@@ -22,7 +22,7 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
     const { refusjonId } = props;
     const deltakerNavn = `${props.refusjon.tilskuddsgrunnlag.deltakerFornavn} ${props.refusjon.tilskuddsgrunnlag.deltakerEtternavn}`;
 
-    if (!props.refusjon.beregning) {
+    if (!props.refusjon.beregning || !props.refusjon.inntektsgrunnlag) {
         return null;
     }
 
@@ -34,7 +34,8 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
                     Hent opplysninger fra A-meldingen
                 </LagreKnapp>
                 <Normaltekst>
-                    Sist ble hentet: {moment(props.refusjon.inntektsgrunnlag?.innhentetTidspunkt).format('LLLL')}
+                    Sist hentet:{' '}
+                    {formatterDato(props.refusjon.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
                 </Normaltekst>
             </div>
             <VerticalSpacer rem={1} />

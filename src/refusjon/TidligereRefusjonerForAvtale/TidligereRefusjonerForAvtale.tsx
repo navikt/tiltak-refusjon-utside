@@ -27,8 +27,9 @@ const TidligereRefusjonerForAvtale: FunctionComponent<Props> = (props) => {
         <div>
             <Undertittel>Andre refusjoner tilknyttet samme avtale</Undertittel>
             <VerticalSpacer rem={1} />
-            {refusjoner.map((refusjon) => (
+            {refusjoner.map((refusjon, index) => (
                 <Ekspanderbartpanel
+                    key={index}
                     className={'tidligere-refusjon-ekspanderbartpanel'}
                     tittel={
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

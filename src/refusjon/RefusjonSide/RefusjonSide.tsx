@@ -53,8 +53,6 @@ const RefusjonSide: FunctionComponent = () => {
         .filter((steg) => !steg.disabled)
         .find((steg) => window.location.pathname.includes(steg.path))?.index;
 
-    const erStartSteget = window.location.pathname.includes('start');
-
     if (aktivtStegIndex === undefined) {
         if (!refusjon.inntektsgrunnlag) {
             history.replace({ pathname: `${url}/start`, search: window.location.search });
@@ -106,7 +104,7 @@ const RefusjonSide: FunctionComponent = () => {
                                 </Route>
                             ))}
                     </HvitBoks>
-                    {!erStartSteget && <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />}
+                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
                 </div>
             </div>
         </>

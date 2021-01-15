@@ -6,20 +6,21 @@ import { Tiltak } from '../tiltak';
 import { useFilter } from './FilterContext';
 import { statusTekst } from '../../messages';
 import { storForbokstav } from '../../utils/stringUtils';
+import { useMediaQuery } from 'react-responsive';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
-    const [statusPanelOpen, setStatusPanelOpen] = useState(window.innerWidth > 768);
-    const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(window.innerWidth > 768);
+    const ErDesktopStorrelse = useMediaQuery({ minWidth: 768 });
+    const [statusPanelOpen, setStatusPanelOpen] = useState(ErDesktopStorrelse);
+    const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(ErDesktopStorrelse);
 
     useEffect(() => {
-        const sjekkOmEkspanderPanel = (): void => {
-            setStatusPanelOpen(window.innerWidth > 768);
-            setTiltaksPanelOpen(window.innerWidth > 768);
+        const setEkspanderPanelOpen = (): void => {
+            setStatusPanelOpen(ErDesktopStorrelse);
+            setTiltaksPanelOpen(ErDesktopStorrelse);
         };
-        window.addEventListener('resize', sjekkOmEkspanderPanel);
-        return () => window.removeEventListener('resize', sjekkOmEkspanderPanel);
-    }, [setStatusPanelOpen]);
+        setEkspanderPanelOpen();
+    }, [setStatusPanelOpen, setTiltaksPanelOpen, ErDesktopStorrelse]);
 
     return (
         <>
