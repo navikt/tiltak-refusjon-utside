@@ -1,9 +1,10 @@
 import { VenstreChevron } from 'nav-frontend-chevron';
 import Stegindikator from 'nav-frontend-stegindikator';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Route, useHistory, useRouteMatch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
+import { ReactComponent as Veileder } from '@/asset/image/veileder.svg';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
@@ -13,14 +14,17 @@ import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/OppsummeringSteg/OppsummeringSteg';
 import StartSteg from '../Steg/StartSteg/StartSteg';
 import './RefusjonSide.less';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('refusjonside');
 
 const RefusjonSide: FunctionComponent = () => {
-    const { path, url } = useRouteMatch();
-    const history = useHistory();
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const { path, url } = useRouteMatch();
+    const history = useHistory();
 
     const alleSteg = [
         {
@@ -53,7 +57,7 @@ const RefusjonSide: FunctionComponent = () => {
         .filter((steg) => !steg.disabled)
         .find((steg) => window.location.pathname.includes(steg.path))?.index;
 
-    if (aktivtStegIndex === undefined) {
+    useEffect(() => {
         if (!refusjon.inntektsgrunnlag) {
             history.replace({ pathname: `${url}/start`, search: window.location.search });
         }
@@ -63,10 +67,9 @@ const RefusjonSide: FunctionComponent = () => {
         if (refusjon.inntektsgrunnlag !== null && refusjon.godkjentAvArbeidsgiver === null) {
             history.replace({ pathname: `${url}/inntekt`, search: window.location.search });
         }
-        return null;
-    }
+    }, []);
 
-    return (
+    return aktivtStegIndex !== undefined ? (
         <>
             <VerticalSpacer rem={1} />
 
@@ -77,14 +80,17 @@ const RefusjonSide: FunctionComponent = () => {
                             to={{ pathname: '/', search: window.location.search }}
                             className={cls.element('navigasjonslenke')}
                         >
-                            <VenstreChevron />
+                            <div aria-hidden={true}>
+                                <VenstreChevron />
+                            </div>
                             Tilbake til oversikt
                         </Link>
                     </div>
-                    <HvitBoks>
+                    <HvitBoks role="main">
                         <div className={cls.element('stegindikator')}>
                             <Stegindikator
                                 visLabel
+                                aria-label={`stegindikator viser stegene til refusjon gjennomgang. Aktivt steg ${alleSteg[aktivtStegIndex]}`}
                                 steg={alleSteg}
                                 aktivtSteg={aktivtStegIndex}
                                 autoResponsiv={true}
@@ -108,6 +114,13 @@ const RefusjonSide: FunctionComponent = () => {
                 </div>
             </div>
         </>
+    ) : (
+        <div className={cls.element('veilederpanel')}>
+            <Veilederpanel svg={<Veileder />} type="plakat" fargetema="feilmelding">
+                <Normaltekst>Det har oppstått en uventet hendelse ved lasting av siden.</Normaltekst>
+                <AlertStripeFeil>Feil vel lasting av siden</AlertStripeFeil>
+            </Veilederpanel>
+        </div>
     );
 };
 

@@ -12,14 +12,16 @@ const Banner: FunctionComponent<Props> = (props) => {
     const history = useHistory();
 
     return (
-        <Bedriftsmeny
-            history={history}
-            organisasjoner={props.organisasjoner}
-            onOrganisasjonChange={(org) => {
-                props.setValgtBedrift(org);
-            }}
-            sidetittel="Tiltaksrefusjon"
-        />
+        <div role="banner">
+            <Bedriftsmeny
+                history={history}
+                organisasjoner={props.organisasjoner}
+                onOrganisasjonChange={(org) => {
+                    props.setValgtBedrift(org);
+                }}
+                sidetittel="Tiltaksrefusjon"
+            />
+        </div>
     );
 };
 

@@ -16,14 +16,16 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
     const skalViseNavigasjon = props.alleSteg.filter((steg) => !steg.disabled).length > 1;
 
     return skalViseNavigasjon ? (
-        <div className={cls.element('fremTilbakeNavigasjon')}>
+        <nav className={cls.element('fremTilbakeNavigasjon')}>
             <Link
                 to={{
                     pathname: `${props.url}/${props.alleSteg[props.index === 0 ? 0 : props.index - 1].path}`,
                     search: window.location.search,
                 }}
             >
-                <VenstreChevron />
+                <div aria-hidden={true}>
+                    <VenstreChevron />
+                </div>
                 <span>Tilbake</span>
             </Link>
             <Link
@@ -35,9 +37,11 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
                 }}
             >
                 <span>Neste</span>
-                <HoyreChevron />
+                <div aria-hidden={true}>
+                    <HoyreChevron />
+                </div>
             </Link>
-        </div>
+        </nav>
     ) : null;
 };
 
