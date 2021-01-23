@@ -64,15 +64,14 @@ const RefusjonSide: FunctionComponent = () => {
         if (refusjon.godkjentAvArbeidsgiver) {
             history.replace({ pathname: `${url}/kvittering`, search: window.location.search });
         }
-        if (refusjon.inntektsgrunnlag !== null && refusjon.godkjentAvArbeidsgiver === null) {
+        if (refusjon.inntektsgrunnlag !== null && refusjon.godkjentAvArbeidsgiver === null && !aktivtStegIndex) {
             history.replace({ pathname: `${url}/inntekt`, search: window.location.search });
         }
-    }, []);
+    }, [history, refusjon, url, aktivtStegIndex]);
 
-    return aktivtStegIndex !== undefined ? (
+    return !!aktivtStegIndex ? (
         <>
             <VerticalSpacer rem={1} />
-
             <div className={cls.className}>
                 <div className={cls.element('wrapper')}>
                     <div className={cls.element('navigasjonslinje')}>
