@@ -35,7 +35,11 @@ const StartSteg: FunctionComponent = () => {
                         <>
                             <ForDuBegynnerInfo />
                             <VerticalSpacer rem={2} />
-                            <LagreKnapp lagreFunksjon={startRefusjon} type="hoved">
+                            <LagreKnapp
+                                lagreFunksjon={startRefusjon}
+                                type="hoved"
+                                aria-label="Ved å trykke her vil nav hente inntektsmelding"
+                            >
                                 Start
                             </LagreKnapp>
                         </>

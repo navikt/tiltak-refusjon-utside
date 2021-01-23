@@ -31,20 +31,22 @@ const RefusjonsInfo: FunctionComponent<Props> = (props) => {
                 </AlertStripeInfo>
             )}
             <VerticalSpacer rem={2} />
-            <Element aria-label="label">Periode</Element>
-            <Normaltekst aria-labelledby="gjennomføring av refusjonsperioden">
+            <Element id="refusjonsinfo_periode">Periode</Element>
+            <Normaltekst aria-labelledby="refusjonsinfo_periode">
                 {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
             </Normaltekst>
             <VerticalSpacer rem={1} />
-            <Element aria-label="label">Deltaker</Element>
-            <Normaltekst aria-labelledby="deltaker">
+            <Element id="refusjonsinfo_deltaker">Deltaker</Element>
+            <Normaltekst aria-labelledby="refusjonsinfo_deltaker">
                 {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
             </Normaltekst>
             <VerticalSpacer rem={1} />
-            <Element aria-label="label">Ansvarlig i virksomheten</Element>
+            <Element>Ansvarlig i virksomheten</Element>
             <div aria-labelledby="arbeidstaker opplysninger">
-                <Normaltekst>Kontaktpersonen i bedriften (mangler)</Normaltekst>
-                <Normaltekst>12345678 (mangler)</Normaltekst>
+                <Normaltekst id="refusjonsinfo_kontaktpersjon_bedrift">
+                    Kontaktpersonen i bedriften (mangler)
+                </Normaltekst>
+                <Normaltekst aria-labelledby="refusjonsinfo_kontaktpersjon_bedrift">12345678 (mangler)</Normaltekst>
             </div>
         </>
     );
