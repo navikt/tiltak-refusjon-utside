@@ -9,25 +9,17 @@ interface Props {
 const LabelRad = (props: Props) => {
     const cls = BEMHelper(props.className);
     return (
-        <div className={cls.element('label-rad')} aria-label="overkrift for kolonne i refusonslist">
-            <div className={cls.element('kolonne')} id={cls.element('deltaker')} aria-label="deltaker navn">
+        <div className={cls.element('label-rad')} aria-label="rad overkrifter for kolonnene i refusonslisten">
+            <div className={cls.element('kolonne')} id={cls.element('deltaker')}>
                 <Element>Deltaker</Element>
             </div>
-            <div
-                className={cls.element('kolonne')}
-                id={cls.element('periode')}
-                aria-label="tilskuddsperiode for refusjon"
-            >
+            <div className={cls.element('kolonne')} id={cls.element('periode')}>
                 <Element>Periode</Element>
             </div>
-            <div
-                className={cls.element('kolonne')}
-                id={cls.element('frist-godkjenning')}
-                aria-label="frist for godkjenning av refusjon"
-            >
+            <div className={cls.element('kolonne')} id={cls.element('frist-godkjenning')}>
                 <Element>Frist for godkjenning</Element>
             </div>
-            <div className={cls.element('kolonne')} id={cls.element('status')} aria-label="status på refujon">
+            <div className={cls.element('kolonne')} id={cls.element('status')}>
                 <Element>Status</Element>
             </div>
         </div>
