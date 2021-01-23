@@ -20,7 +20,7 @@ const InntektSteg: FunctionComponent = () => {
         <>
             <VerticalSpacer rem={2} />
             <div className={cls.className}>
-                <Innholdstittel role="tittel">Inntektsopplysninger</Innholdstittel>
+                <Innholdstittel role="heading">Inntektsopplysninger</Innholdstittel>
                 <VerticalSpacer rem={1.5} />
                 <Normaltekst>
                     Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke

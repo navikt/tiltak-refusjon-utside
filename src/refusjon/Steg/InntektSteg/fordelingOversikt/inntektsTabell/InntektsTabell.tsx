@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { formatterPeriode } from '../../../../../utils/datoUtils';
 import { formatterPenger } from '../../../../../utils/PengeUtils';
-import { Inntektsgrunnlag } from '../../../../refusjon';
+import { Inntektsgrunnlag, Inntektslinje } from '../../../../refusjon';
 import BEMHelper from '../../../../../utils/bem';
 import './inntektsTabell.less';
 
@@ -12,27 +12,31 @@ interface Props {
 const InntektsTabell: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('inntektsTabell');
 
+    const setOpptjeningsperioden = (inntekt: Inntektslinje): string => {
+        return inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
+            ? formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
+            : `ikke oppgitt (inntekt fordeles for perioden ${formatterPeriode(
+                  inntekt.inntektFordelesFom,
+                  inntekt.inntektFordelesTom
+              )})`;
+    };
+
     return (
         <>
             <table className={cls.className}>
                 <thead>
                     <tr className={cls.element('row')}>
-                        <th>Periode rapportert for</th>
-                        <th>Inntekt</th>
+                        <th id="inntektstabell_periode_rapportert">Periode rapportert for</th>
+                        <th id="inntektstabell_inntekt_hentet">Inntekt</th>
                     </tr>
                 </thead>
                 <tbody>
                     {props.inntektsgrunnlag.inntekter.map((inntekt, index) => (
                         <tr className={cls.element('row')} key={index}>
-                            <td>
-                                {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom
-                                    ? formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
-                                    : `ikke oppgitt (inntekt fordeles for perioden ${formatterPeriode(
-                                          inntekt.inntektFordelesFom,
-                                          inntekt.inntektFordelesTom
-                                      )})`}
+                            <td aria-labelledby="inntektstabell_periode_rapportert">
+                                {setOpptjeningsperioden(inntekt)}
                             </td>
-                            <td>{formatterPenger(inntekt.beløp)}</td>
+                            <td aria-labelledby="inntektstabell_inntekt_hentet">{formatterPenger(inntekt.beløp)}</td>
                         </tr>
                     ))}
                 </tbody>
