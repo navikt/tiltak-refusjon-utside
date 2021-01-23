@@ -18,6 +18,7 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
     return skalViseNavigasjon ? (
         <nav className={cls.element('fremTilbakeNavigasjon')}>
             <Link
+                className={cls.element('navigasjon')}
                 to={{
                     pathname: `${props.url}/${props.alleSteg[props.index === 0 ? 0 : props.index - 1].path}`,
                     search: window.location.search,
@@ -29,6 +30,7 @@ const FremTilbakeNavigasjon: FunctionComponent<Props> = (props: Props) => {
                 <span>Tilbake</span>
             </Link>
             <Link
+                className={cls.element('navigasjon')}
                 to={{
                     pathname: `${props.url}/${
                         props.alleSteg[props.index === props.alleSteg.length - 2 ? props.index : props.index + 1].path
