@@ -9,21 +9,19 @@ spec:
   image: {{image}}
   team: arbeidsgiver
   port: 3000
+  {{#if labs}}
+  replicas:
+    min: 1
+    max: 1
+  {{/if}}
   ingresses:
     - {{ingress}}
-  tokenx:
-    enabled: true
-  idporten:
-    enabled: true
   liveness:
     path: /isAlive
     initialDelay: 10
   readiness:
     path: /isReady
     initialDelay: 10
-  replicas:
-    min: 1
-    max: 2
   env:
     {{#each env}}
     - name: "{{@key}}"
@@ -32,6 +30,14 @@ spec:
     - name: HOST
       value: {{ingress}}
 
+  {{#unless labs}}
+  replicas:
+    min: 1
+    max: 2
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
   accessPolicy:
     outbound:
       rules:
@@ -43,7 +49,7 @@ spec:
       {{#each host}}
         - host: "{{this}}"
       {{/each}}
-  {{#unless labs}}
+
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
     - secret: tiltak-refusjon-utside-redis
