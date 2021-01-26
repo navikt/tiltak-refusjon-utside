@@ -3,7 +3,7 @@ name: Bygg master og deploy dev-gcp og labs-gcp
 on:
   push:
     branches:
-      - 'master'
+      - '*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
