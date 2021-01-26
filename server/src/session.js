@@ -18,7 +18,7 @@ const setup = (app) => {
         saveUninitialized: false,
         unset: 'destroy',
     };
-    if (process.env.NODE_ENV !== 'development' && process.env.LABS !== 'true') {
+    if (process.env.NODE_ENV !== 'development' && process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
         options.cookie.secure = true;
         options.store = setupRedis();
     }
