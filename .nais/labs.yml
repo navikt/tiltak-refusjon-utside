@@ -14,4 +14,5 @@ env:
   IDPORTEN_REDIRECT_URI: http://tiltak-fakelogin/metadata?issuer=selvbetjening
   IDPORTEN_CLIENT_ID: aud-selvbetjening
   IDPORTEN_CLIENT_JWK: "xabc"
+  HTTP_PROXY: http://tiltak-fakelogin/metadata?issuer=isso
 slack_alert_channel: arbeidsgiver-notifications-test
