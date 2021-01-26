@@ -56,4 +56,4 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: .nais/nais.yml
           PRINT_PAYLOAD: true
-          VARS: nais/labs.yml
+          VARS: .nais/labs.yml
