@@ -18,7 +18,7 @@ const setup = (app) => {
         saveUninitialized: false,
         unset: 'destroy',
     };
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV !== 'development' && process.env.LABS !== 'true') {
         options.cookie.secure = true;
         options.store = setupRedis();
     }
