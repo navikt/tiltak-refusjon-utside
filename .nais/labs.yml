@@ -1,7 +1,7 @@
 ingress: https://arbeidsgiver.labs.nais.io/tiltak-refusjon
 labs: true
 host:
-  - www.labs.nav.no
+  - www.labs.nais.io
 env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
