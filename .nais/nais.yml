@@ -31,14 +31,13 @@ spec:
     {{/each}}
     - name: HOST
       value: {{ingress}}
-  {{#unless labs}}
+
   accessPolicy:
     outbound:
       rules:
-        - application: tiltak-refusjon-api
-        {{#unless labs}}
-        - application: tiltak-refusjon-utside-redis
-        {{/unless}}
+        {{#each outbound}}
+          - application: "{{this}}"
+        {{/each}}
 
       external:
       {{#each host}}

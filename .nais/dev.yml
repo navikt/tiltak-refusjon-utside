@@ -2,6 +2,9 @@ ingress: https://tiltak-refusjon.dev.nav.no
 labs: false
 host:
   - www.nav.no
+outbound:
+  - tiltak-refusjon-api
+  - tiltak-refusjon-utside-redis
 env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
