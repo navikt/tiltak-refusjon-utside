@@ -50,7 +50,7 @@ const OppsummeringSteg: FunctionComponent = () => {
     return (
         <>
             <VerticalSpacer rem={2} />
-            <Innholdstittel>Oppsummering</Innholdstittel>
+            <Innholdstittel role="heading">Oppsummering</Innholdstittel>
             <VerticalSpacer rem={1} />
             <LesMerPanel
                 className={cls.element('lesmer')}
@@ -59,7 +59,7 @@ const OppsummeringSteg: FunctionComponent = () => {
             >
                 Her kommer informasjon som bruker kan lese om.
             </LesMerPanel>
-            <Ekspanderbartpanel tittel="Utregningen" apen={true}>
+            <Ekspanderbartpanel tittel="Utregningen" apen={true} aria-label="utregningspanel for refusjon">
                 <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
             <div className={cls.element('summeringsboks')}>

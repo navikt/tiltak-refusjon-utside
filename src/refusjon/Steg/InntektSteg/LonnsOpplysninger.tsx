@@ -39,11 +39,13 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
             </div>
             <VerticalSpacer rem={1} />
             <div className={cls.element('rad')}>
-                <span className={cls.element('ikon')}>
+                <span className={cls.element('ikon')} aria-hidden={true}>
                     <KalenderIkon />
                 </span>
-                <b className={cls.element('rad-label')}>Periode:</b>
-                <span>
+                <b className={cls.element('rad-label')} id="lonnsopplysninger_periode">
+                    Periode:
+                </b>
+                <span aria-labelledby="lonnsopplysninger_periode">
                     {formatterPeriode(
                         props.refusjon.tilskuddsgrunnlag.tilskuddFom,
                         props.refusjon.tilskuddsgrunnlag.tilskuddTom
@@ -52,11 +54,15 @@ const LonnsOpplysninger: FunctionComponent<Props> = (props: Props) => {
             </div>
 
             <div className={cls.element('rad')}>
-                <span className={cls.element('ikon')}>
+                <span className={cls.element('ikon')} aria-hidden={true}>
                     <PengeIkon />
                 </span>
-                <b className={cls.element('rad-label')}>Total utbetalt lønn i perioden:</b>
-                <span>{formatterPenger(props.refusjon.beregning.lønn)}</span>
+                <b className={cls.element('rad-label')} id="lonnsopplysninger_lonn_i_periode">
+                    Total utbetalt lønn i perioden:
+                </b>
+                <span aria-labelledby="lonnsopplysninger_lonn_i_periode">
+                    {formatterPenger(props.refusjon.beregning.lønn)}
+                </span>
             </div>
         </div>
     );

@@ -32,8 +32,8 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
             <div className={cls.element('fordelingsOversikt')}>
                 <div className={cls.element('inntektsKolonne')}>
                     <div className={cls.element('inntektslabel')}>
-                        <Element>Periode med lønnstilskudd</Element>
-                        <Normaltekst>
+                        <Element id="periode_med_lonnstilskudd">Periode med lønnstilskudd</Element>
+                        <Normaltekst aria-labelledby="periode_med_lonnstilskudd">
                             {formatterPeriode(
                                 props.tilskuddsgrunnlag.tilskuddFom,
                                 props.tilskuddsgrunnlag.tilskuddTom,
@@ -44,8 +44,8 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                     {props.inntektsgrunnlag.inntekter.map((inntekt, index) => {
                         return (
                             <div className={cls.element('inntektslabel')} key={index}>
-                                <Element>Inntekt</Element>
-                                <Normaltekst>
+                                <Element id={`fordelingsoversikt_inntektfelt_${index}`}>Inntekt</Element>
+                                <Normaltekst aria-labelledby={`fordelingsoversikt_inntektfelt_${index}`}>
                                     {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom, 'DD.MMM')}
                                 </Normaltekst>
                             </div>
@@ -66,7 +66,7 @@ const FordelingOversikt: FunctionComponent<Props> = (props) => {
                 <div>
                     <Undertittel>Slik fordeler inntektene seg</Undertittel>
                 </div>
-                <div>
+                <div aria-label="toggle knapper for graf og liste visning av inntektsopplysninger">
                     <ToggleGruppe
                         defaultToggles={[
                             {

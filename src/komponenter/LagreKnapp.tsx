@@ -1,12 +1,12 @@
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase, { KnappBaseProps } from 'nav-frontend-knapper';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Nettressurs, Status } from '../nettressurs';
 import VerticalSpacer from './VerticalSpacer';
 
 type Props = {
     lagreFunksjon: () => Promise<void>;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });

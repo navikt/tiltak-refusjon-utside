@@ -97,15 +97,6 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                     x1={(position && position.xPos) || '0'}
                                     x2={(position && position.xPos) || '0'}
                                 />
-
-                                {/*       <polygon
-                                    className={cls.element('dataInfo', 'triangle')}
-                                    points="12,12 0,12 6,24"
-                                    transform={`translate(${(position && position.xPos - 6) || 0}, 40)`}
-                                    x={(position && position.xPos) || '0'}
-                                    y="50"
-                                    stroke="0"
-                                />*/}
                                 {position?.inntektFeltId?.map((felt, index) => {
                                     return (
                                         <g key={index}>
@@ -127,24 +118,6 @@ const FordelingGraph: FunctionComponent<Props> = (props) => {
                                                 opacity="0.6"
                                                 fill="#B7CFC0"
                                             />
-                                            {/*            <circle
-                                                className={cls.element('dataInfo')}
-                                                cx={(position && position.xPos) || '0'}
-                                                cy={176 + parseInt(felt.id) * 64}
-                                                r="3"
-                                                strokeWidth="0"
-                                                opacity="0.9"
-                                                fill="black"
-                                            />
-                                            <circle
-                                                className={cls.element('dataInfo')}
-                                                cx={(position && position.xPos) || '0'}
-                                                cy={176 + parseInt(felt.id) * 64}
-                                                r="8"
-                                                strokeWidth="0"
-                                                opacity="0.6"
-                                                fill="#B7CFC0"
-                                            />*/}
                                         </g>
                                     );
                                 })}

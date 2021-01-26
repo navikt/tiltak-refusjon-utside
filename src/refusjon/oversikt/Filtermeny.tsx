@@ -23,9 +23,10 @@ const Filtermeny: FunctionComponent = () => {
     }, [setStatusPanelOpen, setTiltaksPanelOpen, ErDesktopStorrelse]);
 
     return (
-        <>
+        <div role="menubar" aria-label="filtermeny for filtrering av refusjon på status og tiltakstype">
             <EkspanderbartpanelBase
                 tittel="Status"
+                role="radiogroup"
                 apen={statusPanelOpen}
                 collapseProps={{
                     isOpened: statusPanelOpen,
@@ -37,42 +38,49 @@ const Filtermeny: FunctionComponent = () => {
             >
                 <RadioGruppe legend="">
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.NY])}
                         checked={filter.status === Status.NY}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.NY })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.BEREGNET])}
                         checked={filter.status === Status.BEREGNET}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.BEREGNET })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.KRAV_FREMMET])}
                         checked={filter.status === Status.KRAV_FREMMET}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.KRAV_FREMMET })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.BEHANDLET])}
                         checked={filter.status === Status.BEHANDLET}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.BEHANDLET })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.AVSLÅTT])}
                         checked={filter.status === Status.AVSLÅTT}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.AVSLÅTT })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.UTBETALT])}
                         checked={filter.status === Status.UTBETALT}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.UTBETALT })}
                     />
                     <Radio
+                        role="radio"
                         label={storForbokstav(statusTekst[Status.UTGÅTT])}
                         checked={filter.status === Status.UTGÅTT}
                         name={'status'}
@@ -83,6 +91,7 @@ const Filtermeny: FunctionComponent = () => {
             <div style={{ marginTop: '1.25rem' }} />
             <EkspanderbartpanelBase
                 tittel="Tiltakstype"
+                role="radiogroup"
                 apen={tiltaksPanelOpen}
                 collapseProps={{ isOpened: tiltaksPanelOpen }}
                 onClick={() => setTiltaksPanelOpen(!tiltaksPanelOpen)}
@@ -90,24 +99,28 @@ const Filtermeny: FunctionComponent = () => {
             >
                 <RadioGruppe legend="">
                     <Radio
+                        role="radio"
                         label={'Alle'}
                         name="ALLE"
                         checked={filter.tiltakstype === undefined}
                         onChange={() => oppdaterFilter({ tiltakstype: undefined })}
                     />
                     <Radio
+                        role="radio"
                         label={'Mentor'}
                         name={Tiltak.MENTOR}
                         checked={filter.tiltakstype === Tiltak.MENTOR}
                         onChange={() => oppdaterFilter({ tiltakstype: Tiltak.MENTOR })}
                     />
                     <Radio
+                        role="radio"
                         label={'Midlertidig lønnstilskudd'}
                         checked={filter.tiltakstype === Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
                         name={Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
                         onChange={() => oppdaterFilter({ tiltakstype: Tiltak.MIDLERTIDIG_LØNNSTILSKUDD })}
                     />
                     <Radio
+                        role="radio"
                         label={'Varig lønnstilskudd'}
                         name={Tiltak.VARIG_LØNNSTILSKUDD}
                         checked={filter.tiltakstype === Tiltak.VARIG_LØNNSTILSKUDD}
@@ -115,7 +128,7 @@ const Filtermeny: FunctionComponent = () => {
                     />
                 </RadioGruppe>
             </EkspanderbartpanelBase>
-        </>
+        </div>
     );
 };
 
