@@ -34,8 +34,8 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
             <Innholdstittel>Kvittering</Innholdstittel>
             <VerticalSpacer rem={2} />
 
-            <div className={cls.element('gronn-boks')}>
-                <div style={{ marginRight: '1rem' }}>
+            <div className={cls.element('gronn-boks')} role="note">
+                <div style={{ marginRight: '1rem' }} aria-hidden={true}>
                     <CheckIkon />
                 </div>
                 <div>
@@ -76,7 +76,11 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
             </div>
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Inntektsopplysninger" apen={false}>
+            <Ekspanderbartpanel
+                tittel="Inntektsopplysninger"
+                apen={false}
+                aria-label="ekspanderbartpanel med inntektsopplysninger"
+            >
                 <FordelingOversikt
                     tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag}
                     inntektsgrunnlag={refusjon.inntektsgrunnlag}
@@ -85,7 +89,11 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
 
             <VerticalSpacer rem={1} />
 
-            <Ekspanderbartpanel tittel="Utregning" apen={false}>
+            <Ekspanderbartpanel
+                tittel="Utregning"
+                apen={false}
+                aria-label="ekspanderbartpanel med utregning opplysninger rundt refusjon"
+            >
                 <Utregning refusjon={refusjon} />
             </Ekspanderbartpanel>
 

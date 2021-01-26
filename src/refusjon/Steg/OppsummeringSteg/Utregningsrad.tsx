@@ -17,7 +17,8 @@ interface Props {
 const cls = BEMHelper('oppsummering');
 
 const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
-    const setIkon = (ikon?: React.ReactNode) => (ikon ? ikon : <div className={cls.element('ikon-placeholder')} />);
+    const setIkon = (ikon?: React.ReactNode) =>
+        ikon ? ikon : <div className={cls.element('ikon-placeholder')} aria-hidden={true} />;
 
     const setOperator = (operator?: string | ReactNode) =>
         operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
@@ -29,14 +30,14 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
-                    <Normaltekst>{props.labelTekst}</Normaltekst>
+                    <Normaltekst id={props.labelTekst}>{props.labelTekst}</Normaltekst>
                 </div>
                 {setLabelSats(props.labelSats)}
             </div>
 
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
-                <Normaltekst className={cls.element('sum')}>
+                <Normaltekst className={cls.element('sum')} aria-labelledby={props.labelTekst}>
                     {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
                 </Normaltekst>
             </div>

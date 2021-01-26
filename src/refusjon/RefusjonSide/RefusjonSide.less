@@ -47,4 +47,36 @@
         padding-bottom: 2rem;
         border-bottom: 1.5px solid #c6c2bf;
     }
+
+    @keyframes visfeil {
+        0%,
+        85% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    &__veilederpanel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 3rem 2rem;
+        animation: visfeil 3s;
+        .typo-normal {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    &__navigasjon {
+        display: flex;
+    }
+
+    @media (min-width: 768px) {
+        &__veilederpanel,
+        &__veilederpanel > .nav-veilederpanel {
+            min-width: 35rem;
+        }
+    }
 }

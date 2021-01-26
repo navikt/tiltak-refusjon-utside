@@ -25,10 +25,14 @@ const TidligereRefusjonerForAvtale: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Undertittel>Andre refusjoner tilknyttet samme avtale</Undertittel>
+            <Undertittel role="heading">Andre refusjoner tilknyttet samme avtale</Undertittel>
             <VerticalSpacer rem={1} />
             {refusjoner.map((refusjon, index) => (
                 <Ekspanderbartpanel
+                    aria-label={`ekspanderbartpanel med status oversikt over gitt periode ${formatterPeriode(
+                        refusjon.tilskuddsgrunnlag.tilskuddFom,
+                        refusjon.tilskuddsgrunnlag.tilskuddTom
+                    )}`}
                     key={index}
                     className={'tidligere-refusjon-ekspanderbartpanel'}
                     tittel={
@@ -39,21 +43,23 @@ const TidligereRefusjonerForAvtale: FunctionComponent<Props> = (props) => {
                                     refusjon.tilskuddsgrunnlag.tilskuddTom
                                 )}
                             </div>
-                            <EtikettInfo>{storForbokstav(statusTekst[refusjon.status])}</EtikettInfo>
+                            <EtikettInfo aria-label="status refusjon">
+                                {storForbokstav(statusTekst[refusjon.status])}
+                            </EtikettInfo>
                         </div>
                     }
                 >
                     {refusjon.status === 'KRAV_FREMMET' && (
-                        <Normaltekst>
+                        <div>
                             <Element>Refusjonsbeløp: {formatterPenger(refusjon.beregning!.refusjonsbeløp)}</Element>
                             <Normaltekst>Krav fremmet {formatterDato(refusjon.godkjentAvArbeidsgiver!)}</Normaltekst>
-                        </Normaltekst>
+                        </div>
                     )}
                     {refusjon.status === 'BEHANDLET' && (
-                        <Normaltekst>
+                        <div>
                             <Element>Refusjonsbeløp: {formatterPenger(refusjon.beregning!.refusjonsbeløp)}</Element>
                             <Normaltekst>Utbetalt {formatterDato(refusjon.godkjentAvSaksbehandler!)}</Normaltekst>
-                        </Normaltekst>
+                        </div>
                     )}
 
                     <VerticalSpacer rem={1} />
