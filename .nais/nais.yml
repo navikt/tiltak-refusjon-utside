@@ -34,13 +34,11 @@ spec:
 
   accessPolicy:
     outbound:
-      {{#unless labs}}
       rules:
         - application: tiltak-refusjon-api
+        {{#unless labs}}
         - application: tiltak-refusjon-utside-redis
-      {{/unless}}
-      rules:
-        - application: tiltak-refusjon-api
+        {{/unless }}
       external:
       {{#each host}}
         - host: "{{this}}"
