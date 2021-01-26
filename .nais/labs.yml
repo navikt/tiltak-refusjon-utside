@@ -13,9 +13,9 @@ env:
   TOKEN_X_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=tokenx
   TOKEN_X_CLIENT_ID: tokenx-token
   TOKEN_X_PRIVATE_JWK: "xabc"
-  IDPORTEN_WELL_KNOWN_URL: http://tiltak-fakelogin/metadata?issuer=selvbetjening
-  IDPORTEN_REDIRECT_URI: http://tiltak-fakelogin/metadata?issuer=selvbetjening
+  IDPORTEN_WELL_KNOWN_URL: https://tiltak-fakelogin/metadata?issuer=selvbetjening
+  IDPORTEN_REDIRECT_URI: https://tiltak-fakelogin/metadata?issuer=selvbetjening
   IDPORTEN_CLIENT_ID: aud-selvbetjening
   IDPORTEN_CLIENT_JWK: "xabc"
-  HTTP_PROXY: http://tiltak-fakelogin/metadata?issuer=isso
+  HTTP_PROXY: https://tiltak-fakelogin/metadata?issuer=isso
 slack_alert_channel: arbeidsgiver-notifications-test
