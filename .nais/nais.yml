@@ -31,19 +31,18 @@ spec:
     {{/each}}
     - name: HOST
       value: {{ingress}}
-
+  {{#unless labs}}
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
-        {{#unless labs}}
         - application: tiltak-refusjon-utside-redis
-        {{/unless }}
+
       external:
       {{#each host}}
         - host: "{{this}}"
       {{/each}}
-  {{#unless labs}}
+
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
     - secret: tiltak-refusjon-utside-redis
