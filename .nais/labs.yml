@@ -8,7 +8,7 @@ outbound:
 env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
-  API_URL: http://tiltak-refusjon-api
+  API_URL: https://tiltak-refusjon-api
   SESSION_KEY: "zb2e77d.47a0479900504cb3ab4a1f626d174f2d"
   TOKEN_X_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=tokenx
   TOKEN_X_CLIENT_ID: tokenx-token
