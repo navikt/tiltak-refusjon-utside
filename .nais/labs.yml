@@ -1,0 +1,7 @@
+ingress: https://arbeidsgiver.labs.nais.io/tiltak-refusjon
+host:
+  - www.labs.nav.no
+env:
+  DECORATOR_URL: https://www.nav.no/dekoratoren
+  API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
+slack_alert_channel: arbeidsgiver-notifications-test
