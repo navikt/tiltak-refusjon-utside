@@ -4,7 +4,6 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { Route, useHistory, useRouteMatch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
-import { ReactComponent as Veileder } from '@/asset/image/veileder.svg';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
@@ -14,9 +13,6 @@ import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
 import OppsummeringSteg from '../Steg/OppsummeringSteg/OppsummeringSteg';
 import StartSteg from '../Steg/StartSteg/StartSteg';
 import './RefusjonSide.less';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import Veilederpanel from 'nav-frontend-veilederpanel';
-import { Normaltekst } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('refusjonside');
 
@@ -58,18 +54,26 @@ const RefusjonSide: FunctionComponent = () => {
         .find((steg) => window.location.pathname.includes(steg.path))?.index;
 
     useEffect(() => {
-        if (!refusjon.inntektsgrunnlag) {
-            history.replace({ pathname: `${url}/start`, search: window.location.search });
-        }
-        if (refusjon.godkjentAvArbeidsgiver) {
-            history.replace({ pathname: `${url}/kvittering`, search: window.location.search });
-        }
-        if (refusjon.inntektsgrunnlag !== null && refusjon.godkjentAvArbeidsgiver === null && !aktivtStegIndex) {
-            history.replace({ pathname: `${url}/inntekt`, search: window.location.search });
+        const forandreAdresseFelt = (adresseNavn: string) =>
+            history.replace({ pathname: `${url}/${adresseNavn}`, search: window.location.search });
+        const { inntektsgrunnlag, godkjentAvArbeidsgiver } = refusjon;
+        switch (true) {
+            case !inntektsgrunnlag:
+                return forandreAdresseFelt('start');
+            case !!godkjentAvArbeidsgiver:
+                return forandreAdresseFelt('kvittering');
+            case !godkjentAvArbeidsgiver && !aktivtStegIndex:
+                return forandreAdresseFelt('inntekt');
+            case aktivtStegIndex === undefined:
+                return () => {
+                    throw Error();
+                };
+            default:
+                return void 0;
         }
     }, [history, refusjon, url, aktivtStegIndex]);
 
-    return !!aktivtStegIndex ? (
+    return aktivtStegIndex !== undefined ? (
         <>
             <VerticalSpacer rem={1} />
             <div className={cls.className}>
@@ -113,14 +117,7 @@ const RefusjonSide: FunctionComponent = () => {
                 </div>
             </div>
         </>
-    ) : (
-        <div className={cls.element('veilederpanel')}>
-            <Veilederpanel svg={<Veileder />} type="plakat" fargetema="feilmelding">
-                <Normaltekst>Det har oppstått en uventet hendelse ved lasting av siden.</Normaltekst>
-                <AlertStripeFeil>Feil vel lasting av siden</AlertStripeFeil>
-            </Veilederpanel>
-        </div>
-    );
+    ) : null;
 };
 
 export default RefusjonSide;
