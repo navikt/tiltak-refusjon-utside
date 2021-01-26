@@ -29,21 +29,24 @@ spec:
     - name: "{{@key}}"
       value: "{{this}}"
     {{/each}}
-    - name: API_URL
-      value: http://tiltak-refusjon-api
-    - name: REDIS_HOST
-      value: tiltak-refusjon-utside-redis
     - name: HOST
       value: {{ingress}}
+
   accessPolicy:
     outbound:
+      {{#unless labs}}
       rules:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-utside-redis
+      {{/unless}}
+      rules:
+        - application: tiltak-refusjon-api
       external:
       {{#each host}}
         - host: "{{this}}"
       {{/each}}
+  {{#unless labs}}
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
     - secret: tiltak-refusjon-utside-redis
+  {{/unless}}

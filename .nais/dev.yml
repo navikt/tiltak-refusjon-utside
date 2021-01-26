@@ -1,7 +1,10 @@
 ingress: https://tiltak-refusjon.dev.nav.no
+labs: false
 host:
   - www.nav.no
 env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
+  API_URL: http://tiltak-refusjon-api
+  REDIS_HOST: tiltak-refusjon-utside-redis
 slack_alert_channel: arbeidsgiver-notifications-test
