@@ -1,4 +1,4 @@
-name: Bygg master og deploy dev-gcp
+name: Bygg master og deploy dev-gcp og labs-gcp
 
 on:
   push:
