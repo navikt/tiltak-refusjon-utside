@@ -6,5 +6,5 @@ env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
   API_URL: http://tiltak-refusjon-api
-  SESSION_KEY: ""
+  SESSION_KEY: "zb2e77d.47a0479900504cb3ab4a1f626d174f2d"
 slack_alert_channel: arbeidsgiver-notifications-test
