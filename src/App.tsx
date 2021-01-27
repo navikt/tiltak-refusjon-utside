@@ -7,11 +7,13 @@ import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
 import ScrollToTop from './komponenter/ScrollToTop';
 import OversiktSide from './refusjon/OversiktSide/OversiktSide';
 import RefusjonSide from './refusjon/RefusjonSide/RefusjonSide';
+import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 
 function App() {
     return (
         <BrowserRouter>
             <ScrollToTop />
+            <AdvarselBannerTestversjon />
             <Switch>
                 <BrukerProvider>
                     <Route exact path="/">
