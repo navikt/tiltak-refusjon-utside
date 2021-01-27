@@ -35,6 +35,7 @@ spec:
     outbound:
     rules:
       - application: tiltak-refusjon-api
+      - application: tiltak-fakelogin
   {{/if}}
   {{#unless labs}}
   replicas:
