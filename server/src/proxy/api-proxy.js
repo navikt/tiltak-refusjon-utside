@@ -11,6 +11,7 @@ const setup = (router, tokenxClient) => {
                 return req.originalUrl;
             },
             proxyReqOptDecorator: async (options, req) => {
+                console.log('**** 6');
                 const accessToken = await getTokenExchangeAccessToken(tokenxClient, req);
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;

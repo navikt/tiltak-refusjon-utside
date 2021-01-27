@@ -6,6 +6,7 @@ const agent = () => {
     if (proxyUri) {
         console.log(`Proxying requests via ${proxyUri} for openid-cilent`);
         const hostPort = proxyUri.replace('https://', '').replace('http://', '').split(':', 2);
+        console.log('**** 4');
         return tunnel.httpsOverHttp({
             proxy: {
                 host: hostPort[0],

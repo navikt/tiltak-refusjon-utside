@@ -18,7 +18,6 @@ export const client = async () => {
             agent: httpProxy.agent,
         });
     }
-    console.log('IDPORTEN METEDATA ISSUER KALL SKJER NÅ....');
     idportenMetadata = await Issuer.discover(config.idporten.discoveryUrl);
     console.log(`Discovered issuer ${idportenMetadata.issuer}`);
     const jwk = JSON.parse(config.idporten.clientJwk);
@@ -26,6 +25,7 @@ export const client = async () => {
 };
 
 export const authUrl = (session, idportenClient) => {
+    console.log('**** 1');
     return idportenClient.authorizationUrl({
         scope: config.idporten.scope,
         redirect_uri: config.idporten.redirectUri,
@@ -41,7 +41,7 @@ export const validateOidcCallback = async (idportenClient, req) => {
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
-
+    console.log('**** 2');
     return await idportenClient.callback(
         config.idporten.redirectUri,
         params,
@@ -51,5 +51,6 @@ export const validateOidcCallback = async (idportenClient, req) => {
 };
 
 export const refresh = async (idportenClient, oldTokenSet) => {
+    console.log('**** 3');
     return await idportenClient.refresh(oldTokenSet);
 };
