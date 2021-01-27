@@ -33,9 +33,9 @@ spec:
   {{#if labs}}
   accessPolicy:
     outbound:
-    rules:
-      - application: tiltak-refusjon-api
-      - application: tiltak-fakelogin
+      rules:
+        - application: tiltak-refusjon-api
+        - application: tiltak-fakelogin
   {{/if}}
   {{#unless labs}}
   replicas:
