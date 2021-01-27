@@ -18,6 +18,7 @@ export const client = async () => {
             agent: httpProxy.agent,
         });
     }
+    console.log('IDPORTEN METEDATA ISSUER KALL SKJER NÅ....');
     idportenMetadata = await Issuer.discover(config.idporten.discoveryUrl);
     console.log(`Discovered issuer ${idportenMetadata.issuer}`);
     const jwk = JSON.parse(config.idporten.clientJwk);

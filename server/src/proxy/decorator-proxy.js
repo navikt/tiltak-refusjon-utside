@@ -7,9 +7,7 @@ const setup = (router) => {
     });
 
     router.use('/dekoratoren/env', async (req, res) => {
-        console.log('** HENTER DEKORATOR NAV');
         const response = await axios.get(`${process.env.DECORATOR_URL}/env?context=arbeidsgiver&feedback=false`);
-        console.log('*** RESP: ', response);
         res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
     });
 
