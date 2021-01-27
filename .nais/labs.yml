@@ -5,10 +5,10 @@ env:
   API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
   API_URL: http://tiltak-refusjon-api
   SESSION_KEY: "zb2e77d.47a0479900504cb3ab4a1f626d174f2d"
-  TOKEN_X_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/login?iss=tokenx&aud=aud-isso&NAVident=Z123456&domain=labs.nais.io&redirect=https://tiltak-refusjon-utside.labs.nais.io
+  TOKEN_X_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=tokenx
   TOKEN_X_CLIENT_ID: tokenx-token
   TOKEN_X_PRIVATE_JWK: "xabc"
-  IDPORTEN_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/login?iss=selvbetjening&aud=aud-selvbetjening&sub=20000000052&acr=Level4&domain=labs.nais.io&redirect=https://tiltak-refusjon-utside.labs.nais.io
+  IDPORTEN_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=selvbetjening
   IDPORTEN_REDIRECT_URI: https://tiltak-refusjon-utside.labs.nais.io
   IDPORTEN_CLIENT_ID: aud-selvbetjening
   IDPORTEN_CLIENT_JWK: "xabc"
