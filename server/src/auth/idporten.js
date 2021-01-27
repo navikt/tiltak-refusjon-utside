@@ -13,6 +13,7 @@ const metadata = {
 let idportenMetadata = null;
 
 export const client = async () => {
+    console.log('**** IDPORTEN CLIENT');
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,

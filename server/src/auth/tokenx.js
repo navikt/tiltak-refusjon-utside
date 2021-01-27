@@ -10,6 +10,7 @@ const metadata = {
 };
 
 export const client = async () => {
+    console.log('**** TOKEN X CLIENT');
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
