@@ -5,12 +5,13 @@ import * as tokenx from './auth/tokenx';
 import cors from './cors';
 import routes from './routes';
 import session from './session';
+import { startLabs } from './labs';
 
 //import morgan from 'morgan';
 
 const server = express();
 
-async function startApp() {
+async function startNormal() {
     try {
         server.use(bodyParser.json());
         // morgan('dev');
@@ -37,4 +38,8 @@ async function startApp() {
     }
 }
 
-startApp().catch((err) => console.log(err));
+if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
+    startLabs().catch((err) => console.log(err));
+} else {
+    startNormal().catch((err) => console.log(err));
+}
