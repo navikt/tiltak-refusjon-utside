@@ -30,6 +30,12 @@ spec:
     - name: HOST
       value: {{ingress}}
 
+  {{#if labs}}
+  accessPolicy:
+    outbound:
+    rules:
+      - application: tiltak-refusjon-api
+  {{/if}}
   {{#unless labs}}
   replicas:
     min: 1
