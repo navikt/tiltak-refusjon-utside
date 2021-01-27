@@ -22,7 +22,6 @@ async function startApp() {
 
         // setup sane defaults for CORS and HTTP headers
         // server.use(helmet());
-        console.log('**** CORS SETUP');
         server.use(cors);
 
         const tokenxAuthClient = await tokenx.client();
