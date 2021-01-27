@@ -5,9 +5,7 @@ import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import axios from 'axios';
 
-const server = express();
-
-async function startLabs() {
+async function startLabs(server) {
     try {
         server.use(bodyParser.json());
 
