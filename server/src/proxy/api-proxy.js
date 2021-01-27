@@ -3,6 +3,7 @@ import config from '../config';
 import { getTokenExchangeAccessToken } from '../auth/tokenx';
 
 const setup = (router, tokenxClient) => {
+    console.log('**** proxy config');
     router.use(
         '/api',
         proxy(config.api.url, {

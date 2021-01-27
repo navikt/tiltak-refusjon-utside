@@ -22,7 +22,9 @@ const setup = (app) => {
         options.cookie.secure = true;
         options.store = setupRedis();
     }
-    app.use(session(options));
+    if (process.env.NAIS_CLUSTER_NAME !== 'labs-gcp') {
+        app.use(session(options));
+    }
 };
 
 const setupRedis = () => {

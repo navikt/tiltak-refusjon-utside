@@ -22,6 +22,7 @@ export const client = async () => {
 };
 
 export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
+    console.log('*** getTokenExchangeAccessToken');
     let backendTokenSet = backendTokenSetFromSession(req);
 
     if (!backendTokenSet || backendTokenSet.expired()) {
