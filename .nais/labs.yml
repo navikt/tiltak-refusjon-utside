@@ -2,18 +2,18 @@ ingress: https://tiltak-refusjon-utside.labs.nais.io
 labs: true
 host:
   - www.nav.no
-  - tiltak-fakelogin.labs.nais.io
 outbound:
   - tiltak-refusjon-api
+  - tiltak-fakelogin
 env:
   DECORATOR_URL: https://www.nav.no/dekoratoren
   API_AUDIENCE: "labs-gcp:arbeidsgiver:tiltak-refusjon-api"
   API_URL: http://tiltak-refusjon-api
   SESSION_KEY: "zb2e77d.47a0479900504cb3ab4a1f626d174f2d"
-  TOKEN_X_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=tokenx
+  TOKEN_X_WELL_KNOWN_URL: http://tiltak-fakelogin/metadata?issuer=tokenx&jwksUri=http://tiltak-fakelogin/jwks
   TOKEN_X_CLIENT_ID: tokenx-token
   TOKEN_X_PRIVATE_JWK: "xabc"
-  IDPORTEN_WELL_KNOWN_URL: https://tiltak-fakelogin.labs.nais.io/metadata?issuer=selvbetjening
+  IDPORTEN_WELL_KNOWN_URL: http://tiltak-fakelogin/metadata?issuer=selvbetjening&jwksUri=http://tiltak-fakelogin/jwks
   IDPORTEN_REDIRECT_URI: https://tiltak-refusjon-utside.labs.nais.io
   IDPORTEN_CLIENT_ID: aud-selvbetjening
   IDPORTEN_CLIENT_JWK: "xabc"
