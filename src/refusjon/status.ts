@@ -6,4 +6,5 @@ export enum Status {
     AVSLÅTT = 'AVSLÅTT',
     UTBETALT = 'UTBETALT',
     UTGÅTT = 'UTGÅTT',
+    ANNULLERT = 'ANNULLERT',
 }

@@ -15,4 +15,5 @@ export const statusTekst: { [key in Status]: string } = {
     UTBETALT: 'utbetalt',
     UTGÅTT: 'utgått',
     NY: 'ny',
+    ANNULLERT: 'annullert',
 };
