@@ -45,7 +45,7 @@ export const gjorInntektsoppslag = async (refusjonId: string) => {
 };
 
 export const godkjennRefusjon = async (refusjonId: string) => {
-    const response = await axios.post(`${API_URL}/refusjon/${refusjonId}/godkjenn`);
+    const response = await axios.post(`${API_URL}/refusjon/${refusjonId}/godkjenn`).catch(håndterFeil);
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
