@@ -4,6 +4,7 @@ import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import LagreKnapp from '../../../komponenter/LagreKnapp';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { godkjennRefusjon, useHentRefusjon } from '../../../services/rest-service';
@@ -12,7 +13,6 @@ import { formatterPeriode } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import './OppsummeringSteg.less';
 import Utregning from './Utregning';
-import LagreKnapp from '../../../komponenter/LagreKnapp';
 
 const cls = BEMHelper('oppsummering');
 
@@ -57,7 +57,17 @@ const OppsummeringSteg: FunctionComponent = () => {
                 åpneLabel="Slik regner vi ut refusjonssgrunnlaget"
                 lukkLabel="lukk"
             >
-                Her kommer informasjon som bruker kan lese om.
+                <Element>Slik regner vi ut refusjonssgrunnlaget</Element>
+                <p>
+                    Lønnstilskudd gis i form av en fast prosentvis lønnsrefusjon, som utmåles på grunnlag av faktisk
+                    stillingsprosent. Refusjonsgrunnlaget består av utbetalt lønn, feriepenger, arbeidsgiveravgift av
+                    lønnen og feriepengene og innskudd til obligatorisk tjenestepensjon.
+                </p>
+                <p>
+                    Med lønn forstås timelønn eller månedslønn for arbeid utført i normalarbeidstiden, samt lønnsmessige
+                    tillegg etter oppsatt tjenesteplan for stillingen. Arbeidsgivers overtidsbetaling og andre variable
+                    tillegg skal ikke med i refusjonsgrunnlaget.
+                </p>
             </LesMerPanel>
             <Ekspanderbartpanel tittel="Utregningen" apen={true} aria-label="utregningspanel for refusjon">
                 <Utregning refusjon={refusjon} />

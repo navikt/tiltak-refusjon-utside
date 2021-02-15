@@ -1,4 +1,4 @@
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import LesMerPanel from '../../../komponenter/LesMerPanel/LesMerPanel';
@@ -28,12 +28,41 @@ const InntektSteg: FunctionComponent = () => {
                 </Normaltekst>
                 <VerticalSpacer rem={1} />
                 <LesMerPanel åpneLabel="Hvilke opplysninger henter vi?" lukkLabel="Lukk">
-                    Her kommer informasjon rundt opplysninger nav innhenter.
+                    <Element>Hvilke opplysninger henter vi?</Element>I refusjonsgrunnlaget inngår lønn for arbeid utført
+                    i normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable tillegg skal ikke
+                    tas med. Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales
+                    regelmessig ved hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
+                    <ul>
+                        <li>b-tillegg</li>
+                        <li>stabiliseringstillegg</li>
+                        <li>selektivt tillegg for sykepleiere</li>
+                        <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
+                        <li>kvalifikasjons-/kompetansetillegg</li>
+                    </ul>
+                    Dette gjelder ikke:
+                    <ul>
+                        <li>skift-, turnus- og vakttillegg</li>
+                        <li>offshoretillegg</li>
+                    </ul>
                 </LesMerPanel>
+
                 <VerticalSpacer rem={1} />
+
                 <LesMerPanel åpneLabel="Hvilke opplysninger fører til reduksjon i refusjon?" lukkLabel="Lukk">
-                    Her kommer informasjon hvilken opplysninger som fører til reduksjon av refusjoner.
+                    <Element>Hvilke opplysninger fører til reduksjon i refusjon?</Element>
+
+                    <ul>
+                        <li>
+                            Hvis arbeidstakeren har hatt sykefravær som gir rett til refusjon, skal dette trekkes fra
+                            beregningsgrunnlaget.
+                        </li>
+                        <li>
+                            Hvis arbeidstakeren har fått utbetalt feriepenger i perioden, skal dette trekkes fra
+                            beregningsgrunnlaget.
+                        </li>
+                    </ul>
                 </LesMerPanel>
+
                 <LonnsOpplysninger refusjon={refusjon} refusjonId={refusjonId} />
                 <VerticalSpacer rem={2} />
                 <FordelingOversikt

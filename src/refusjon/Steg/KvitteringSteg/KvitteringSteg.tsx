@@ -1,20 +1,19 @@
 import { ReactComponent as CheckIkon } from '@/asset/image/check.svg';
-import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../../komponenter/EksternLenke/EksternLenke';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import { tiltakstypeTekst } from '../../../messages';
 import { useHentRefusjon } from '../../../services/rest-service';
 import BEMHelper from '../../../utils/bem';
-import { formatterPenger } from '../../../utils/PengeUtils';
-import './KvitteringSteg.less';
-import { tiltakstypeTekst } from '../../../messages';
 import { formatterPeriode } from '../../../utils/datoUtils';
-import Utregning from '../OppsummeringSteg/Utregning';
-import FordelingOversikt from '../InntektSteg/fordelingOversikt/FordelingOversikt';
+import { formatterPenger } from '../../../utils/PengeUtils';
 import TidligereRefusjonerForAvtale from '../../TidligereRefusjonerForAvtale/TidligereRefusjonerForAvtale';
+import FordelingOversikt from '../InntektSteg/fordelingOversikt/FordelingOversikt';
+import Utregning from '../OppsummeringSteg/Utregning';
+import './KvitteringSteg.less';
 
 type Props = {};
 
@@ -59,22 +58,24 @@ const KvitteringSteg: FunctionComponent<Props> = (props) => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
 
-                    <EksternLenke href="">Du kan sjekke hvilket kontonummer vi har registrert på dere her</EksternLenke>
+                    <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                        Du kan sjekke hvilket kontonummer vi har registrert på dere her
+                    </EksternLenke>
                 </div>
             </div>
 
             <VerticalSpacer rem={1} />
 
-            <div className={cls.element('bla-boks')}>
+            {/* <div className={cls.element('bla-boks')}>
                 <div style={{ marginRight: '1rem' }}>
                     <InfoIkon />
                 </div>
                 <div>
                     <Element>Husk at dere må ... samme prosess når neste periode er fullført</Element>
-                    <Normaltekst>Dere vil da få et varsel bla bla bla</Normaltekst>
+                    <Normaltekst>Dere vil da få et varsel</Normaltekst>
                 </div>
-            </div>
-            <VerticalSpacer rem={1} />
+            </div> */}
+            <VerticalSpacer rem={2} />
 
             <Ekspanderbartpanel
                 tittel="Inntektsopplysninger"
