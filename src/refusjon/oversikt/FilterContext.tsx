@@ -3,7 +3,7 @@ import { Status } from '../status';
 import { Tiltak } from '../tiltak';
 
 export interface Filter {
-    status: Status;
+    status: Status | undefined;
     tiltakstype: Tiltak | undefined;
 }
 
@@ -22,7 +22,7 @@ export const useFilter = () => {
 
 export const FilterProvider: FunctionComponent = (props) => {
     const [filter, setFilter] = useState<Filter>({
-        status: Status.NY,
+        status: undefined,
         tiltakstype: undefined,
     });
 
