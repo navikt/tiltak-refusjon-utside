@@ -1,5 +1,5 @@
-import { Tiltak } from './refusjon/tiltak';
 import { Status } from './refusjon/status';
+import { Tiltak } from './refusjon/tiltak';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
@@ -8,8 +8,6 @@ export const tiltakstypeTekst: { [key in Tiltak]: string } = {
 };
 
 export const statusTekst: { [key in Status]: string } = {
-    AVSLÅTT: 'avslått',
-    BEHANDLET: 'behandlet',
     BEREGNET: 'beregnet',
     KRAV_FREMMET: 'krav fremmet',
     UTBETALT: 'utbetalt',
