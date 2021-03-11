@@ -12,10 +12,12 @@ import RefusjonSideNy from './RefusjonSideNy';
 
 const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
     switch (props.refusjon.status) {
-        case Status.BEREGNET:
-            return <RefusjonSideNy />;
         case Status.NY:
-            return <NyRefusjon />;
+            if (props.refusjon.inntektsgrunnlag === null) {
+                return <NyRefusjon />;
+            } else {
+                return <RefusjonSideNy />;
+            }
         case Status.UTGÅTT:
             return (
                 <FeilSide

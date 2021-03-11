@@ -53,13 +53,6 @@ const Filtermeny: FunctionComponent = () => {
                     />
                     <Radio
                         role="radio"
-                        label={storForbokstav(statusTekst[Status.BEREGNET])}
-                        checked={filter.status === Status.BEREGNET}
-                        name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.BEREGNET })}
-                    />
-                    <Radio
-                        role="radio"
                         label={storForbokstav(statusTekst[Status.ANNULLERT])}
                         checked={filter.status === Status.ANNULLERT}
                         name={'status'}

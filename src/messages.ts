@@ -8,7 +8,6 @@ export const tiltakstypeTekst: { [key in Tiltak]: string } = {
 };
 
 export const statusTekst: { [key in Status]: string } = {
-    BEREGNET: 'beregnet',
     KRAV_FREMMET: 'krav fremmet',
     UTBETALT: 'utbetalt',
     UTGÅTT: 'utgått',

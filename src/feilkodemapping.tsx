@@ -2,7 +2,12 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 
-type Feilkode = 'TEKNISK_FEIL_INNTEKTSOPPSLAG' | 'INNTEKT_HENTET_FOR_TIDLIG' | 'UGYLDIG_STATUS' | 'ETTER_FRIST';
+type Feilkode =
+    | 'TEKNISK_FEIL_INNTEKTSOPPSLAG'
+    | 'INNTEKT_HENTET_FOR_TIDLIG'
+    | 'UGYLDIG_STATUS'
+    | 'ETTER_FRIST'
+    | 'INGEN_INNTEKTER';
 
 const Feilmelding: FunctionComponent<{ feilkode: Feilkode }> = (props) => {
     return <Normaltekst>{feilmelding(props.feilkode)}</Normaltekst>;
@@ -20,5 +25,7 @@ export const feilmelding = (feilkode: Feilkode) => {
             return 'Handlingen kan ikke utføres fordi refusjonen har ugyldig status.';
         case 'ETTER_FRIST':
             return 'Fristen for å be om refusjon er utgått (2 måneder etter sluttdato for perioden).';
+        case 'INGEN_INNTEKTER':
+            return 'Ingen inntekter for perioden ble funnet.';
     }
 };
