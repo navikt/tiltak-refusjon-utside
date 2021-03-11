@@ -1,12 +1,12 @@
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { statusTekst } from '../../messages';
+import { storForbokstav } from '../../utils/stringUtils';
 import { Status } from '../status';
 import { Tiltak } from '../tiltak';
 import { useFilter } from './FilterContext';
-import { statusTekst } from '../../messages';
-import { storForbokstav } from '../../utils/stringUtils';
-import { useMediaQuery } from 'react-responsive';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
@@ -71,20 +71,6 @@ const Filtermeny: FunctionComponent = () => {
                         checked={filter.status === Status.KRAV_FREMMET}
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.KRAV_FREMMET })}
-                    />
-                    <Radio
-                        role="radio"
-                        label={storForbokstav(statusTekst[Status.BEHANDLET])}
-                        checked={filter.status === Status.BEHANDLET}
-                        name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.BEHANDLET })}
-                    />
-                    <Radio
-                        role="radio"
-                        label={storForbokstav(statusTekst[Status.AVSLÅTT])}
-                        checked={filter.status === Status.AVSLÅTT}
-                        name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.AVSLÅTT })}
                     />
                     <Radio
                         role="radio"

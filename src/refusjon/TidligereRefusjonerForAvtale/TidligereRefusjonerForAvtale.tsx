@@ -1,16 +1,16 @@
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { EtikettInfo } from 'nav-frontend-etiketter';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { useHentTidligereRefusjoner } from '../../services/rest-service';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
-import { EtikettInfo } from 'nav-frontend-etiketter';
-import { storForbokstav } from '../../utils/stringUtils';
-import { statusTekst } from '../../messages';
-import './TidligereRefusjonerForAvtale.less';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { formatterPenger } from '../../utils/PengeUtils';
 import { Link } from 'react-router-dom';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { statusTekst } from '../../messages';
+import { useHentTidligereRefusjoner } from '../../services/rest-service';
+import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
+import { formatterPenger } from '../../utils/PengeUtils';
+import { storForbokstav } from '../../utils/stringUtils';
+import './TidligereRefusjonerForAvtale.less';
 
 interface Props {
     refusjonId: string;
@@ -53,12 +53,6 @@ const TidligereRefusjonerForAvtale: FunctionComponent<Props> = (props) => {
                         <div>
                             <Element>Refusjonsbeløp: {formatterPenger(refusjon.beregning!.refusjonsbeløp)}</Element>
                             <Normaltekst>Krav fremmet {formatterDato(refusjon.godkjentAvArbeidsgiver!)}</Normaltekst>
-                        </div>
-                    )}
-                    {refusjon.status === 'BEHANDLET' && (
-                        <div>
-                            <Element>Refusjonsbeløp: {formatterPenger(refusjon.beregning!.refusjonsbeløp)}</Element>
-                            <Normaltekst>Utbetalt {formatterDato(refusjon.godkjentAvSaksbehandler!)}</Normaltekst>
                         </div>
                     )}
 

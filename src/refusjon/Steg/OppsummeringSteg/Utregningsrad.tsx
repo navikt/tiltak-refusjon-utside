@@ -10,8 +10,8 @@ interface Props {
     labelSats?: number;
     verdiOperator?: string | ReactNode;
     verdi: number;
-    borderTykk?: boolean;
     ikkePenger?: boolean;
+    border?: 'NROMAL' | 'TYKK' | 'INGEN';
 }
 
 const cls = BEMHelper('oppsummering');
@@ -25,8 +25,22 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
 
     const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
 
+    const border = () => {
+        switch (props.border) {
+            case 'NROMAL':
+            case undefined:
+                return '';
+            case 'TYKK':
+                return 'tykkbunn';
+            case 'INGEN':
+                return 'ingen-bunn';
+            default:
+                return '';
+        }
+    };
+
     return (
-        <div className={cls.element('utregning-rad', props.borderTykk ? 'tykkbunn' : '')}>
+        <div className={cls.element('utregning-rad', border())}>
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
@@ -34,13 +48,13 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                 </div>
                 {setLabelSats(props.labelSats)}
             </div>
-
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
                 <Normaltekst className={cls.element('sum')} aria-labelledby={props.labelTekst}>
                     {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
                 </Normaltekst>
             </div>
+            {/* <div>heeh</div> */}
         </div>
     );
 };
