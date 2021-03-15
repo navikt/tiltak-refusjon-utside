@@ -11,7 +11,7 @@ interface Props {
     verdiOperator?: string | ReactNode;
     verdi: number;
     ikkePenger?: boolean;
-    border?: 'NROMAL' | 'TYKK' | 'INGEN';
+    border?: 'NORMAL' | 'TYKK' | 'INGEN';
 }
 
 const cls = BEMHelper('oppsummering');
@@ -27,7 +27,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
 
     const border = () => {
         switch (props.border) {
-            case 'NROMAL':
+            case 'NORMAL':
             case undefined:
                 return '';
             case 'TYKK':
@@ -54,7 +54,6 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                     {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
                 </Normaltekst>
             </div>
-            {/* <div>heeh</div> */}
         </div>
     );
 };

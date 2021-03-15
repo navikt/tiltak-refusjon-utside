@@ -15,3 +15,7 @@ export const statusTekst: { [key in Status]: string } = {
     NY: 'ny',
     ANNULLERT: 'annullert',
 };
+
+export const inntektstypeTekst: { [key: string]: string } = {
+    LOENNSINNTEKT: 'Lønnsinntekt',
+};

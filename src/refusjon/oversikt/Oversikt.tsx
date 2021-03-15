@@ -52,11 +52,11 @@ const Oversikt: FunctionComponent = () => {
                                     refusjon.tilskuddsgrunnlag.tilskuddTom
                                 )}
                             </Kolonne>
-                            <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
-                                {formatterDato(refusjon.fristForGodkjenning)}
-                            </Kolonne>
                             <Kolonne aria-labelledby={cls.element('status')}>
                                 <EtikettInfo>{storForbokstav(statusTekst[refusjon.status])}</EtikettInfo>
+                            </Kolonne>
+                            <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
+                                {formatterDato(refusjon.fristForGodkjenning)}
                             </Kolonne>
                         </LenkepanelBase>
                     ))

@@ -15,6 +15,7 @@ import { formatterPenger } from '../../../utils/PengeUtils';
 import { Refusjon } from '../../refusjon';
 import './Utregning.less';
 import Utregningsrad from './Utregningsrad';
+import { inntektstypeTekst } from '../../../messages';
 
 interface Props {
     refusjon: Refusjon;
@@ -46,7 +47,9 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                     <div className={cls.element('inntekter')}>
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
                             <div className={cls.element('inntekt')}>
-                                <Normaltekst>{inntekt.inntektType}</Normaltekst>
+                                <Normaltekst>
+                                    {inntektstypeTekst[inntekt.inntektType] || inntekt.inntektType}
+                                </Normaltekst>
                                 <Normaltekst>
                                     {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom)}
                                 </Normaltekst>
