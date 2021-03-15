@@ -12,6 +12,7 @@ const NyRefusjon: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
     const [forTidlig, setForTidlig] = useState(false);
+    const [ingenInntekter, setIngenInntekter] = useState(false);
 
     useEffect(() => {
         if (!forTidlig) {
@@ -19,6 +20,8 @@ const NyRefusjon: FunctionComponent = () => {
                 gjorInntektsoppslag(refusjon.id).catch((error) => {
                     if (error.feilkode === 'INNTEKT_HENTET_FOR_TIDLIG') {
                         setForTidlig(true);
+                    } else if (error.feilkode === 'INGEN_INNTEKTER') {
+                        setIngenInntekter(true);
                     }
                 });
             }, 10000);
@@ -32,6 +35,17 @@ const NyRefusjon: FunctionComponent = () => {
                 feiltekst={`Du kan søke om refusjon etter at perioden er over, ${formatterDato(
                     refusjon.tilskuddsgrunnlag.tilskuddTom
                 )}.`}
+            />
+        );
+    }
+
+    if (ingenInntekter) {
+        return (
+            <FeilSide
+                advarselType="info"
+                feiltekst={
+                    'Det er ikke rapportert noen inntekter i perioden. Send inn A-melding, og last denne siden på nytt.'
+                }
             />
         );
     }
