@@ -100,13 +100,6 @@ const Filtermeny: FunctionComponent = () => {
                     />
                     <Radio
                         role="radio"
-                        label={'Mentor'}
-                        name={Tiltak.MENTOR}
-                        checked={filter.tiltakstype === Tiltak.MENTOR}
-                        onChange={() => oppdaterFilter({ tiltakstype: Tiltak.MENTOR })}
-                    />
-                    <Radio
-                        role="radio"
                         label={'Midlertidig lønnstilskudd'}
                         checked={filter.tiltakstype === Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
                         name={Tiltak.MIDLERTIDIG_LØNNSTILSKUDD}
