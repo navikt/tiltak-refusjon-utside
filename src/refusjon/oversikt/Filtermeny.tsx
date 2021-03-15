@@ -119,6 +119,13 @@ const Filtermeny: FunctionComponent = () => {
                         checked={filter.tiltakstype === Tiltak.VARIG_LØNNSTILSKUDD}
                         onChange={() => oppdaterFilter({ tiltakstype: Tiltak.VARIG_LØNNSTILSKUDD })}
                     />
+                    <Radio
+                        role="radio"
+                        label={'Sommerjobb'}
+                        name={Tiltak.SOMMERJOBB}
+                        checked={filter.tiltakstype === Tiltak.SOMMERJOBB}
+                        onChange={() => oppdaterFilter({ tiltakstype: Tiltak.SOMMERJOBB })}
+                    />
                 </RadioGruppe>
             </EkspanderbartpanelBase>
         </div>
