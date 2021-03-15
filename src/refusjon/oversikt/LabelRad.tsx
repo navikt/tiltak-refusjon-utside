@@ -16,11 +16,11 @@ const LabelRad = (props: Props) => {
             <div className={cls.element('kolonne')} id={cls.element('periode')}>
                 <Element>Periode</Element>
             </div>
-            <div className={cls.element('kolonne')} id={cls.element('frist-godkjenning')}>
-                <Element>Frist for godkjenning</Element>
-            </div>
             <div className={cls.element('kolonne')} id={cls.element('status')}>
                 <Element>Status</Element>
+            </div>
+            <div className={cls.element('kolonne')} id={cls.element('frist-godkjenning')}>
+                <Element>Frist for godkjenning</Element>
             </div>
         </div>
     );
