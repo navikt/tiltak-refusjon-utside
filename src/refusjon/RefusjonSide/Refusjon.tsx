@@ -29,7 +29,7 @@ const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
             );
         case Status.ANNULLERT:
             return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble avbrutt." />;
-        case Status.KRAV_FREMMET:
+        case Status.SENDT_KRAV:
         case Status.UTBETALT:
             return <KvitteringSide />;
     }

@@ -49,10 +49,10 @@ const TidligereRefusjonerForAvtale: FunctionComponent<Props> = (props) => {
                         </div>
                     }
                 >
-                    {refusjon.status === 'KRAV_FREMMET' && (
+                    {refusjon.status === 'SENDT_KRAV' && (
                         <div>
                             <Element>Refusjonsbeløp: {formatterPenger(refusjon.beregning!.refusjonsbeløp)}</Element>
-                            <Normaltekst>Krav fremmet {formatterDato(refusjon.godkjentAvArbeidsgiver!)}</Normaltekst>
+                            <Normaltekst>Sendt krav {formatterDato(refusjon.godkjentAvArbeidsgiver!)}</Normaltekst>
                         </div>
                     )}
 

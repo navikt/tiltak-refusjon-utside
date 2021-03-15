@@ -1,6 +1,6 @@
 export enum Status {
     NY = 'NY',
-    KRAV_FREMMET = 'KRAV_FREMMET',
+    SENDT_KRAV = 'SENDT_KRAV',
     UTBETALT = 'UTBETALT',
     UTGÅTT = 'UTGÅTT',
     ANNULLERT = 'ANNULLERT',

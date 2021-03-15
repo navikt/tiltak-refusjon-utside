@@ -9,7 +9,7 @@ export const tiltakstypeTekst: { [key in Tiltak]: string } = {
 };
 
 export const statusTekst: { [key in Status]: string } = {
-    KRAV_FREMMET: 'krav fremmet',
+    SENDT_KRAV: 'sendt krav',
     UTBETALT: 'utbetalt',
     UTGÅTT: 'utgått',
     NY: 'ny',

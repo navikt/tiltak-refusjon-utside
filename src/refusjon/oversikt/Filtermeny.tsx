@@ -60,10 +60,10 @@ const Filtermeny: FunctionComponent = () => {
                     />
                     <Radio
                         role="radio"
-                        label={storForbokstav(statusTekst[Status.KRAV_FREMMET])}
-                        checked={filter.status === Status.KRAV_FREMMET}
+                        label={storForbokstav(statusTekst[Status.SENDT_KRAV])}
+                        checked={filter.status === Status.SENDT_KRAV}
                         name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.KRAV_FREMMET })}
+                        onChange={() => oppdaterFilter({ status: Status.SENDT_KRAV })}
                     />
                     <Radio
                         role="radio"
