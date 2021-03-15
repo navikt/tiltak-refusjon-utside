@@ -1,8 +1,10 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const axios = require('axios');
 
+const serverPort = process.env.SERVER_PORT || '8080';
+
 module.exports = function (app) {
-    app.use('/api', createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true }));
+    app.use('/api', createProxyMiddleware({ target: 'http://localhost:' + serverPort, changeOrigin: true }));
 
     app.use('/dekoratoren/env', async (req, res) => {
         const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false');
@@ -10,7 +12,7 @@ module.exports = function (app) {
     });
     app.use('/dekoratoren/api/auth', async (req, res) => {
         try {
-            const response = await axios.get('http://localhost:8080/api/innlogget-bruker', {
+            const response = await axios.get('http://localhost:' + serverPort + '/api/innlogget-bruker', {
                 headers: req.headers,
             });
             res.json({ authenticated: true, name: response.data.identifikator || '' });
