@@ -10,17 +10,14 @@ import { useFilter } from './FilterContext';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
-    const ErDesktopStorrelse = useMediaQuery({ minWidth: 768 });
-    const [statusPanelOpen, setStatusPanelOpen] = useState(ErDesktopStorrelse);
-    const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(ErDesktopStorrelse);
+    const erDesktopStorrelse = useMediaQuery({ minWidth: 768 });
+    const [statusPanelOpen, setStatusPanelOpen] = useState(erDesktopStorrelse);
+    const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(erDesktopStorrelse);
 
     useEffect(() => {
-        const setEkspanderPanelOpen = (): void => {
-            setStatusPanelOpen(ErDesktopStorrelse);
-            setTiltaksPanelOpen(ErDesktopStorrelse);
-        };
-        setEkspanderPanelOpen();
-    }, [setStatusPanelOpen, setTiltaksPanelOpen, ErDesktopStorrelse]);
+        setStatusPanelOpen(erDesktopStorrelse);
+        setTiltaksPanelOpen(erDesktopStorrelse);
+    }, [setStatusPanelOpen, setTiltaksPanelOpen, erDesktopStorrelse]);
 
     return (
         <div role="menubar" aria-label="filtermeny for filtrering av refusjon på status og tiltakstype">

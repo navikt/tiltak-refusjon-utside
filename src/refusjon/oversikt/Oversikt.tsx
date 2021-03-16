@@ -1,17 +1,15 @@
-import { EtikettInfo } from 'nav-frontend-etiketter';
 import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
-import { storForbokstav } from '../../utils/stringUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
-import { statusTekst } from '../../messages';
 import FinnerIngenRefusjoner from './FinnerIngenRefusjon/FinnerIngenRefusjoner';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 
 const cls = BEMHelper('oversikt');
 
@@ -53,7 +51,11 @@ const Oversikt: FunctionComponent = () => {
                                 )}
                             </Kolonne>
                             <Kolonne aria-labelledby={cls.element('status')}>
-                                <EtikettInfo>{storForbokstav(statusTekst[refusjon.status])}</EtikettInfo>
+                                <StatusTekst
+                                    status={refusjon.status}
+                                    tilskuddFom={refusjon.tilskuddsgrunnlag.tilskuddFom}
+                                    tilskuddTom={refusjon.tilskuddsgrunnlag.tilskuddTom}
+                                />
                             </Kolonne>
                             <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
                                 {formatterDato(refusjon.fristForGodkjenning)}

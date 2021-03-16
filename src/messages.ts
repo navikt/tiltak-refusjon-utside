@@ -11,7 +11,7 @@ export const tiltakstypeTekst: { [key in Tiltak]: string } = {
 export const statusTekst: { [key in Status]: string } = {
     SENDT_KRAV: 'sendt krav',
     UTBETALT: 'utbetalt',
-    UTGÅTT: 'utgått',
+    UTGÅTT: 'frist utgått',
     NY: 'ny',
     ANNULLERT: 'annullert',
 };
