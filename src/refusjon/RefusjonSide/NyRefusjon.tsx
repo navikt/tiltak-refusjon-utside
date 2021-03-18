@@ -24,7 +24,7 @@ const NyRefusjon: FunctionComponent = () => {
                         setIngenInntekter(true);
                     }
                 });
-            }, 10000);
+            }, 2000);
         }
     }, [forTidlig, refusjon.id]);
 

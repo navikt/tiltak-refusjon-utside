@@ -50,6 +50,13 @@ export const godkjennRefusjon = async (refusjonId: string) => {
     return response.data;
 };
 
+export const setKid = async (refusjonId: string, kid: string) => {
+    console.log('setKidNummer refusjon=', refusjonId);
+    console.log('setKidNummer kid=', kid);
+    // const response = await axios.put(`${API_URL}/refusjon/${refusjonId}/kid`, kid).catch(håndterFeil);
+    // return response.data;
+};
+
 export const useHentRefusjoner = (bedriftnummer: string, status?: Status, tiltakstype?: Tiltak) => {
     const { data } = useSWR<Refusjon[]>(
         `/refusjon?bedriftNr=${bedriftnummer}&status=${status || ''}&tiltakstype=${tiltakstype || ''}`,

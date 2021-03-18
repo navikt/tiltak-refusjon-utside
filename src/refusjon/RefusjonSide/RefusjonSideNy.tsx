@@ -1,5 +1,5 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import { BekreftCheckboksPanel, Input } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory, useParams } from 'react-router';

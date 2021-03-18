@@ -1,17 +1,20 @@
 import { Calender, FileContent, Money, People } from '@navikt/ds-icons';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
+import { setKid, useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Input } from 'nav-frontend-skjema';
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+
+    // const [kidNummer, setKidnummer] = useState<string>(refusjon.kidNummer);
 
     const IkonRad = styled.div`
         display: flex;
@@ -48,6 +51,17 @@ const NokkelInfo: FunctionComponent = () => {
                 <Normaltekst>LALALA Må sendes med</Normaltekst>
             </IkonRad>
             <Lenke href="#">Hvis Kontonummeret er feil</Lenke>
+            <VerticalSpacer rem={1} />
+            <Input
+                label="KID"
+                value={refusjon.kidNummer}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                bredde="L"
+                maxLength={25}
+                onChange={() => {}}
+                onBlur={() => setKid(refusjonId, refusjon.kidNummer)}
+            />
         </div>
     );
 };
