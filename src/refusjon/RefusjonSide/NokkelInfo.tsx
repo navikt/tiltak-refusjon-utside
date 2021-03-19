@@ -51,29 +51,20 @@ const NokkelInfo: FunctionComponent = () => {
             </IkonRad>
             <Lenke href="#">Hvis Kontonummeret er feil</Lenke>
             <VerticalSpacer rem={1} />
-            {/* <Input
-                label="KID"
-                value={refusjon.kidNummer}
-                inputMode="numeric"
-                pattern="[0-9]*"
-                bredde="L"
-                maxLength={25}
-                onChange={(event) => {
-                    refusjon.kidNummer = event.currentTarget.value;
-                }}
-                onBlur={() => setKid(refusjonId, refusjon.kidNummer)}
-            /> */}
             <Input
                 label="KID"
                 value={refusjon.kidNummer}
                 inputMode="numeric"
                 pattern="[0-9]*"
+                type="number"
                 bredde="L"
-                maxLength={25}
                 onChange={(event) => {
-                    mutate(`/refusjon/${refusjonId}`, { ...refusjon, kidNummer: event.target.value }, false);
+                    if (event.target.value.length < 26)
+                        mutate(`/refusjon/${refusjonId}`, { ...refusjon, kidNummer: event.target.value }, false);
                 }}
-                onBlur={() => setKid(refusjonId, refusjon.kidNummer)}
+                onBlur={() =>
+                    refusjon.kidNummer === null ? setKid(refusjonId, '') : setKid(refusjonId, refusjon.kidNummer)
+                }
             />
         </div>
     );
