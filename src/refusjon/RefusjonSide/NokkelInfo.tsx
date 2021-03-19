@@ -1,20 +1,19 @@
 import { Calender, FileContent, Money, People } from '@navikt/ds-icons';
 import Lenke from 'nav-frontend-lenker';
+import { Input } from 'nav-frontend-skjema';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
+import { mutate } from 'swr';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { setKid, useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Input } from 'nav-frontend-skjema';
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
-
-    // const [kidNummer, setKidnummer] = useState<string>(refusjon.kidNummer);
 
     const IkonRad = styled.div`
         display: flex;
@@ -52,6 +51,18 @@ const NokkelInfo: FunctionComponent = () => {
             </IkonRad>
             <Lenke href="#">Hvis Kontonummeret er feil</Lenke>
             <VerticalSpacer rem={1} />
+            {/* <Input
+                label="KID"
+                value={refusjon.kidNummer}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                bredde="L"
+                maxLength={25}
+                onChange={(event) => {
+                    refusjon.kidNummer = event.currentTarget.value;
+                }}
+                onBlur={() => setKid(refusjonId, refusjon.kidNummer)}
+            /> */}
             <Input
                 label="KID"
                 value={refusjon.kidNummer}
@@ -59,7 +70,9 @@ const NokkelInfo: FunctionComponent = () => {
                 pattern="[0-9]*"
                 bredde="L"
                 maxLength={25}
-                onChange={() => {}}
+                onChange={(event) => {
+                    mutate(`/refusjon/${refusjonId}`, { ...refusjon, kidNummer: event.target.value }, false);
+                }}
                 onBlur={() => setKid(refusjonId, refusjon.kidNummer)}
             />
         </div>
