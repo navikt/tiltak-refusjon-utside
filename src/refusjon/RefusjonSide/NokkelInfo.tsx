@@ -10,6 +10,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { setKid, useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Status } from '../status';
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -51,21 +52,29 @@ const NokkelInfo: FunctionComponent = () => {
             </IkonRad>
             <Lenke href="#">Hvis Kontonummeret er feil</Lenke>
             <VerticalSpacer rem={1} />
-            <Input
-                label="KID"
-                value={refusjon.kidNummer}
-                inputMode="numeric"
-                pattern="[0-9]*"
-                type="number"
-                bredde="L"
-                onChange={(event) => {
-                    if (event.target.value.length < 26)
-                        mutate(`/refusjon/${refusjonId}`, { ...refusjon, kidNummer: event.target.value }, false);
-                }}
-                onBlur={() =>
-                    refusjon.kidNummer === null ? setKid(refusjonId, '') : setKid(refusjonId, refusjon.kidNummer)
-                }
-            />
+
+            {refusjon.status === Status.NY ? (
+                <Input
+                    label="KID"
+                    value={refusjon.kidNummer}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    type="number"
+                    bredde="L"
+                    onChange={(event) => {
+                        if (event.target.value.length < 26)
+                            mutate(`/refusjon/${refusjonId}`, { ...refusjon, kidNummer: event.target.value }, false);
+                    }}
+                    onBlur={() =>
+                        refusjon.kidNummer === null ? setKid(refusjonId, '') : setKid(refusjonId, refusjon.kidNummer)
+                    }
+                />
+            ) : (
+                <IkonRad>
+                    <Element>KID:</Element>
+                    <Normaltekst>{refusjon.kidNummer}</Normaltekst>
+                </IkonRad>
+            )}
         </div>
     );
 };
