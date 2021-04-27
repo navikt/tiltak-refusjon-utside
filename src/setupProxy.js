@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const axios = require('axios');
 
-const serverPort = process.env.SERVER_PORT || '8080';
+const serverPort = process.env.SERVER_PORT || '8081';
 
 module.exports = function (app) {
     app.use('/api', createProxyMiddleware({ target: 'http://localhost:' + serverPort, changeOrigin: true }));
