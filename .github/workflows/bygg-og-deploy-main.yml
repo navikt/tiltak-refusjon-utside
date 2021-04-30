@@ -1,9 +1,9 @@
-name: Bygg master og deploy dev-gcp og labs-gcp
+name: Bygg og deploy
 
 on:
   push:
     branches:
-      - '*'
+      - 'main'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -11,7 +11,7 @@ env:
 
 jobs:
   bygg:
-    name: Bygg og deploy dev-gcp
+    name: Bygg og deploy
     runs-on: ubuntu-latest
     steps:
       - name: Sjekk ut kode
@@ -31,7 +31,7 @@ jobs:
           docker build --tag $IMAGE .
           echo ${{ secrets.GHCR_PUSH_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_PUSH_USERNAME }} --password-stdin
           docker push $IMAGE
-      - name: Deploy til dev-gcp
+      - name: Deploy til labs-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
@@ -39,4 +39,12 @@ jobs:
           RESOURCE: .nais/nais.yml
           PRINT_PAYLOAD: true
           VARS: .nais/labs.yml
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais.yml
+          PRINT_PAYLOAD: true
+          VARS: .nais/dev.yml
 
