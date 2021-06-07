@@ -6,16 +6,16 @@ import { ReactComponent as ProsentTegn } from '@/asset/image/prosentTegn.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import { inntektstypeTekst } from '../../../messages';
 import BEMHelper from '../../../utils/bem';
-import { formatterPeriode } from '../../../utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
 import { Refusjon } from '../../refusjon';
 import './Utregning.less';
 import Utregningsrad from './Utregningsrad';
-import { inntektstypeTekst } from '../../../messages';
 
 interface Props {
     refusjon: Refusjon;
@@ -31,6 +31,16 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
         return null;
     }
 
+    const bruttoLønnLabel = (
+        <>
+            Brutto lønn i perioden (hentet fra A-meldingen)
+            <Element>
+                Sist hentet:{' '}
+                {formatterDato(props.refusjon.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
+            </Element>
+        </>
+    );
+
     return (
         <div className={cls.className}>
             <VerticalSpacer rem={1} />
@@ -38,7 +48,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
             <VerticalSpacer rem={1} />
             <Utregningsrad
                 labelIkon={<Pengesekken />}
-                labelTekst="Brutto lønn i perioden"
+                labelTekst={bruttoLønnLabel}
                 verdi={props.refusjon.beregning.lønn}
                 border="INGEN"
             />
@@ -105,6 +115,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                 ikkePenger
                 verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
             />
+            <VerticalSpacer rem={3} />
             <Utregningsrad
                 labelTekst="Refusjonsbeløp"
                 verdiOperator={<ErlikTegn />}

@@ -6,7 +6,7 @@ import { visSatsMedEttDesimal } from '../../../utils/utregningUtil';
 
 interface Props {
     labelIkon?: React.ReactNode;
-    labelTekst: string;
+    labelTekst: string | JSX.Element;
     labelSats?: number;
     verdiOperator?: string | ReactNode;
     verdi: number;
@@ -39,18 +39,20 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
         }
     };
 
+    const labelTekstString = typeof props.labelTekst === 'string' ? props.labelTekst : undefined;
+
     return (
         <div className={cls.element('utregning-rad', border())}>
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
-                    <Normaltekst id={props.labelTekst}>{props.labelTekst}</Normaltekst>
+                    <Normaltekst id={labelTekstString}>{props.labelTekst}</Normaltekst>
                 </div>
                 {setLabelSats(props.labelSats)}
             </div>
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
-                <Normaltekst className={cls.element('sum')} aria-labelledby={props.labelTekst}>
+                <Normaltekst className={cls.element('sum')} aria-labelledby={labelTekstString}>
                     {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
                 </Normaltekst>
             </div>
