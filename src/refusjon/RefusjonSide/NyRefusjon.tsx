@@ -32,9 +32,9 @@ const NyRefusjon: FunctionComponent = () => {
         return (
             <FeilSide
                 advarselType="info"
-                feiltekst={`Du kan søke om refusjon etter at perioden er over, ${formatterDato(
+                feiltekst={`Du kan søke om refusjon fra ${formatterDato(
                     refusjon.tilskuddsgrunnlag.tilskuddTom
-                )}.`}
+                )} når perioden er over.`}
             />
         );
     }
