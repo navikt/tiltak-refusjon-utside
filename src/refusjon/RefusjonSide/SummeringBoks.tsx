@@ -8,20 +8,20 @@ import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 
+const Boks = styled.div`
+    display: flex;
+    flex-direction: row;
+    border: 3px solid #cce1f3;
+    border-radius: 4px;
+    padding: 1.75rem;
+`;
+
 const SummeringBoks: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
-    const SummeringBoks = styled.div`
-        display: flex;
-        flex-direction: row;
-        border: 3px solid #cce1f3;
-        border-radius: 4px;
-        padding: 1.75rem;
-    `;
-
     return (
-        <SummeringBoks>
+        <Boks>
             <div style={{ paddingRight: '1.5rem' }}>
                 <Pengesedler />
             </div>
@@ -33,7 +33,7 @@ const SummeringBoks: FunctionComponent = () => {
                     {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
                 </Normaltekst>
             </div>
-        </SummeringBoks>
+        </Boks>
     );
 };
 

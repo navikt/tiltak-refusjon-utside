@@ -33,7 +33,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
 
     const bruttoLønnLabel = (
         <>
-            Brutto lønn i perioden (hentet fra A-meldingen)
+            Brutto lønn i perioden (hentet fra a-meldingen)
             <Element>
                 Sist hentet:{' '}
                 {formatterDato(props.refusjon.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
@@ -56,7 +56,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('inntekter')}>
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
-                            <div className={cls.element('inntekt')}>
+                            <div key={inntekt.id} className={cls.element('inntekt')}>
                                 <Normaltekst>
                                     {inntektstypeTekst[inntekt.inntektType] || inntekt.inntektType}
                                 </Normaltekst>
@@ -76,7 +76,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                     <>
                         <VerticalSpacer rem={1} />
                         <AlertStripeAdvarsel>
-                            Vi kan ikke finne inntekter fra A-meldingen for denne perioden. Sjekk at opplysningene er
+                            Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Sjekk at opplysningene er
                             rapportert i rett periode.
                         </AlertStripeAdvarsel>
                         <VerticalSpacer rem={2} />
@@ -110,7 +110,7 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                 verdi={props.refusjon.beregning.sumUtgifter}
             />
             <Utregningsrad
-                labelTekst="Lønnstilskuddsprosent"
+                labelTekst="Tilskuddsprosent"
                 verdiOperator={<ProsentTegn />}
                 ikkePenger
                 verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}

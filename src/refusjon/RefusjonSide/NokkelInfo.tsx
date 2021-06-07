@@ -1,5 +1,4 @@
 import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
-import { Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
@@ -10,17 +9,18 @@ import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Knapp } from 'nav-frontend-knapper';
+
+const IkonRad = styled.div`
+    display: flex;
+    * {
+        margin-right: 0.5rem;
+    }
+`;
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
-
-    const IkonRad = styled.div`
-        display: flex;
-        * {
-            margin-right: 0.5rem;
-        }
-    `;
 
     const avtaleLenke = `http://arbeidsgiver.nav.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
 
@@ -36,7 +36,9 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <People />
                 <Element>Deltaker: </Element>
-                <Normaltekst>{`${refusjon.tilskuddsgrunnlag.deltakerFornavn} ${refusjon.tilskuddsgrunnlag.deltakerEtternavn}`}</Normaltekst>
+                <Normaltekst>
+                    {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
+                </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
@@ -56,7 +58,7 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>LALALA Må sendes med</Normaltekst>
+                <Normaltekst>(mangler)</Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <div style={{ marginLeft: '1.5rem' }}>

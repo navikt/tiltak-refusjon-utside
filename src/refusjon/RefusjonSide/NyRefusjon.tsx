@@ -24,7 +24,7 @@ const NyRefusjon: FunctionComponent = () => {
                         setIngenInntekter(true);
                     }
                 });
-            }, 10000);
+            }, 3000);
         }
     }, [forTidlig, refusjon.id]);
 
@@ -44,7 +44,7 @@ const NyRefusjon: FunctionComponent = () => {
             <FeilSide
                 advarselType="info"
                 feiltekst={
-                    'Det er ikke rapportert noen inntekter i perioden. Send inn A-melding, og last denne siden på nytt.'
+                    'Det er ikke rapportert noen inntekter i perioden. Send inn a-melding, og last denne siden på nytt.'
                 }
             />
         );

@@ -22,7 +22,7 @@ const KvitteringSide: FunctionComponent = () => {
             </div>
             <VerticalSpacer rem={1} />
             <Normaltekst>
-                Refusjonskravet er nå sendt. Det vil ta 3 - 4 dager før pengene kommer på kontoen. Denne refusjonen vil
+                Refusjonskravet er nå sendt. Det vil ta 3-4 dager før pengene kommer på kontoen. Denne refusjonen vil
                 bli tatt vare på under “Sendt krav”.
             </Normaltekst>
             <VerticalSpacer rem={2} />

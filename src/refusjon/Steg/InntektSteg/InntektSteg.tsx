@@ -23,7 +23,7 @@ const InntektSteg: FunctionComponent = () => {
                 <Innholdstittel role="heading">Inntektsopplysninger</Innholdstittel>
                 <VerticalSpacer rem={1.5} />
                 <Normaltekst>
-                    Vi henter inntektsopplysninger for deltakeren fra A-meldingen. Dersom inntektsopplysningene ikke
+                    Vi henter inntektsopplysninger for deltakeren fra a-meldingen. Dersom inntektsopplysningene ikke
                     stemmer må det endres der.
                 </Normaltekst>
                 <VerticalSpacer rem={1} />

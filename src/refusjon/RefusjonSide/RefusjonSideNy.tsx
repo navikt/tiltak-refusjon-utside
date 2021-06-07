@@ -54,7 +54,7 @@ const RefusjonSideNy: FunctionComponent<Props> = (props) => {
 
             <VerticalSpacer rem={1} />
             <Normaltekst>
-                Vi henter inntektsopplysninger for deltakeren fra A-meldingen automatisk. Hvis inntektsopplysningene
+                Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
                 ikke stemmer så må det{' '}
                 <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
                     oppdateres i A-meldingen hos Altinn.
