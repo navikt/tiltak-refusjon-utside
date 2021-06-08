@@ -116,6 +116,14 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                 verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
             />
             <VerticalSpacer rem={3} />
+            {props.refusjon.beregning.overTilskuddsbeløp && (
+                <Utregningsrad
+                    labelTekst="Beregnet beløp"
+                    verdiOperator={<ErlikTegn />}
+                    verdi={props.refusjon.beregning.beregnetBeløp}
+                    border="TYKK"
+                />
+            )}
             <Utregningsrad
                 labelTekst="Refusjonsbeløp"
                 verdiOperator={<ErlikTegn />}
@@ -123,6 +131,14 @@ const UtregningNy: FunctionComponent<Props> = (props) => {
                 border="TYKK"
             />
             <VerticalSpacer rem={1} />
+            {props.refusjon.beregning.overTilskuddsbeløp && (
+                <AlertStripeAdvarsel>
+                    Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
+                    {formatterPenger(props.refusjon.tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne
+                    refusjonsperioden kan ikke endres, men ta kontakt med veileder for å justere lønn i avtalen for
+                    fremtidige refusjoner.
+                </AlertStripeAdvarsel>
+            )}
         </div>
     );
 };

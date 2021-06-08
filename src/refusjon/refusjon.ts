@@ -58,6 +58,8 @@ interface Beregning {
     id: string;
     lønn: number;
     refusjonsbeløp: number;
+    beregnetBeløp: number;
+    overTilskuddsbeløp: boolean;
     sumUtgifter: number;
     tjenestepensjon: number;
 }
