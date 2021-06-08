@@ -25,15 +25,10 @@ const OppsummeringSteg: FunctionComponent = () => {
 
     const fullforeRefusjon = async () => {
         if (samtykker) {
-            try {
-                await godkjennRefusjon(refusjonId);
-                history.push({ pathname: `/refusjon/${refusjon.id}/kvittering`, search: window.location.search });
-            } catch (error) {
-                console.log('feil');
-                throw error;
-            }
+            await godkjennRefusjon(refusjonId);
+            history.push({ pathname: `/refusjon/${refusjon.id}/kvittering`, search: window.location.search });
         }
-        return setAlertStripe(true);
+        setAlertStripe(true);
     };
 
     const bekrefterSamtykke = (bekreft: boolean) => {
@@ -95,7 +90,7 @@ const OppsummeringSteg: FunctionComponent = () => {
                 label="Jeg bekrefter at opplysningene er korrekte."
                 feil={alertStripe ? 'Du må samtykke at opplysningene er riktig, før du kan sende inn skjemaet.' : null}
             />
-            <LagreKnapp type="hoved" lagreFunksjon={() => fullforeRefusjon()}>
+            <LagreKnapp type="hoved" lagreFunksjon={fullforeRefusjon}>
                 Fullfør
             </LagreKnapp>
         </>
