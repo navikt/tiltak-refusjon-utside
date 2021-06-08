@@ -8,7 +8,7 @@ import { Refusjon as RefusjonType } from '../refusjon';
 import { Status } from '../status';
 import FeilSide from './FeilSide';
 import NyRefusjon from './NyRefusjon';
-import RefusjonSideNy from './RefusjonSideNy';
+import RefusjonSide from './RefusjonSide';
 
 const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
     switch (props.refusjon.status) {
@@ -16,7 +16,7 @@ const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
             if (props.refusjon.inntektsgrunnlag === null) {
                 return <NyRefusjon />;
             } else {
-                return <RefusjonSideNy />;
+                return <RefusjonSide />;
             }
         case Status.UTGÅTT:
             return (

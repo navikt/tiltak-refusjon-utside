@@ -1,123 +1,89 @@
-import { VenstreChevron } from 'nav-frontend-chevron';
-import Stegindikator from 'nav-frontend-stegindikator';
-import React, { FunctionComponent, useEffect } from 'react';
-import { Route, useHistory, useRouteMatch } from 'react-router';
-import { Link, useParams } from 'react-router-dom';
-import FremTilbakeNavigasjon from '../../komponenter/FremTilbakeNavigasjon';
+import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
+import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
+import LagreKnapp from '../../komponenter/LagreKnapp';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
+import { godkjennRefusjon, useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import InntektSteg from '../Steg/InntektSteg/InntektSteg';
-import KvitteringSteg from '../Steg/KvitteringSteg/KvitteringSteg';
-import OppsummeringSteg from '../Steg/OppsummeringSteg/OppsummeringSteg';
-import StartSteg from '../Steg/StartSteg/StartSteg';
+import '../Steg/OppsummeringSteg/OppsummeringSteg.less';
+import Utregning from '../Steg/OppsummeringSteg/Utregning';
+import NokkelInfo from './NokkelInfo';
 import './RefusjonSide.less';
+import SummeringBoks from './SummeringBoks';
 
 const cls = BEMHelper('refusjonside');
 
 const RefusjonSide: FunctionComponent = () => {
+    const history = useHistory();
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
-    const { path, url } = useRouteMatch();
-    const history = useHistory();
+    const [bekrefetKorrekteOpplysninger, setBekrefetKorrekteOpplysninger] = useState(false);
+    const [ikkeBekreftetFeilmelding, seTikkeBekreftetFeilmelding] = useState('');
 
-    const alleSteg = [
-        {
-            path: 'start',
-            label: 'Start',
-            komponent: <StartSteg />,
-            disabled: refusjon.inntektsgrunnlag !== null,
-        },
-        {
-            path: 'inntekt',
-            label: 'Inntektsopplysninger',
-            komponent: <InntektSteg />,
-            disabled: refusjon.inntektsgrunnlag === null || refusjon.godkjentAvArbeidsgiver !== null,
-        },
-        {
-            path: 'oppsummering',
-            label: 'Oppsummering',
-            komponent: <OppsummeringSteg />,
-            disabled: refusjon.inntektsgrunnlag === null || refusjon.godkjentAvArbeidsgiver !== null,
-        },
-        {
-            path: 'kvittering',
-            label: 'Kvittering',
-            komponent: <KvitteringSteg />,
-            disabled: refusjon.godkjentAvArbeidsgiver === null,
-        },
-    ].map((steg, index) => ({ ...steg, index }));
-
-    const aktivtStegIndex = alleSteg
-        .filter((steg) => !steg.disabled)
-        .find((steg) => window.location.pathname.includes(steg.path))?.index;
-
-    useEffect(() => {
-        const forandreAdresseFelt = (adresseNavn: string) =>
-            history.replace({ pathname: `${url}/${adresseNavn}`, search: window.location.search });
-        const { inntektsgrunnlag, godkjentAvArbeidsgiver } = refusjon;
-        switch (true) {
-            case !inntektsgrunnlag:
-                return forandreAdresseFelt('start');
-            case !!godkjentAvArbeidsgiver:
-                return forandreAdresseFelt('kvittering');
-            case !godkjentAvArbeidsgiver && !aktivtStegIndex:
-                return forandreAdresseFelt('inntekt');
-            case aktivtStegIndex === undefined:
-                return () => {
-                    throw Error();
-                };
-            default:
-                return void 0;
+    const bekreftOpplysninger = () => {
+        setBekrefetKorrekteOpplysninger(!bekrefetKorrekteOpplysninger);
+        seTikkeBekreftetFeilmelding('');
+    };
+    const fullførRefusjon = async () => {
+        if (bekrefetKorrekteOpplysninger) {
+            try {
+                await godkjennRefusjon(refusjonId);
+                history.push({ pathname: `/refusjon/${refusjon.id}/kvittering`, search: window.location.search });
+            } catch (error) {
+                console.log('feil');
+                throw error;
+            }
+        } else {
+            seTikkeBekreftetFeilmelding('Du må samtykke at opplysningene er riktig, før du kan sende inn skjemaet.');
         }
-    }, [history, refusjon, url, aktivtStegIndex]);
+    };
 
-    return aktivtStegIndex !== undefined ? (
-        <>
+    if (!refusjon.inntektsgrunnlag) {
+        return null;
+    }
+
+    return (
+        <HvitBoks>
+            <VerticalSpacer rem={2} />
+            <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
+
             <VerticalSpacer rem={1} />
-            <div className={cls.className}>
-                <div className={cls.element('wrapper')}>
-                    <div className={cls.element('navigasjonslinje')}>
-                        <Link
-                            to={{ pathname: '/', search: window.location.search }}
-                            className={cls.element('navigasjonslenke')}
-                        >
-                            <div aria-hidden={true}>
-                                <VenstreChevron />
-                            </div>
-                            Tilbake til oversikt
-                        </Link>
-                    </div>
-                    <HvitBoks role="main">
-                        <div className={cls.element('stegindikator')}>
-                            <Stegindikator
-                                visLabel
-                                aria-label={`stegindikator viser stegene til refusjon gjennomgang. Aktivt steg ${alleSteg[aktivtStegIndex]}`}
-                                steg={alleSteg}
-                                aktivtSteg={aktivtStegIndex}
-                                autoResponsiv={true}
-                                onChange={(index) => {
-                                    history.push({
-                                        pathname: alleSteg[index].path,
-                                        search: window.location.search,
-                                    });
-                                }}
-                            />
-                        </div>
-                        {alleSteg
-                            .filter((steg) => !steg.disabled)
-                            .map((steg, index) => (
-                                <Route exact path={`${path}/${steg.path}`} key={index}>
-                                    <div className={cls.element('innhold-steg')}>{steg.komponent}</div>
-                                </Route>
-                            ))}
-                    </HvitBoks>
-                    <FremTilbakeNavigasjon alleSteg={alleSteg} index={aktivtStegIndex} url={url} />
-                </div>
-            </div>
-        </>
-    ) : null;
+            <Normaltekst>
+                Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
+                ikke stemmer så må det{' '}
+                <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
+                    oppdateres i A-meldingen hos Altinn.
+                </EksternLenke>
+                Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
+                hentet fra avtalen om midlertidig lønnstilskudd.
+            </Normaltekst>
+            <VerticalSpacer rem={2} />
+            <NokkelInfo />
+            <VerticalSpacer rem={2} />
+            <Utregning refusjon={refusjon} />
+
+            <VerticalSpacer rem={4} />
+
+            <SummeringBoks />
+
+            <VerticalSpacer rem={1} />
+
+            <BekreftCheckboksPanel
+                className={cls.element('bekrefthandling')}
+                onChange={() => bekreftOpplysninger()}
+                checked={bekrefetKorrekteOpplysninger}
+                label="Jeg bekrefter at opplysningene er korrekte."
+                feil={ikkeBekreftetFeilmelding}
+            />
+            <VerticalSpacer rem={2} />
+            <LagreKnapp type="hoved" lagreFunksjon={() => fullførRefusjon()}>
+                Fullfør
+            </LagreKnapp>
+        </HvitBoks>
+    );
 };
 
 export default RefusjonSide;

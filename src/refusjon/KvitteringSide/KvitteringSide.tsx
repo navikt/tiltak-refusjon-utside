@@ -7,7 +7,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
-import UtregningNy from '../Steg/OppsummeringSteg/UtregningNy';
+import Utregning from '../Steg/OppsummeringSteg/Utregning';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -28,7 +28,7 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <NokkelInfo />
             <VerticalSpacer rem={2} />
-            <UtregningNy refusjon={refusjon} />
+            <Utregning refusjon={refusjon} />
             <VerticalSpacer rem={4} />
             <SummeringBoks />
         </HvitBoks>
