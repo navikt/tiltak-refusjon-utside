@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { tiltakstypeTekst } from '../../../messages';
+import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import { tiltakstypeTekst } from '../../../messages';
+import BEMHelper from '../../../utils/bem';
 import { formatterDato, formatterPeriode } from '../../../utils/datoUtils';
 import { Refusjon } from '../../refusjon';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import BEMHelper from '../../../utils/bem';
 
 interface Props {
     refusjon: Refusjon;
@@ -40,14 +40,6 @@ const RefusjonsInfo: FunctionComponent<Props> = (props) => {
             <Normaltekst aria-labelledby="refusjonsinfo_deltaker">
                 {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
             </Normaltekst>
-            <VerticalSpacer rem={1} />
-            <Element>Ansvarlig i virksomheten</Element>
-            <div aria-labelledby="arbeidstaker opplysninger">
-                <Normaltekst id="refusjonsinfo_kontaktpersjon_bedrift">
-                    Kontaktpersonen i bedriften (mangler)
-                </Normaltekst>
-                <Normaltekst aria-labelledby="refusjonsinfo_kontaktpersjon_bedrift">12345678 (mangler)</Normaltekst>
-            </div>
         </>
     );
 };

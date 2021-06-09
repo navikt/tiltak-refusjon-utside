@@ -34,9 +34,6 @@ const FeilSide: FunctionComponent<Props> = (props) => {
             <VerticalSpacer rem={1} />
             <Element>Deltaker:</Element>
             <Normaltekst>{`${refusjon.tilskuddsgrunnlag.deltakerFornavn} ${refusjon.tilskuddsgrunnlag.deltakerEtternavn}`}</Normaltekst>
-            <VerticalSpacer rem={1} />
-            <Element>Ansvarlig i virksomheten:</Element>
-            <Normaltekst>...</Normaltekst>
         </HvitBoks>
     );
 };
