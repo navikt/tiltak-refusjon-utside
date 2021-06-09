@@ -1,29 +1,27 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Suspense } from 'react';
 import { useParams } from 'react-router';
 import TilbakeTilOversikt from '../../komponenter/TilbakeTilOversikt';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
-import { Refusjon as RefusjonType } from '../refusjon';
 import { Status } from '../status';
 import FeilSide from './FeilSide';
-import NyRefusjon from './NyRefusjon';
 import RefusjonSide from './RefusjonSide';
+import HenterInntekterBoks from './HenterInntekterBoks';
 
-const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
-    switch (props.refusjon.status) {
+const Komponent: FunctionComponent = () => {
+    const { refusjonId } = useParams();
+    const refusjon = useHentRefusjon(refusjonId);
+
+    switch (refusjon.status) {
         case Status.NY:
-            if (props.refusjon.inntektsgrunnlag === null) {
-                return <NyRefusjon />;
-            } else {
-                return <RefusjonSide />;
-            }
+            return <RefusjonSide />;
         case Status.UTGÅTT:
             return (
                 <FeilSide
                     advarselType="advarsel"
                     feiltekst={`Fisten for å søke om refusjon for denne perioden gikk ut ${formatterDato(
-                        props.refusjon.fristForGodkjenning
+                        refusjon.fristForGodkjenning
                     )}. Innvilget tilskudd er derfor trukket tilbake.`}
                 />
             );
@@ -36,14 +34,13 @@ const Komponent: FunctionComponent<{ refusjon: RefusjonType }> = (props) => {
 };
 
 const Refusjon: FunctionComponent = () => {
-    const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
-
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div style={{ flex: '0 0 55rem', flexShrink: 1 }}>
                 <TilbakeTilOversikt />
-                <Komponent refusjon={refusjon} />
+                <Suspense fallback={<HenterInntekterBoks />}>
+                    <Komponent />
+                </Suspense>
             </div>
         </div>
     );

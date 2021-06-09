@@ -9,7 +9,7 @@ interface Props {
     labelTekst: string | JSX.Element;
     labelSats?: number;
     verdiOperator?: string | ReactNode;
-    verdi: number;
+    verdi: number | string;
     ikkePenger?: boolean;
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
 }
@@ -53,7 +53,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
                 <Normaltekst className={cls.element('sum')} aria-labelledby={labelTekstString}>
-                    {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)}
+                    {props.ikkePenger || typeof props.verdi === 'string' ? props.verdi : formatterPenger(props.verdi)}
                 </Normaltekst>
             </div>
         </div>

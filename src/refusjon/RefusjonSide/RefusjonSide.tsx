@@ -41,10 +41,6 @@ const RefusjonSide: FunctionComponent = () => {
         }
     };
 
-    if (!refusjon.inntektsgrunnlag) {
-        return null;
-    }
-
     return (
         <HvitBoks>
             <VerticalSpacer rem={2} />
@@ -67,21 +63,25 @@ const RefusjonSide: FunctionComponent = () => {
 
             <VerticalSpacer rem={4} />
 
-            <SummeringBoks />
+            {refusjon.beregning && (
+                <>
+                    <SummeringBoks />
 
-            <VerticalSpacer rem={1} />
+                    <VerticalSpacer rem={1} />
 
-            <BekreftCheckboksPanel
-                className={cls.element('bekrefthandling')}
-                onChange={() => bekreftOpplysninger()}
-                checked={bekrefetKorrekteOpplysninger}
-                label="Jeg bekrefter at opplysningene er korrekte."
-                feil={ikkeBekreftetFeilmelding}
-            />
-            <VerticalSpacer rem={2} />
-            <LagreKnapp type="hoved" lagreFunksjon={() => fullførRefusjon()}>
-                Fullfør
-            </LagreKnapp>
+                    <BekreftCheckboksPanel
+                        className={cls.element('bekrefthandling')}
+                        onChange={() => bekreftOpplysninger()}
+                        checked={bekrefetKorrekteOpplysninger}
+                        label="Jeg bekrefter at opplysningene er korrekte."
+                        feil={ikkeBekreftetFeilmelding}
+                    />
+                    <VerticalSpacer rem={2} />
+                    <LagreKnapp type="hoved" lagreFunksjon={() => fullførRefusjon()}>
+                        Fullfør
+                    </LagreKnapp>
+                </>
+            )}
         </HvitBoks>
     );
 };
