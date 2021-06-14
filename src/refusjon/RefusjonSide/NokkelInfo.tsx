@@ -60,22 +60,6 @@ const NokkelInfo: FunctionComponent = () => {
                 <Element>Kontonummer:</Element>
                 <Normaltekst>(mangler)</Normaltekst>
             </IkonRad>
-            <VerticalSpacer rem={1} />
-            <div style={{ marginLeft: '1.5rem' }}>
-                <Normaltekst>
-                    Hvis kontonummeret ikke stemmer så må det{' '}
-                    <EksternLenke
-                        href={
-                            'https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/'
-                        }
-                    >
-                        oppdateres hos Altinn,
-                    </EksternLenke>
-                    deretter hente nytt kontonummer med knappen under.
-                </Normaltekst>
-                <VerticalSpacer rem={1} />
-                <Knapp mini>Hent nytt kontonummer fra Altinn</Knapp>
-            </div>
         </div>
     );
 };
