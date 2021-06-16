@@ -20,6 +20,7 @@ export interface Tilskuddsgrunnlag {
     avtaleId: string;
     bedriftNavn: string;
     bedriftNr: string;
+    bedriftKontonummer: string;
     deltakerEtternavn: string;
     deltakerFnr: string;
     deltakerFornavn: string;

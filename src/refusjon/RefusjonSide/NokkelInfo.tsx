@@ -9,7 +9,6 @@ import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Knapp } from 'nav-frontend-knapper';
 
 const IkonRad = styled.div`
     display: flex;
@@ -58,7 +57,7 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>(mangler)</Normaltekst>
+                <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftKontonummer}</Normaltekst>
             </IkonRad>
         </div>
     );

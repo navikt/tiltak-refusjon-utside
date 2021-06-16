@@ -7,7 +7,8 @@ type Feilkode =
     | 'INNTEKT_HENTET_FOR_TIDLIG'
     | 'UGYLDIG_STATUS'
     | 'ETTER_FRIST'
-    | 'INGEN_INNTEKTER';
+    | 'INGEN_INNTEKTER'
+    | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG';
 
 const Feilmelding: FunctionComponent<{ feilkode: Feilkode }> = (props) => {
     return <Normaltekst>{feilmelding(props.feilkode)}</Normaltekst>;
@@ -27,5 +28,7 @@ export const feilmelding = (feilkode: Feilkode) => {
             return 'Fristen for å be om refusjon er utgått (2 måneder etter sluttdato for perioden).';
         case 'INGEN_INNTEKTER':
             return 'Ingen inntekter for perioden ble funnet.';
+        case 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG':
+            return 'Feil ved henting av kontonummer oppslag';
     }
 };
