@@ -14,20 +14,28 @@ const Komponent: FunctionComponent = () => {
     const refusjon = useHentRefusjon(refusjonId);
 
     switch (refusjon.status) {
-        case Status.KLAR_FOR_INNSENDING:
         case Status.FOR_TIDLIG:
+            return (
+                <FeilSide
+                    advarselType="info"
+                    feiltekst={`Du kan søke om refusjon fra ${formatterDato(
+                        refusjon.tilskuddsgrunnlag.tilskuddTom
+                    )} når perioden er over.`}
+                />
+            );
+        case Status.KLAR_FOR_INNSENDING:
             return <RefusjonSide />;
         case Status.UTGÅTT:
             return (
                 <FeilSide
                     advarselType="advarsel"
-                    feiltekst={`Fisten for å søke om refusjon for denne perioden gikk ut ${formatterDato(
+                    feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(
                         refusjon.fristForGodkjenning
                     )}. Innvilget tilskudd er derfor trukket tilbake.`}
                 />
             );
         case Status.ANNULLERT:
-            return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble avbrutt." />;
+            return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
         case Status.SENDT_KRAV:
         case Status.UTBETALT:
             return <KvitteringSide />;
