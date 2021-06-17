@@ -42,4 +42,4 @@ const setupRedis = () => {
     });
 };
 
-export default setup;
+export default { setup };

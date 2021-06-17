@@ -1,14 +1,13 @@
 import { startLabs } from './labs';
 import express from 'express';
+import session from './session';
+import bodyParser from 'body-parser';
+import cors from './cors';
+import tokenx from './auth/tokenx';
+import idporten from './auth/idporten';
+import routes from './routes';
 
 async function startNormal(server) {
-    const bodyParser = require('body-parser');
-    const idporten = require('./auth/idporten');
-    const tokenx = require('./auth/tokenx');
-    const cors = require('./cors');
-    const routes = require('./routes');
-    const session = require('./session');
-
     try {
         server.use(bodyParser.json());
 

@@ -12,7 +12,7 @@ const metadata = {
 
 let idportenMetadata = null;
 
-export const client = async () => {
+const client = async () => {
     console.log('**** IDPORTEN CLIENT');
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
@@ -25,7 +25,7 @@ export const client = async () => {
     return new idportenMetadata.Client(metadata, { keys: [jwk] });
 };
 
-export const authUrl = (session, idportenClient) => {
+const authUrl = (session, idportenClient) => {
     console.log('**** 1');
     return idportenClient.authorizationUrl({
         scope: config.idporten.scope,
@@ -38,7 +38,7 @@ export const authUrl = (session, idportenClient) => {
     });
 };
 
-export const validateOidcCallback = async (idportenClient, req) => {
+const validateOidcCallback = async (idportenClient, req) => {
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
@@ -51,7 +51,9 @@ export const validateOidcCallback = async (idportenClient, req) => {
     );
 };
 
-export const refresh = async (idportenClient, oldTokenSet) => {
+const refresh = async (idportenClient, oldTokenSet) => {
     console.log('**** 3');
     return await idportenClient.refresh(oldTokenSet);
 };
+
+export default { client, authUrl, validateOidcCallback, refresh };

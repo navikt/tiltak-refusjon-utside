@@ -9,7 +9,7 @@ const metadata = {
     token_endpoint_auth_method: config.tokenx.tokenEndpointAuthMethod,
 };
 
-export const client = async () => {
+const client = async () => {
     console.log('**** TOKEN X CLIENT, config: ', config);
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
@@ -22,7 +22,7 @@ export const client = async () => {
     return new issuer.Client(metadata, { keys: [jwk] });
 };
 
-export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
+const getTokenExchangeAccessToken = async (tokenxClient, req) => {
     console.log('*** getTokenExchangeAccessToken');
     let backendTokenSet = backendTokenSetFromSession(req);
 
@@ -51,3 +51,5 @@ export const getTokenExchangeAccessToken = async (tokenxClient, req) => {
 
     return backendTokenSet.access_token;
 };
+
+export default { client, getTokenExchangeAccessToken };
