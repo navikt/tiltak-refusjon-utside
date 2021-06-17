@@ -43,10 +43,17 @@ const Filtermeny: FunctionComponent = () => {
                     />
                     <Radio
                         role="radio"
-                        label={storForbokstav(statusTekst[Status.NY])}
-                        checked={filter.status === Status.NY}
+                        label={storForbokstav(statusTekst[Status.FOR_TIDLIG])}
+                        checked={filter.status === Status.FOR_TIDLIG}
                         name={'status'}
-                        onChange={() => oppdaterFilter({ status: Status.NY })}
+                        onChange={() => oppdaterFilter({ status: Status.FOR_TIDLIG })}
+                    />
+                    <Radio
+                        role="radio"
+                        label={storForbokstav(statusTekst[Status.KLAR_FOR_INNSENDING])}
+                        checked={filter.status === Status.KLAR_FOR_INNSENDING}
+                        name={'status'}
+                        onChange={() => oppdaterFilter({ status: Status.KLAR_FOR_INNSENDING })}
                     />
                     <Radio
                         role="radio"

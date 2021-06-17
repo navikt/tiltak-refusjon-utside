@@ -6,15 +6,16 @@ import { formatterDato } from '../../utils/datoUtils';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
 import { Status } from '../status';
 import FeilSide from './FeilSide';
-import RefusjonSide from './RefusjonSide';
 import HenterInntekterBoks from './HenterInntekterBoks';
+import RefusjonSide from './RefusjonSide';
 
 const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
     switch (refusjon.status) {
-        case Status.NY:
+        case Status.KLAR_FOR_INNSENDING:
+        case Status.FOR_TIDLIG:
             return <RefusjonSide />;
         case Status.UTGÅTT:
             return (

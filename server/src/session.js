@@ -1,6 +1,6 @@
-import config from './config';
-import redis from 'redis';
 import session from 'express-session';
+import redis from 'redis';
+import config from './config';
 
 const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
@@ -42,4 +42,4 @@ const setupRedis = () => {
     });
 };
 
-export default { setup };
+export default setup;
