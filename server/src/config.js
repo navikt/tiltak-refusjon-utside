@@ -8,42 +8,50 @@ const envVar = ({ name, required = true }) => {
     return process.env[name];
 };
 
-const server = {
-    host: envVar({ name: 'HOST', required: false }) || 'localhost', // should be equivalent to the URL this application is hosted on for correct CORS origin header
-    port: envVar({ name: 'PORT', required: false }) || 3000,
-    proxy: envVar({ name: 'HTTP_PROXY', required: false }), // optional, only set if requests to Azure AD must be performed through a corporate proxy (i.e. traffic to login.microsoftonline.com is blocked by the firewall)
-    sessionKey: envVar({ name: 'SESSION_KEY' }), // should be set to a random key of significant length for signing session ID cookies
-    cookieName: 'tiltak-refusjon-session-id',
-    useSecureCookies: !!envVar({ name: 'NAIS_CLUSTER_NAME', required: false }),
+const server = () => {
+    return {
+        host: envVar({ name: 'HOST', required: false }) || 'localhost', // should be equivalent to the URL this application is hosted on for correct CORS origin header
+        port: envVar({ name: 'PORT', required: false }) || 3000,
+        proxy: envVar({ name: 'HTTP_PROXY', required: false }), // optional, only set if requests to Azure AD must be performed through a corporate proxy (i.e. traffic to login.microsoftonline.com is blocked by the firewall)
+        sessionKey: envVar({ name: 'SESSION_KEY' }), // should be set to a random key of significant length for signing session ID cookies
+        cookieName: 'tiltak-refusjon-session-id',
+        useSecureCookies: !!envVar({ name: 'NAIS_CLUSTER_NAME', required: false }),
+    };
 };
 
-const tokenx = {
-    discoveryUrl: envVar({ name: 'TOKEN_X_WELL_KNOWN_URL' }),
-    clientID: envVar({ name: 'TOKEN_X_CLIENT_ID' }),
-    privateJwk: envVar({ name: 'TOKEN_X_PRIVATE_JWK' }),
-    tokenEndpointAuthMethod: 'private_key_jwt',
+const tokenx = () => {
+    return {
+        discoveryUrl: envVar({ name: 'TOKEN_X_WELL_KNOWN_URL' }),
+        clientID: envVar({ name: 'TOKEN_X_CLIENT_ID' }),
+        privateJwk: envVar({ name: 'TOKEN_X_PRIVATE_JWK' }),
+        tokenEndpointAuthMethod: 'private_key_jwt',
+    };
 };
 
-const idporten = {
-    discoveryUrl: envVar({ name: 'IDPORTEN_WELL_KNOWN_URL' }),
-    clientID: envVar({ name: 'IDPORTEN_CLIENT_ID' }),
-    clientJwk: envVar({ name: 'IDPORTEN_CLIENT_JWK' }),
-    redirectUri: envVar({ name: 'IDPORTEN_REDIRECT_URI' }),
-    logoutRedirectUri: 'https://nav.no',
-    responseType: 'code',
-    responseMode: 'query',
-    scope: 'openid profile',
-    tokenEndpointAuthMethod: 'private_key_jwt',
-    tokenEndpointAuthSigningAlg: 'RS256',
+const idporten = () => {
+    return {
+        discoveryUrl: envVar({ name: 'IDPORTEN_WELL_KNOWN_URL' }),
+        clientID: envVar({ name: 'IDPORTEN_CLIENT_ID' }),
+        clientJwk: envVar({ name: 'IDPORTEN_CLIENT_JWK' }),
+        redirectUri: envVar({ name: 'IDPORTEN_REDIRECT_URI' }),
+        logoutRedirectUri: 'https://nav.no',
+        responseType: 'code',
+        responseMode: 'query',
+        scope: 'openid profile',
+        tokenEndpointAuthMethod: 'private_key_jwt',
+        tokenEndpointAuthSigningAlg: 'RS256',
+    };
 };
 
-const redis = {
-    host: envVar({ name: 'REDIS_HOST', required: false }),
-    port: envVar({ name: 'REDIS_PORT', required: false }) || 6379,
-    password: envVar({ name: 'REDIS_PASSWORD', required: false }),
+const redis = () => {
+    return {
+        host: envVar({ name: 'REDIS_HOST', required: false }),
+        port: envVar({ name: 'REDIS_PORT', required: false }) || 6379,
+        password: envVar({ name: 'REDIS_PASSWORD', required: false }),
+    };
 };
 
-const apiConfig = () => {
+const api = () => {
     console.log(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
     const scopes = envVar({ name: 'API_SCOPES', required: false });
     return {
@@ -55,7 +63,7 @@ const apiConfig = () => {
 
 export default {
     server,
-    api: apiConfig(),
+    api,
     redis,
     tokenx,
     idporten,

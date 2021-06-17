@@ -4,8 +4,8 @@ import session from './session';
 import bodyParser from 'body-parser';
 import cors from './cors';
 import tokenx from './auth/tokenx';
-import idporten from './auth/idporten';
 import routes from './routes';
+import idporten from './auth/idporten';
 
 async function startNormal(server) {
     try {

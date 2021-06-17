@@ -4,26 +4,29 @@ import httpProxy from '../proxy/http-proxy';
 import { backendTokenSetFromSession, frontendTokenSetFromSession } from './utils';
 import logger from '../logger';
 
-const metadata = {
-    client_id: config.tokenx.clientID,
-    token_endpoint_auth_method: config.tokenx.tokenEndpointAuthMethod,
+const metadata = () => {
+    const tokenxConfig = config.tokenx();
+    return {
+        client_id: tokenxConfig.clientID,
+        token_endpoint_auth_method: tokenxConfig.tokenEndpointAuthMethod,
+    };
 };
 
 const client = async () => {
-    console.log('**** TOKEN X CLIENT, config: ', config);
+    const tokenxConfig = config.tokenx();
+
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
         });
     }
-    const issuer = await Issuer.discover(config.tokenx.discoveryUrl);
+    const issuer = await Issuer.discover(tokenxConfig.discoveryUrl);
     console.log(`Discovered issuer ${issuer.issuer}`);
-    const jwk = JSON.parse(config.tokenx.privateJwk);
-    return new issuer.Client(metadata, { keys: [jwk] });
+    const jwk = JSON.parse(tokenxConfig.privateJwk);
+    return new issuer.Client(metadata(), { keys: [jwk] });
 };
 
 const getTokenExchangeAccessToken = async (tokenxClient, req) => {
-    console.log('*** getTokenExchangeAccessToken');
     let backendTokenSet = backendTokenSetFromSession(req);
 
     if (!backendTokenSet || backendTokenSet.expired()) {
