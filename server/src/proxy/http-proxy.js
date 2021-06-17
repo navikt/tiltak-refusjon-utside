@@ -2,11 +2,10 @@ import config from '../config';
 import tunnel from 'tunnel';
 
 const agent = () => {
-    const proxyUri = config.server.proxy;
+    const proxyUri = config.server().proxy;
     if (proxyUri) {
         console.log(`Proxying requests via ${proxyUri} for openid-cilent`);
         const hostPort = proxyUri.replace('https://', '').replace('http://', '').split(':', 2);
-        console.log('**** 4');
         return tunnel.httpsOverHttp({
             proxy: {
                 host: hostPort[0],

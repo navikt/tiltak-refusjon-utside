@@ -1,6 +1,6 @@
 import proxy from 'express-http-proxy';
 import config from '../config';
-import { getTokenExchangeAccessToken } from '../auth/tokenx';
+import tokenx from '../auth/tokenx';
 
 const setup = (router, tokenxClient) => {
     console.log('**** proxy config');
@@ -13,7 +13,7 @@ const setup = (router, tokenxClient) => {
             },
             proxyReqOptDecorator: async (options, req) => {
                 console.log('**** 6');
-                const accessToken = await getTokenExchangeAccessToken(tokenxClient, req);
+                const accessToken = await tokenx.getTokenExchangeAccessToken(tokenxClient, req);
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },

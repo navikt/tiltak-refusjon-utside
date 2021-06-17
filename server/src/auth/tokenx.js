@@ -42,7 +42,7 @@ const getTokenExchangeAccessToken = async (tokenxClient, req) => {
                 grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
                 client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                 subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                audience: config.api.audience,
+                audience: config.api().audience,
                 subject_token: frontendTokenSetFromSession(req).access_token,
             },
             additionalClaims
