@@ -57,7 +57,7 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftKontonummer}</Normaltekst>
+                <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
             </IkonRad>
         </div>
     );

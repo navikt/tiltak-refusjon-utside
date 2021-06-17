@@ -31,7 +31,7 @@ const SummeringBoks: FunctionComponent = () => {
                 <Normaltekst>
                     <b>{formatterPenger(refusjon.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
                     {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}{' '}
-                    til kontonummer {refusjon.tilskuddsgrunnlag.bedriftKontonummer}
+                    til kontonummer {refusjon.bedriftKontonummer}
                 </Normaltekst>
             </div>
         </Boks>
