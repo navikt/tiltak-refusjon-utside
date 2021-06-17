@@ -19,7 +19,6 @@ let idportenMetadata = null;
 const client = async () => {
     const idportenConfig = config.idporten();
 
-    console.log('**** IDPORTEN CLIENT');
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
             agent: httpProxy.agent,
@@ -34,7 +33,6 @@ const client = async () => {
 const authUrl = (session, idportenClient) => {
     const idportenConfig = config.idporten();
 
-    console.log('**** 1');
     return idportenClient.authorizationUrl({
         scope: idportenConfig.scope,
         redirect_uri: idportenConfig.redirectUri,
@@ -52,7 +50,6 @@ const validateOidcCallback = async (idportenClient, req) => {
     const params = idportenClient.callbackParams(req);
     const nonce = req.session.nonce;
     const state = req.session.state;
-    console.log('**** 2');
     return await idportenClient.callback(
         idportenConfig.redirectUri,
         params,
@@ -62,7 +59,6 @@ const validateOidcCallback = async (idportenClient, req) => {
 };
 
 const refresh = async (idportenClient, oldTokenSet) => {
-    console.log('**** 3');
     return await idportenClient.refresh(oldTokenSet);
 };
 

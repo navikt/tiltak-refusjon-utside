@@ -1,7 +1,7 @@
 import express from 'express';
 import { generators } from 'openid-client';
 import path from 'path';
-import * as idporten from './auth/idporten';
+import idporten from './auth/idporten';
 import config from './config';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
@@ -64,7 +64,7 @@ const setup = (tokenxClient, idportenClient) => {
 
     router.get('/logout', (req, res) => {
         req.session.destroy();
-        res.redirect(idportenClient.endSessionUrl({ post_logout_redirect_uri: config.idporten.logoutRedirectUri }));
+        res.redirect(idportenClient.endSessionUrl({ post_logout_redirect_uri: config.idporten().logoutRedirectUri }));
     });
 
     apiProxy.setup(router, tokenxClient);

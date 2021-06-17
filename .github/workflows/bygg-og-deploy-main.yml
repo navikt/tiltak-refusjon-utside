@@ -31,14 +31,6 @@ jobs:
           docker build --tag $IMAGE .
           echo ${{ secrets.GHCR_PUSH_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_PUSH_USERNAME }} --password-stdin
           docker push $IMAGE
-      - name: Deploy til labs-gcp
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: labs-gcp
-          RESOURCE: .nais/nais.yml
-          PRINT_PAYLOAD: true
-          VARS: .nais/labs.yml
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -47,4 +39,12 @@ jobs:
           RESOURCE: .nais/nais.yml
           PRINT_PAYLOAD: true
           VARS: .nais/dev.yml
+      - name: Deploy til labs-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: labs-gcp
+          RESOURCE: .nais/nais.yml
+          PRINT_PAYLOAD: true
+          VARS: .nais/labs.yml
 
