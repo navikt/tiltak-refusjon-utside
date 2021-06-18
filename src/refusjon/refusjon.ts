@@ -5,6 +5,7 @@ import React from 'react';
 export interface Refusjon {
     id: string;
     bedriftNr: string;
+    bedriftKontonummer?: string;
     deltakerFnr: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvSaksbehandler?: string;
