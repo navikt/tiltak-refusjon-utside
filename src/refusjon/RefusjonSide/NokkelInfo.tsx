@@ -1,4 +1,5 @@
 import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
@@ -59,6 +60,15 @@ const NokkelInfo: FunctionComponent = () => {
                 <Element>Kontonummer:</Element>
                 <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
             </IkonRad>
+            {refusjon.bedriftKontonummer === null && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeAdvarsel>
+                        Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må sendes inn via
+                        Altinn.
+                    </AlertStripeAdvarsel>
+                </>
+            )}
         </div>
     );
 };
