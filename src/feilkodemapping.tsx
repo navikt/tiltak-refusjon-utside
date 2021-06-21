@@ -8,7 +8,8 @@ type Feilkode =
     | 'UGYLDIG_STATUS'
     | 'ETTER_FRIST'
     | 'INGEN_INNTEKTER'
-    | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG';
+    | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG'
+    | 'INGEN_BEDRIFTKONTONUMMER';
 
 const Feilmelding: FunctionComponent<{ feilkode: Feilkode }> = (props) => {
     return <Normaltekst>{feilmelding(props.feilkode)}</Normaltekst>;
@@ -30,5 +31,7 @@ export const feilmelding = (feilkode: Feilkode) => {
             return 'Ingen inntekter for perioden ble funnet.';
         case 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG':
             return 'Feil ved henting av kontonummer oppslag';
+        case 'INGEN_BEDRIFTKONTONUMMER':
+            return 'Mangler kontonummer for bedriften';
     }
 };
