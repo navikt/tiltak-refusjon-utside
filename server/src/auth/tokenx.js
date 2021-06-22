@@ -15,9 +15,10 @@ const metadata = () => {
 const client = async () => {
     const tokenxConfig = config.tokenx();
 
-    if (httpProxy.agent) {
+    const httpProxyAgent = httpProxy.agent();
+    if (httpProxyAgent) {
         custom.setHttpOptionsDefaults({
-            agent: httpProxy.agent,
+            agent: httpProxyAgent,
         });
     }
     const issuer = await Issuer.discover(tokenxConfig.discoveryUrl);
