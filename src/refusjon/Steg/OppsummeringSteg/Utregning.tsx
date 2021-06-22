@@ -57,7 +57,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
                             <Fragment key={inntekt.id}>
                                 <Normaltekst>
-                                    {inntekt.beskrivelse && lønnsbeskrivelseTekst[inntekt.beskrivelse]}
+                                    {(inntekt.beskrivelse && lønnsbeskrivelseTekst[inntekt.beskrivelse]) ??
+                                        'Inntekt: ' + inntekt.beskrivelse}
                                 </Normaltekst>
 
                                 <Normaltekst>
