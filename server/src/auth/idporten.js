@@ -19,9 +19,10 @@ let idportenMetadata = null;
 const client = async () => {
     const idportenConfig = config.idporten();
 
-    if (httpProxy.agent) {
+    const httpProxyAgent = httpProxy.agent();
+    if (httpProxyAgent) {
         custom.setHttpOptionsDefaults({
-            agent: httpProxy.agent,
+            agent: httpProxyAgent,
         });
     }
     idportenMetadata = await Issuer.discover(idportenConfig.discoveryUrl);
