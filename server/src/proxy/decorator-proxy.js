@@ -8,7 +8,12 @@ const setup = (router) => {
 
     router.use('/dekoratoren/env', async (req, res) => {
         const response = await axios.get(`${process.env.DECORATOR_URL}/env?context=arbeidsgiver&feedback=false`);
-        res.json({ ...response.data, APP_BASE_URL: '/', APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
+        res.json({
+            ...response.data,
+            API_INNLOGGINGSLINJE_URL: '/dekoratoren/api',
+            APP_URL: '/dekoratoren',
+            LOGOUT_URL: '/logout',
+        });
     });
 
     router.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no', changeOrigin: true }));
