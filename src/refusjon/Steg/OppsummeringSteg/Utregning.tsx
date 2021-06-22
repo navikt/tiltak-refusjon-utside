@@ -7,9 +7,9 @@ import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { inntektstypeTekst } from '../../../messages';
+import { lønnsbeskrivelseTekst } from '../../../messages';
 import BEMHelper from '../../../utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../../utils/datoUtils';
 import { formatterPenger } from '../../../utils/PengeUtils';
@@ -50,16 +50,24 @@ const Utregning: FunctionComponent<Props> = (props) => {
             {props.refusjon.inntektsgrunnlag && props.refusjon.inntektsgrunnlag.inntekter.length > 0 && (
                 <>
                     <div className={cls.element('inntekter')}>
+                        <Element>Lønnsbeskrivelse</Element>
+                        <Element>Periode</Element>
+                        <Element>Beløp</Element>
+                        <Element>Refunderes</Element>
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
-                            <div key={inntekt.id} className={cls.element('inntekt')}>
+                            <Fragment key={inntekt.id}>
                                 <Normaltekst>
-                                    {inntektstypeTekst[inntekt.inntektType] || inntekt.inntektType}
+                                    {inntekt.beskrivelse && lønnsbeskrivelseTekst[inntekt.beskrivelse]}
                                 </Normaltekst>
+
                                 <Normaltekst>
                                     {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom)}
                                 </Normaltekst>
+
                                 <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>
-                            </div>
+
+                                <Normaltekst>{inntekt.erMedIInntektsgrunnlag ? 'Ja' : 'Nei'}</Normaltekst>
+                            </Fragment>
                         ))}
                     </div>
                     <VerticalSpacer rem={2} />
