@@ -130,8 +130,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 <AlertStripeAdvarsel>
                     Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
                     {formatterPenger(props.refusjon.tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne
-                    refusjonsperioden kan ikke endres, men ta kontakt med veileder for å justere lønn i avtalen for
-                    fremtidige refusjoner.
+                    refusjonsperioden kan ikke endres og dere vil få utbetalt maks av avtalt beløp.
                 </AlertStripeAdvarsel>
             )}
         </div>
