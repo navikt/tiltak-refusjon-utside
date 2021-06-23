@@ -4,6 +4,7 @@ import cors from './cors';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import axios from 'axios';
+import * as asyncHandler from 'express-async-handler';
 
 async function startLabs(server) {
     try {
@@ -24,20 +25,28 @@ async function startLabs(server) {
 
         server.use('/api', createProxyMiddleware({ target: 'http://tiltak-refusjon-api', changeOrigin: true }));
 
-        server.use('/dekoratoren/env', async (req, res) => {
-            const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false');
-            res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
-        });
-        server.use('/dekoratoren/api/auth', async (req, res) => {
-            try {
-                const response = await axios.get('http://tiltak-refusjon-api/api/arbeidsgiver/innlogget-bruker', {
-                    headers: req.headers,
-                });
-                res.json({ authenticated: true, name: response.data.identifikator || '' });
-            } catch (error) {
-                res.json({ authenticated: false });
-            }
-        });
+        server.use(
+            '/dekoratoren/env',
+            asyncHandler(async (req, res) => {
+                const response = await axios.get(
+                    'https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false'
+                );
+                res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
+            })
+        );
+        server.use(
+            '/dekoratoren/api/auth',
+            asyncHandler(async (req, res) => {
+                try {
+                    const response = await axios.get('http://tiltak-refusjon-api/api/arbeidsgiver/innlogget-bruker', {
+                        headers: req.headers,
+                    });
+                    res.json({ authenticated: true, name: response.data.identifikator || '' });
+                } catch (error) {
+                    res.json({ authenticated: false });
+                }
+            })
+        );
         server.use('/logout', (req, res) => {
             res.clearCookie('tokenx-token');
             res.clearCookie('aad-token');

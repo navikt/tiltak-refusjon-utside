@@ -7,6 +7,7 @@ import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
 import { frontendTokenSetFromSession } from './auth/utils';
 import logger from './logger';
+import * as asyncHandler from 'express-async-handler';
 
 const router = express.Router();
 
@@ -15,33 +16,39 @@ const setup = (tokenxClient, idportenClient) => {
     router.get('/isAlive', (req, res) => res.send('Alive'));
     router.get('/isReady', (req, res) => res.send('Ready'));
 
-    router.get('/login', async (req, res) => {
-        // lgtm [js/missing-rate-limiting]
-        const session = req.session;
-        session.nonce = generators.nonce();
-        session.state = generators.state();
-        res.redirect(idporten.authUrl(session, idportenClient));
-    });
+    router.get(
+        '/login',
+        asyncHandler(async (req, res) => {
+            // lgtm [js/missing-rate-limiting]
+            const session = req.session;
+            session.nonce = generators.nonce();
+            session.state = generators.state();
+            res.redirect(idporten.authUrl(session, idportenClient));
+        })
+    );
 
-    router.get('/oauth2/callback', async (req, res) => {
-        const session = req.session;
+    router.get(
+        '/oauth2/callback',
+        asyncHandler(async (req, res) => {
+            const session = req.session;
 
-        try {
-            const tokenSet = await idporten.validateOidcCallback(idportenClient, req);
-            session.frontendTokenSet = tokenSet;
-            session.state = null;
-            session.nonce = null;
-            if (session.redirectTo) {
-                res.redirect(session.redirectTo);
-            } else {
-                res.redirect('/');
+            try {
+                const tokenSet = await idporten.validateOidcCallback(idportenClient, req);
+                session.frontendTokenSet = tokenSet;
+                session.state = null;
+                session.nonce = null;
+                if (session.redirectTo) {
+                    res.redirect(session.redirectTo);
+                } else {
+                    res.redirect('/');
+                }
+            } catch (error) {
+                logger.error(error);
+                session.destroy();
+                res.sendStatus(403);
             }
-        } catch (error) {
-            logger.error(error);
-            session.destroy();
-            res.sendStatus(403);
-        }
-    });
+        })
+    );
 
     const ensureAuthenticated = async (req, res, next) => {
         const frontendTokenSet = frontendTokenSetFromSession(req);
@@ -55,12 +62,15 @@ const setup = (tokenxClient, idportenClient) => {
         }
     };
 
-    router.use(ensureAuthenticated);
+    router.use(asyncHandler(ensureAuthenticated));
 
-    router.get('/refresh', async (req, res) => {
-        req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSetFromSession(req));
-        next();
-    });
+    router.get(
+        '/refresh',
+        asyncHandler(async (req, res, next) => {
+            req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSetFromSession(req));
+            next();
+        })
+    );
 
     router.get('/refresh', (req, res) => {
         res.json(req.session);
