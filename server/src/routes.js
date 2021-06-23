@@ -70,6 +70,7 @@ const setup = (tokenxClient, idportenClient) => {
             .refresh(idportenClient, frontendTokenSetFromSession(req))
             .then((newTokenSet) => {
                 req.session.frontendTokenSet = newTokenSet;
+                req.session.save();
                 next();
             })
             .catch(() => res.sendStatus(500));
