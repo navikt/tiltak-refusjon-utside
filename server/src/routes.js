@@ -7,7 +7,7 @@ import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
 import { frontendTokenSetFromSession } from './auth/utils';
 import logger from './logger';
-import * as asyncHandler from 'express-async-handler';
+const asyncHandler = require('express-async-handler');
 
 const router = express.Router();
 

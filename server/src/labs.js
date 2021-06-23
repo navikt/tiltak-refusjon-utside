@@ -4,7 +4,7 @@ import cors from './cors';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import axios from 'axios';
-import * as asyncHandler from 'express-async-handler';
+const asyncHandler = require('express-async-handler');
 
 async function startLabs(server) {
     try {

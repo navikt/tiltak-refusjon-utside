@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import * as asyncHandler from 'express-async-handler';
+const asyncHandler = require('express-async-handler');
 
 const setup = (router) => {
     router.use('/dekoratoren/api/auth', (req, res) => {
