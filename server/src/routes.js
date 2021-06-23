@@ -66,9 +66,13 @@ const setup = (tokenxClient, idportenClient) => {
     router.use(asyncHandler(ensureAuthenticated));
 
     router.get('/refresh', (req, res, next) => {
-        req.session.frontendTokenSet = idporten
+        idporten
             .refresh(idportenClient, frontendTokenSetFromSession(req))
-            .then(() => next());
+            .then((newTokenSet) => {
+                req.session.frontendTokenSet = newTokenSet;
+                next();
+            })
+            .catch(() => res.sendStatus(500));
     });
 
     router.get('/refresh', (req, res) => {
