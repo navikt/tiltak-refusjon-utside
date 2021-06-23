@@ -7,6 +7,7 @@ import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
 import { frontendTokenSetFromSession } from './auth/utils';
 import logger from './logger';
+
 const asyncHandler = require('express-async-handler');
 
 const router = express.Router();
@@ -64,13 +65,11 @@ const setup = (tokenxClient, idportenClient) => {
 
     router.use(asyncHandler(ensureAuthenticated));
 
-    router.get(
-        '/refresh',
-        asyncHandler(async (req, res, next) => {
-            req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSetFromSession(req));
-            next();
-        })
-    );
+    router.get('/refresh', (req, res, next) => {
+        req.session.frontendTokenSet = idporten
+            .refresh(idportenClient, frontendTokenSetFromSession(req))
+            .then(() => next());
+    });
 
     router.get('/refresh', (req, res) => {
         res.json(req.session);
