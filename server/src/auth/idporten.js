@@ -59,8 +59,8 @@ const validateOidcCallback = async (idportenClient, req) => {
     );
 };
 
-const refresh = async (idportenClient, oldTokenSet) => {
-    return await idportenClient.refresh(oldTokenSet);
+const refresh = (idportenClient, oldTokenSet) => {
+    return idportenClient.refresh(oldTokenSet);
 };
 
 export default { client, authUrl, validateOidcCallback, refresh };
