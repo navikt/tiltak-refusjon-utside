@@ -69,8 +69,12 @@ const setup = (tokenxClient, idportenClient) => {
         idporten
             .refresh(idportenClient, frontendTokenSetFromSession(req))
             .then((newTokenSet) => {
+                console.log(
+                    'Gammel req.session.frontendTokenSet.expires_at: ' + req.session.frontendTokenSet.expires_at
+                );
+                console.log('newTokenSet.expires_at: ' + newTokenSet.expires_at);
                 req.session.frontendTokenSet = newTokenSet;
-                req.session.save();
+                console.log('Ny req.session.frontendTokenSet.expires_at: ' + req.session.frontendTokenSet.expires_at);
                 next();
             })
             .catch(() => res.sendStatus(500));
