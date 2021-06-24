@@ -1,5 +1,6 @@
 import config from '../config';
 import tunnel from 'tunnel';
+import logger from '../logger';
 
 const agent = () => {
     const proxyUri = config.server().proxy;

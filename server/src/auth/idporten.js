@@ -1,7 +1,7 @@
 import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
-import logger from './logger';
+import logger from '../logger';
 
 const metadata = () => {
     const idportenConfig = config.idporten();
