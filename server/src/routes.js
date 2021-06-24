@@ -80,7 +80,23 @@ const setup = (tokenxClient, idportenClient) => {
             .catch(() => res.sendStatus(500));
     });
 
+    router.get(
+        '/refresh2',
+        asyncHandler(async (req, res, next) => {
+            const newTokenSet = await idporten.refresh(idportenClient, frontendTokenSetFromSession(req));
+            console.log('Gammel req.session.frontendTokenSet.expires_at: ' + req.session.frontendTokenSet.expires_at);
+            console.log('newTokenSet.expires_at: ' + newTokenSet.expires_at);
+            req.session.frontendTokenSet = newTokenSet;
+            console.log('Ny req.session.frontendTokenSet.expires_at: ' + req.session.frontendTokenSet.expires_at);
+            next();
+        })
+    );
+
     router.get('/refresh', (req, res) => {
+        res.json(req.session);
+    });
+
+    router.get('/refresh2', (req, res) => {
         res.json(req.session);
     });
 
