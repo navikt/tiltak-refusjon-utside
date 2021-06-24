@@ -19,7 +19,7 @@ type Props = {};
 
 const cls = BEMHelper('kvitteringsteg');
 
-const KvitteringSteg: FunctionComponent<Props> = (props) => {
+const KvitteringSteg: FunctionComponent<Props> = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
