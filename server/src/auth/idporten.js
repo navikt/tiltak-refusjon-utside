@@ -61,7 +61,12 @@ const validateOidcCallback = async (idportenClient, req) => {
 };
 
 const refresh = (idportenClient, oldTokenSet) => {
-    return idportenClient.refresh(oldTokenSet);
+    const additionalClaims = {
+        clientAssertionPayload: {
+            aud: idportenMetadata.metadata.issuer,
+        },
+    };
+    return idportenClient.refresh(oldTokenSet, additionalClaims);
 };
 
 export default { client, authUrl, validateOidcCallback, refresh };
