@@ -6,6 +6,7 @@ import cors from './cors';
 import tokenx from './auth/tokenx';
 import routes from './routes';
 import idporten from './auth/idporten';
+import logger from './logger';
 
 async function startNormal(server) {
     try {
@@ -27,14 +28,14 @@ async function startNormal(server) {
         server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
 
         const port = 3000;
-        server.listen(port, () => console.log(`Listening on port ${port}`));
+        server.listen(port, () => logger.info(`Listening on port ${port}`));
     } catch (error) {
-        console.error('Error during start-up', error);
+        logger.error('Error during start-up', error);
     }
 }
 
 if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
-    startLabs(express()).catch((err) => console.log(err));
+    startLabs(express()).catch((err) => logger.info(err));
 } else {
-    startNormal(express()).catch((err) => console.log(err));
+    startNormal(express()).catch((err) => logger.info(err));
 }

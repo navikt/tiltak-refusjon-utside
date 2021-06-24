@@ -1,6 +1,7 @@
 import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
+import logger from './logger';
 
 const metadata = () => {
     const idportenConfig = config.idporten();
@@ -26,7 +27,7 @@ const client = async () => {
         });
     }
     idportenMetadata = await Issuer.discover(idportenConfig.discoveryUrl);
-    console.log(`Discovered issuer ${idportenMetadata.issuer}`);
+    logger.info(`Discovered issuer ${idportenMetadata.issuer}`);
     const jwk = JSON.parse(idportenConfig.clientJwk);
     return new idportenMetadata.Client(metadata(), { keys: [jwk] });
 };

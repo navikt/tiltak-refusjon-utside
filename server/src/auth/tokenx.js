@@ -22,7 +22,7 @@ const client = async () => {
         });
     }
     const issuer = await Issuer.discover(tokenxConfig.discoveryUrl);
-    console.log(`Discovered issuer ${issuer.issuer}`);
+    logger.info(`Discovered issuer ${issuer.issuer}`);
     const jwk = JSON.parse(tokenxConfig.privateJwk);
     return new issuer.Client(metadata(), { keys: [jwk] });
 };

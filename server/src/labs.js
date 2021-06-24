@@ -5,6 +5,7 @@ import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import axios from 'axios';
 const asyncHandler = require('express-async-handler');
+import logger from './logger';
 
 async function startLabs(server) {
     try {
@@ -56,9 +57,9 @@ async function startLabs(server) {
         server.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no', changeOrigin: true }));
 
         const port = 3000;
-        server.listen(port, () => console.log(`Listening on port ${port}`));
+        server.listen(port, () => logger.info(`Listening on port ${port}`));
     } catch (error) {
-        console.error('Error during start-up', error);
+        logger.error('Error during start-up', error);
     }
 }
 
