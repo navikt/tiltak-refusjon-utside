@@ -18,7 +18,6 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
-                <Knapp mini>Lagre som PDF</Knapp>
             </div>
             <VerticalSpacer rem={1} />
             <Normaltekst>
