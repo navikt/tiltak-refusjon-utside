@@ -1,6 +1,7 @@
 import session from 'express-session';
 import redis from 'redis';
 import config from './config';
+import logger from './logger';
 
 const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
