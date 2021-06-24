@@ -56,8 +56,14 @@ const setup = (tokenxClient, idportenClient) => {
         if (!frontendTokenSet) {
             res.redirect('/login');
         } else if (frontendTokenSet.expired()) {
-            req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSet);
-            next();
+            try {
+                req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSet);
+                next();
+            } catch (err) {
+                logger.error('Feil ved refresh av token', err);
+                req.session.destroy();
+                res.redirect('/login');
+            }
         } else {
             next();
         }
