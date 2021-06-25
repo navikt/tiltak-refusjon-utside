@@ -1,4 +1,4 @@
-ingress: https://tiltak-refusjon-utside.labs.nais.io
+ingress: https://tiltak-refusjon-arbeidsgiver.labs.nais.io
 labs: true
 host:
   - www.nav.no

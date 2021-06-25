@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tiltak-refusjon-utside
+  name: tiltak-refusjon-arbeidsgiver
   namespace: arbeidsgiver
   labels:
     team: arbeidsgiver
@@ -49,5 +49,5 @@ spec:
     enabled: true
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
-    - secret: tiltak-refusjon-utside-redis
+    - secret: tiltak-refusjon-arbeidsgiver-redis
   {{/unless}}

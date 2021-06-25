@@ -2,27 +2,27 @@ apiVersion: nais.io/v1
 kind: Alert
 metadata:
   labels:
-    app: tiltak-refusjon-utside
+    app: tiltak-refusjon-arbeidsgiver
     team: arbeidsgiver
-  name: tiltak-refusjon-utside
+  name: tiltak-refusjon-arbeidsgiver
   namespace: arbeidsgiver
 spec:
   alerts:
     - alert: Antall restarts
-      expr: sum(increase(kube_pod_container_status_restarts_total{container=~"tiltak-refusjon-utside"}[30m])) by (container) > 2
+      expr: sum(increase(kube_pod_container_status_restarts_total{container=~"tiltak-refusjon-arbeidsgiver"}[30m])) by (container) > 2
       for: 5m
-      action: Se `kubectl describe pod {{ $labels.container }}` for events, og `kubectl logs -l app=tiltak-refusjon-utside` for logger
-      description: "tiltak-refusjon-utside har restartet flere ganger siste halvtimen!"
+      action: Se `kubectl describe pod {{ $labels.container }}` for events, og `kubectl logs -l app=tiltak-refusjon-arbeidsgiver` for logger
+      description: "tiltak-refusjon-arbeidsgiver har restartet flere ganger siste halvtimen!"
       severity: danger
     - alert: Ingen tilgjengelig podder
-      expr: kube_deployment_status_replicas_available{deployment="tiltak-refusjon-utside"} == 0
+      expr: kube_deployment_status_replicas_available{deployment="tiltak-refusjon-arbeidsgiver"} == 0
       for: 2m
-      description: "App tiltak-refusjon-utside er nede. Ingen tilgjengelige podder."
+      description: "App tiltak-refusjon-arbeidsgiver er nede. Ingen tilgjengelige podder."
       action: Se `kubectl get  pod -l app={{ $labels.deployment }}` for status på podder, og `kubectl logs -l app={{ $labels.deployment }}` for logger.
     - alert: høy feilrate i logger
-      expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="tiltak-refusjon-utside",log_level=~"Error"}[3m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="tiltak-refusjon-utside"}[3m]))) > 10
+      expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="tiltak-refusjon-arbeidsgiver",log_level=~"Error"}[3m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="tiltak-refusjon-arbeidsgiver"}[3m]))) > 10
       for: 3m
-      action: "Sjekk loggene til app tiltak-refusjon-utside i namespace arbeidsgiver for å se hvorfor det er så mye feil"
+      action: "Sjekk loggene til app tiltak-refusjon-arbeidsgiver i namespace arbeidsgiver for å se hvorfor det er så mye feil"
   receivers:
     slack:
       channel: '#{{ slack_alert_channel }}'

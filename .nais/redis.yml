@@ -3,7 +3,7 @@ kind: Application
 metadata:
   labels:
     team: arbeidsgiver
-  name: tiltak-refusjon-utside-redis
+  name: tiltak-refusjon-arbeidsgiver-redis
   namespace: arbeidsgiver
 spec:
   image: bitnami/redis:5.0.10
@@ -24,6 +24,6 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: tiltak-refusjon-utside
+        - application: tiltak-refusjon-arbeidsgiver
   envFrom:
-    - secret: tiltak-refusjon-utside-redis
+    - secret: tiltak-refusjon-arbeidsgiver-redis
