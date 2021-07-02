@@ -1,8 +1,9 @@
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactNode } from 'react';
-import BEMHelper from '../../../utils/bem';
-import { formatterPenger } from '../../../utils/PengeUtils';
-import { visSatsMedEttDesimal } from '../../../utils/utregningUtil';
+import BEMHelper from '../utils/bem';
+import { visSatsMedEttDesimal } from '../utils/utregningUtil';
+import { formatterPenger } from '../utils/PengeUtils';
+import './Utregningsrad.less';
 
 interface Props {
     labelIkon?: React.ReactNode;
@@ -14,7 +15,7 @@ interface Props {
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
 }
 
-const cls = BEMHelper('oppsummering');
+const cls = BEMHelper('utregning-rad');
 
 const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setIkon = (ikon?: React.ReactNode) =>

@@ -8,11 +8,10 @@ import LagreKnapp from '../../komponenter/LagreKnapp';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { godkjennRefusjon, useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import '../Steg/OppsummeringSteg/OppsummeringSteg.less';
-import Utregning from '../Steg/OppsummeringSteg/Utregning';
 import NokkelInfo from './NokkelInfo';
 import './RefusjonSide.less';
 import SummeringBoks from './SummeringBoks';
+import Utregning from '../../komponenter/Utregning';
 
 const cls = BEMHelper('refusjonside');
 

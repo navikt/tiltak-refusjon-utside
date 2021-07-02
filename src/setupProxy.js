@@ -8,11 +8,16 @@ module.exports = function (app) {
 
     app.use('/dekoratoren/env', async (req, res) => {
         const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false');
-        res.json({ ...response.data, APP_URL: '/dekoratoren', LOGOUT_URL: '/logout' });
+        res.json({
+            ...response.data,
+            API_INNLOGGINGSLINJE_URL: '/dekoratoren/api',
+            APP_URL: '/dekoratoren',
+            LOGOUT_URL: '/logout',
+        });
     });
     app.use('/dekoratoren/api/auth', async (req, res) => {
         try {
-            const response = await axios.get('http://localhost:' + serverPort + '/api/innlogget-bruker', {
+            const response = await axios.get('http://localhost:' + serverPort + '/api/arbeidsgiver/innlogget-bruker', {
                 headers: req.headers,
             });
             res.json({ authenticated: true, name: response.data.identifikator || '' });

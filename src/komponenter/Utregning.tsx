@@ -8,14 +8,14 @@ import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { Fragment, FunctionComponent } from 'react';
-import VerticalSpacer from '../../../komponenter/VerticalSpacer';
-import { lønnsbeskrivelseTekst } from '../../../messages';
-import BEMHelper from '../../../utils/bem';
-import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../../utils/datoUtils';
-import { formatterPenger } from '../../../utils/PengeUtils';
-import { Refusjon } from '../../refusjon';
 import './Utregning.less';
 import Utregningsrad from './Utregningsrad';
+import { Refusjon } from '../refusjon/refusjon';
+import BEMHelper from '../utils/bem';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../utils/datoUtils';
+import VerticalSpacer from './VerticalSpacer';
+import { lønnsbeskrivelseTekst } from '../messages';
+import { formatterPenger } from '../utils/PengeUtils';
 
 interface Props {
     refusjon: Refusjon;
@@ -74,7 +74,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                         ))}
                     </div>
                     <VerticalSpacer rem={2} />
-                    <div style={{ borderBottom: '1px solid #c6c2bf' }}></div>
+                    <div style={{ borderBottom: '1px solid #c6c2bf' }} />
                 </>
             )}
             {(!props.refusjon.inntektsgrunnlag || props.refusjon.inntektsgrunnlag?.inntekter.length === 0) && (
