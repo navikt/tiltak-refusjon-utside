@@ -4,6 +4,9 @@ import { BrukerContextType, InnloggetBruker } from './BrukerContextType';
 import Banner from '../refusjon/Banner';
 import LokalLogin from '../LokalLogin';
 import { useHistory } from 'react-router-dom';
+import HvitBoks from '../komponenter/hvitboks/HvitBoks';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import VerticalSpacer from '../komponenter/VerticalSpacer';
 
 const BrukerContext = React.createContext<BrukerContextType | undefined>(undefined);
 
@@ -54,6 +57,29 @@ export const BrukerProvider: FunctionComponent = (props) => {
                 >
                     {props.children}
                 </BrukerContext.Provider>
+            )}
+            {innloggetBruker && innloggetBruker.organisasjoner.length === 0 && (
+                <HvitBoks style={{ margin: '1rem auto 2rem auto' }}>
+                    <Systemtittel>Ikke tilgang til noen virksomheter i Altinn</Systemtittel>
+                    <VerticalSpacer rem={2} />
+                    <Normaltekst>
+                        For å få tilgang til refusjoner for din virksomhet må du ha en av disse Altinn-rollene:
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <ul>
+                        <li>ansvarlig revisor</li>
+                        <li>lønn og personalmedarbeider</li>
+                        <li>regnskapsfører lønn</li>
+                        <li>regnskapsfører med signeringsrettighet</li>
+                        <li>regnskapsfører uten signeringsrettighet</li>
+                        <li>revisormedarbeider</li>
+                        <li>norsk representant for utenlandsk enhet</li>
+                    </ul>
+                    <VerticalSpacer rem={1} />
+                    <Normaltekst>
+                        Du kan også ha rettigheten <b>inntektsmelding</b>.
+                    </Normaltekst>
+                </HvitBoks>
             )}
         </>
     );
