@@ -5,18 +5,18 @@ import { ReactComponent as PlussTegn } from '@/asset/image/plussTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/asset/image/prosentTegn.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
+import { Warning } from '@navikt/ds-icons';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { Fragment, FunctionComponent } from 'react';
-import './Utregning.less';
-import Utregningsrad from './Utregningsrad';
+import { lønnsbeskrivelseTekst } from '../messages';
 import { Refusjon } from '../refusjon/refusjon';
 import BEMHelper from '../utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../utils/datoUtils';
-import VerticalSpacer from './VerticalSpacer';
-import { lønnsbeskrivelseTekst } from '../messages';
 import { formatterPenger } from '../utils/PengeUtils';
-import { Warning } from '@navikt/ds-icons';
+import './Utregning.less';
+import Utregningsrad from './Utregningsrad';
+import VerticalSpacer from './VerticalSpacer';
 
 interface Props {
     refusjon: Refusjon;
@@ -92,8 +92,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 <>
                     <VerticalSpacer rem={1} />
                     <AlertStripeAdvarsel>
-                        Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Oppdater a-meldingen i Altinn,
-                        når du kommer tilbake hit vil inntektsopplysningen være oppdatert automatisk.
+                        Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Når a-meldingen er oppdatert vil
+                        inntektsopplysningene vises her automatisk.
                     </AlertStripeAdvarsel>
                     <VerticalSpacer rem={2} />
                 </>

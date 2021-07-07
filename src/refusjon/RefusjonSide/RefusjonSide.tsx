@@ -5,13 +5,13 @@ import { useHistory, useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import LagreKnapp from '../../komponenter/LagreKnapp';
+import Utregning from '../../komponenter/Utregning';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { godkjennRefusjon, useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import NokkelInfo from './NokkelInfo';
 import './RefusjonSide.less';
 import SummeringBoks from './SummeringBoks';
-import Utregning from '../../komponenter/Utregning';
 
 const cls = BEMHelper('refusjonside');
 
@@ -47,14 +47,17 @@ const RefusjonSide: FunctionComponent = () => {
 
             <VerticalSpacer rem={1} />
             <Normaltekst>
-                Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
-                ikke stemmer så må det{' '}
+                Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. A-meldingen er en månedlig
+                melding fra arbeidsgiver til NAV, SSB og Skatteetaten om ansattes inntekt, arbeidsforhold og
+                forskuddstrekk, samt arbeidsgiveravgift og finansskatt for virksomheten. Hvis inntektsopplysningene ikke
+                stemmer så må det{' '}
                 <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
-                    oppdateres i A-meldingen hos Altinn.
+                    oppdateres i ditt lønnssystem.
                 </EksternLenke>
                 Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
                 hentet fra avtalen om midlertidig lønnstilskudd.
             </Normaltekst>
+
             <VerticalSpacer rem={2} />
             <NokkelInfo />
             <VerticalSpacer rem={2} />
