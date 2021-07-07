@@ -71,7 +71,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                         <div>
                                             <Warning style={{ marginRight: '0.25rem', marginBottom: '-0.1rem' }} />
                                             <em>
-                                                Ikke rapportert, fordeles på alle dager i{' '}
+                                                Ikke rapportert opptjeningsperiode, fordeles på alle dager i{' '}
                                                 {formatterDato(inntekt.måned, 'MMMM')}
                                             </em>
                                         </div>
