@@ -51,7 +51,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('inntekter')}>
                         <Element>Lønnsbeskrivelse</Element>
-                        <Element>Periode</Element>
+                        <Element>Opptjeningsperiode</Element>
                         <Element>Beløp</Element>
                         <Element>Refunderes</Element>
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
@@ -64,7 +64,14 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                 </Normaltekst>
 
                                 <Normaltekst>
-                                    {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom)}
+                                    {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
+                                        formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
+                                    ) : (
+                                        <em>
+                                            Ikke rapportert, fordeles på alle dager i{' '}
+                                            {formatterDato(inntekt.måned, 'MMMM')}
+                                        </em>
+                                    )}
                                 </Normaltekst>
 
                                 <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>
