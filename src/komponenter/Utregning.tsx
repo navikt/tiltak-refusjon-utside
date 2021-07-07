@@ -16,6 +16,7 @@ import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../ut
 import VerticalSpacer from './VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../messages';
 import { formatterPenger } from '../utils/PengeUtils';
+import { Warning } from '@navikt/ds-icons';
 
 interface Props {
     refusjon: Refusjon;
@@ -67,10 +68,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                     {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
                                         formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
                                     ) : (
-                                        <em>
-                                            Ikke rapportert, fordeles på alle dager i{' '}
-                                            {formatterDato(inntekt.måned, 'MMMM')}
-                                        </em>
+                                        <div>
+                                            <Warning style={{ marginRight: '0.25rem', marginBottom: '-0.1rem' }} />
+                                            <em>
+                                                Ikke rapportert, fordeles på alle dager i{' '}
+                                                {formatterDato(inntekt.måned, 'MMMM')}
+                                            </em>
+                                        </div>
                                     )}
                                 </Normaltekst>
 
