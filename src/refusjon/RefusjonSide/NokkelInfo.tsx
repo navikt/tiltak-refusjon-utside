@@ -1,4 +1,4 @@
-import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
+import { Calender, File, FileContent, Money, People, Warning } from '@navikt/ds-icons';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -8,7 +8,7 @@ import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
-import { formatterPeriode } from '../../utils/datoUtils';
+import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 
 const IkonRad = styled.div`
@@ -47,6 +47,12 @@ const NokkelInfo: FunctionComponent = () => {
                 <Normaltekst>
                     {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
                 </Normaltekst>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Warning />
+                <Element>Frist: </Element>
+                <Normaltekst>{formatterDato(refusjon.fristForGodkjenning)}</Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
