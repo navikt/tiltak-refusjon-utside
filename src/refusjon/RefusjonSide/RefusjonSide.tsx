@@ -65,7 +65,7 @@ const RefusjonSide: FunctionComponent = () => {
 
             <VerticalSpacer rem={4} />
 
-            {refusjon.beregning && (
+            {refusjon.beregning && refusjon.beregning.refusjonsbeløp > 0 && (
                 <>
                     <SummeringBoks />
 

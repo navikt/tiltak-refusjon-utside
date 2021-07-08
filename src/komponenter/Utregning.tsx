@@ -37,6 +37,10 @@ const Utregning: FunctionComponent<Props> = (props) => {
         </>
     );
 
+    const antallInntekterSomErMedIGrunnlag = props.refusjon.inntektsgrunnlag?.inntekter.filter(
+        (inntekt) => inntekt.erMedIInntektsgrunnlag
+    ).length;
+
     return (
         <div className={cls.className}>
             <VerticalSpacer rem={1} />
@@ -90,6 +94,16 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={1} />
                     <AlertStripeAdvarsel>
                         Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Når a-meldingen er oppdatert vil
+                        inntektsopplysningene vises her automatisk.
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer rem={2} />
+                </>
+            )}
+            {props.refusjon.inntektsgrunnlag?.inntekter.length && antallInntekterSomErMedIGrunnlag === 0 && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeAdvarsel>
+                        Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
                         inntektsopplysningene vises her automatisk.
                     </AlertStripeAdvarsel>
                     <VerticalSpacer rem={2} />
