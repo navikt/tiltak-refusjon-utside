@@ -1,5 +1,5 @@
 import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
@@ -63,10 +63,12 @@ const NokkelInfo: FunctionComponent = () => {
             {refusjon.bedriftKontonummer === null && (
                 <>
                     <VerticalSpacer rem={1} />
-                    <AlertStripeAdvarsel>
-                        Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må sendes inn via
-                        Altinn.
-                    </AlertStripeAdvarsel>
+                    <AlertStripeFeil>
+                        Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må{' '}
+                        <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                            sendes inn via Altinn.
+                        </EksternLenke>
+                    </AlertStripeFeil>
                 </>
             )}
         </div>
