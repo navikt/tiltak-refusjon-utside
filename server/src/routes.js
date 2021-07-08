@@ -53,9 +53,7 @@ const setup = (tokenxClient, idportenClient) => {
 
     const ensureAuthenticated = async (req, res, next) => {
         const frontendTokenSet = frontendTokenSetFromSession(req);
-        if (req.url === '/') {
-            next();
-        } else {
+        if (req.url !== '/') {
             if (!frontendTokenSet) {
                 res.redirect('/login');
             } else if (frontendTokenSet.expired()) {
