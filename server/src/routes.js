@@ -55,19 +55,21 @@ const setup = (tokenxClient, idportenClient) => {
         const frontendTokenSet = frontendTokenSetFromSession(req);
         if (req.url === '/') {
             next();
-        } else if (!frontendTokenSet) {
-            res.redirect('/login');
-        } else if (frontendTokenSet.expired()) {
-            try {
-                req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSet);
-                next();
-            } catch (err) {
-                logger.error('Feil ved refresh av token', err);
-                req.session.destroy();
-                res.redirect('/login');
-            }
         } else {
-            next();
+            if (!frontendTokenSet) {
+                res.redirect('/login');
+            } else if (frontendTokenSet.expired()) {
+                try {
+                    req.session.frontendTokenSet = await idporten.refresh(idportenClient, frontendTokenSet);
+                    next();
+                } catch (err) {
+                    logger.error('Feil ved refresh av token', err);
+                    req.session.destroy();
+                    res.redirect('/login');
+                }
+            } else {
+                next();
+            }
         }
     };
 
