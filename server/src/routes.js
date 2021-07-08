@@ -2,11 +2,11 @@ import express from 'express';
 import { generators } from 'openid-client';
 import path from 'path';
 import idporten from './auth/idporten';
+import { frontendTokenSetFromSession } from './auth/utils';
 import config from './config';
+import logger from './logger';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
-import { frontendTokenSetFromSession } from './auth/utils';
-import logger from './logger';
 
 const asyncHandler = require('express-async-handler');
 
@@ -53,7 +53,9 @@ const setup = (tokenxClient, idportenClient) => {
 
     const ensureAuthenticated = async (req, res, next) => {
         const frontendTokenSet = frontendTokenSetFromSession(req);
-        if (!frontendTokenSet) {
+        if (req.url === '/') {
+            next();
+        } else if (!frontendTokenSet) {
             res.redirect('/login');
         } else if (frontendTokenSet.expired()) {
             try {

@@ -1,12 +1,12 @@
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { hentInnloggetBruker } from '../services/rest-service';
-import { BrukerContextType, InnloggetBruker } from './BrukerContextType';
-import Banner from '../refusjon/Banner';
-import LokalLogin from '../LokalLogin';
 import { useHistory } from 'react-router-dom';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
+import LokalLogin from '../LokalLogin';
+import Banner from '../refusjon/Banner';
+import { hentInnloggetBruker } from '../services/rest-service';
+import { BrukerContextType, InnloggetBruker } from './BrukerContextType';
 
 const BrukerContext = React.createContext<BrukerContextType | undefined>(undefined);
 
@@ -40,7 +40,7 @@ export const BrukerProvider: FunctionComponent = (props) => {
                     setValgtBedrift={(org) => {
                         if (valgtBedrift !== undefined) {
                             history.push({
-                                pathname: '/',
+                                pathname: '/refusjon',
                                 search: 'bedrift=' + org.OrganizationNumber,
                             });
                         }

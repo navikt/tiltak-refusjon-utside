@@ -7,7 +7,9 @@ module.exports = function (app) {
     app.use('/api', createProxyMiddleware({ target: 'http://localhost:' + serverPort, changeOrigin: true }));
 
     app.use('/dekoratoren/env', async (req, res) => {
-        const response = await axios.get('https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false');
+        const response = await axios.get(
+            'https://www.nav.no/dekoratoren/env?context=arbeidsgiver&feedback=false&level=Level4&redirectToApp=true'
+        );
         res.json({
             ...response.data,
             API_INNLOGGINGSLINJE_URL: '/dekoratoren/api',
