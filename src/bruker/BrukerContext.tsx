@@ -40,7 +40,7 @@ export const BrukerProvider: FunctionComponent = (props) => {
                     setValgtBedrift={(org) => {
                         if (valgtBedrift !== undefined) {
                             history.push({
-                                pathname: '/refusjon',
+                                pathname: '/',
                                 search: 'bedrift=' + org.OrganizationNumber,
                             });
                         }
