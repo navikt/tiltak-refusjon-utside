@@ -7,6 +7,7 @@ import { startLabs } from './labs';
 import logger from './logger';
 import routes from './routes';
 import session from './session';
+import path from 'path';
 
 async function startNormal(server) {
     try {
@@ -27,11 +28,17 @@ async function startNormal(server) {
         // setup routes
         server.use(['/refusjon/*', '/refusjon'], routes.setup(tokenxAuthClient, idportenAuthClient));
 
+        server.get('/isAlive', (req, res) => res.sendStatus(200));
+        server.get('/isReady', (req, res) => res.sendStatus(200));
+
+        server.use(express.static(path.join(__dirname, '../build')));
+
+        server.get('/*', (req, res) => {
+            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+        });
+
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));
-
-        server.get('/refusjon/isAlive', (req, res) => res.send('Alive'));
-        server.get('/refusjon/isReady', (req, res) => res.send('Ready'));
     } catch (error) {
         logger.error('Error during start-up', error);
     }
