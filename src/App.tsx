@@ -6,6 +6,7 @@ import './App.css';
 import { BrukerProvider } from './bruker/BrukerContext';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
 import ScrollToTop from './komponenter/ScrollToTop';
+import Landingsside from './Landingsside';
 import OversiktSide from './refusjon/OversiktSide/OversiktSide';
 import Refusjon from './refusjon/RefusjonSide/Refusjon';
 
@@ -15,12 +16,12 @@ function App() {
             <ScrollToTop />
             <AdvarselBannerTestversjon />
             <Switch>
-                {/* <Route exact path="/">
+                <Route exact path="/">
                     <Landingsside />
-                </Route> */}
+                </Route>
                 <BrukerProvider>
                     <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
-                        <Route exact path="/">
+                        <Route exact path="/refusjon">
                             <ErrorOgSuspenseHandler>
                                 <OversiktSide />
                             </ErrorOgSuspenseHandler>
