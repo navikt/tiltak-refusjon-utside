@@ -29,6 +29,9 @@ async function startNormal(server) {
 
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));
+
+        server.get('/refusjon/isAlive', (req, res) => res.send('Alive'));
+        server.get('/refusjon/isReady', (req, res) => res.send('Ready'));
     } catch (error) {
         logger.error('Error during start-up', error);
     }
