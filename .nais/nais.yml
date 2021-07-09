@@ -12,10 +12,10 @@ spec:
   ingresses:
     - {{ingress}}
   liveness:
-    path: /isAlive
+    path: /refusjon/isAlive
     initialDelay: 10
   readiness:
-    path: /isReady
+    path: /refusjon/isReady
     initialDelay: 10
   env:
     {{#each env}}
