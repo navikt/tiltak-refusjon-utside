@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
+import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetBruker } from './bruker/BrukerContextType';
 import VerticalSpacer from './komponenter/VerticalSpacer';
-import { Element } from 'nav-frontend-typografi';
 
 type Props = {
     innloggetBruker: InnloggetBruker | undefined;

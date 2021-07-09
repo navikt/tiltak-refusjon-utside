@@ -14,8 +14,8 @@ const router = express.Router();
 
 const setup = (tokenxClient, idportenClient) => {
     // Unprotected
-    router.get('/isAlive', (req, res) => res.send('Alive'));
-    router.get('/isReady', (req, res) => res.send('Ready'));
+    router.get('/refusjon/isAlive', (req, res) => res.send('Alive'));
+    router.get('/refusjon/isReady', (req, res) => res.send('Ready'));
 
     router.get(
         '/login',
@@ -87,9 +87,10 @@ const setup = (tokenxClient, idportenClient) => {
 
     router.use(express.static(path.join(__dirname, '../build')));
 
-    router.get('/*', (req, res) => {
+    router.get(['/refusjon', '/refusjon/*'], (req, res) => {
         res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
     });
+
     return router;
 };
 
