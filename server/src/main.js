@@ -1,12 +1,12 @@
-import { startLabs } from './labs';
-import express from 'express';
-import session from './session';
 import bodyParser from 'body-parser';
-import cors from './cors';
-import tokenx from './auth/tokenx';
-import routes from './routes';
+import express from 'express';
 import idporten from './auth/idporten';
+import tokenx from './auth/tokenx';
+import cors from './cors';
+import { startLabs } from './labs';
 import logger from './logger';
+import routes from './routes';
+import session from './session';
 
 async function startNormal(server) {
     try {
@@ -25,7 +25,7 @@ async function startNormal(server) {
         const idportenAuthClient = await idporten.client();
 
         // setup routes
-        server.use('/', routes.setup(tokenxAuthClient, idportenAuthClient));
+        server.use('/refusjon*', routes.setup(tokenxAuthClient, idportenAuthClient));
 
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));
