@@ -14,8 +14,8 @@ const router = express.Router();
 
 const setup = (tokenxClient, idportenClient) => {
     // Unprotected
-    router.get('/isAlive', (req, res) => res.send('Alive'));
-    router.get('/isReady', (req, res) => res.send('Ready'));
+    router.get('/refusjon/isAlive', (req, res) => res.send('Alive'));
+    router.get('/refusjon/isReady', (req, res) => res.send('Ready'));
 
     router.get(
         '/login',
