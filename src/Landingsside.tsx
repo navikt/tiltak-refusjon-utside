@@ -2,29 +2,21 @@ import { ReactComponent as SommerIkon } from '@/asset/image/sommer.svg';
 import { ReactComponent as Success } from '@/asset/image/Success.svg';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
 import EksternLenke from './komponenter/EksternLenke/EksternLenke';
 import HvitBoks from './komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from './komponenter/VerticalSpacer';
-import { hentInnloggetBruker } from './services/rest-service';
 
 const Landingsside: FunctionComponent = () => {
     const history = useHistory();
-    const [erInnlogget, setErInnlogget] = useState(false);
 
-    const loggInn = () => {
+    const gåTilOversikten = () => {
         history.push({
             pathname: `/refusjon/`,
             search: window.location.search,
         });
     };
-
-    useEffect(() => {
-        hentInnloggetBruker()
-            .then(() => setErInnlogget(true))
-            .catch(() => setErInnlogget(false));
-    }, []);
 
     return (
         <HvitBoks style={{ margin: '2rem auto' }}>
@@ -80,7 +72,7 @@ const Landingsside: FunctionComponent = () => {
 
                 <VerticalSpacer rem={2} />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Hovedknapp onClick={loggInn}>{erInnlogget ? 'Gå til oversikt' : 'Logg inn'}</Hovedknapp>
+                    <Hovedknapp onClick={gåTilOversikten}>Gå til refusjonsoversikten</Hovedknapp>
                 </div>
             </div>
         </HvitBoks>
