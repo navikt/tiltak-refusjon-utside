@@ -99,16 +99,18 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={2} />
                 </>
             )}
-            {props.refusjon.inntektsgrunnlag?.inntekter.length && antallInntekterSomErMedIGrunnlag === 0 && (
-                <>
-                    <VerticalSpacer rem={1} />
-                    <AlertStripeAdvarsel>
-                        Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
-                        inntektsopplysningene vises her automatisk.
-                    </AlertStripeAdvarsel>
-                    <VerticalSpacer rem={2} />
-                </>
-            )}
+            {props.refusjon.inntektsgrunnlag &&
+                props.refusjon.inntektsgrunnlag.inntekter.length > 0 &&
+                antallInntekterSomErMedIGrunnlag === 0 && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <AlertStripeAdvarsel>
+                            Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
+                            inntektsopplysningene vises her automatisk.
+                        </AlertStripeAdvarsel>
+                        <VerticalSpacer rem={2} />
+                    </>
+                )}
 
             <Utregningsrad
                 labelIkon={<Stranden />}

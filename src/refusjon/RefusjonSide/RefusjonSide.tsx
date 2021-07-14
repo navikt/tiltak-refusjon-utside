@@ -44,7 +44,6 @@ const RefusjonSide: FunctionComponent = () => {
         <HvitBoks>
             <VerticalSpacer rem={2} />
             <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
-
             <VerticalSpacer rem={1} />
             <Normaltekst>
                 Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. A-meldingen er en månedlig
@@ -57,14 +56,11 @@ const RefusjonSide: FunctionComponent = () => {
                 Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
                 hentet fra avtalen om midlertidig lønnstilskudd.
             </Normaltekst>
-
             <VerticalSpacer rem={2} />
             <NokkelInfo />
             <VerticalSpacer rem={2} />
             <Utregning refusjon={refusjon} />
-
             <VerticalSpacer rem={4} />
-
             {refusjon.beregning && refusjon.beregning.refusjonsbeløp > 0 && (
                 <>
                     <SummeringBoks />

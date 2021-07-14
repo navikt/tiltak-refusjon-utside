@@ -1,6 +1,6 @@
+import React from 'react';
 import { Status } from './status';
 import { Tiltak } from './tiltak';
-import React from 'react';
 
 export interface Refusjon {
     id: string;
@@ -34,6 +34,8 @@ export interface Tilskuddsgrunnlag {
     tilskuddsperiodeId: string;
     tiltakstype: Tiltak;
     veilederNavIdent: string;
+    avtaleNr: number;
+    løpenummer: number;
 }
 
 export interface Inntektsgrunnlag {

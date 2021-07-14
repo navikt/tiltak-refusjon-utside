@@ -24,6 +24,8 @@ const NokkelInfo: FunctionComponent = () => {
 
     const avtaleLenke = `http://arbeidsgiver.nav.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
 
+    const refusjonsnummer = `${refusjon.tilskuddsgrunnlag.avtaleNr}-${refusjon.tilskuddsgrunnlag.løpenummer}`;
+
     return (
         <div>
             <IkonRad>
@@ -31,6 +33,12 @@ const NokkelInfo: FunctionComponent = () => {
                     <File />
                     Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
                 </EksternLenke>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <File />
+                <Element>Refusjonsnummer: </Element>
+                <Normaltekst>{refusjonsnummer}</Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
