@@ -20,7 +20,7 @@ const Landingsside: FunctionComponent = () => {
 
     return (
         <HvitBoks style={{ margin: '2rem auto' }}>
-            <div style={{ width: '40rem', margin: '0 auto' }}>
+            <div style={{ maxWidth: '40rem', margin: '0 auto' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <SommerIkon />
                     <VerticalSpacer rem={1} />
