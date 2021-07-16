@@ -41,6 +41,18 @@ const Utregning: FunctionComponent<Props> = (props) => {
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
 
+    const ingenInntekter = !props.refusjon.inntektsgrunnlag || props.refusjon.inntektsgrunnlag?.inntekter.length === 0;
+
+    const ingenRefunderbareInntekter =
+        props.refusjon.inntektsgrunnlag &&
+        props.refusjon.inntektsgrunnlag.inntekter.length > 0 &&
+        antallInntekterSomErMedIGrunnlag === 0;
+
+    const harInntekterMenIkkeForHeleTilskuddsperioden =
+        !props.refusjon.harInntektIAlleMåneder &&
+        props.refusjon.inntektsgrunnlag &&
+        props.refusjon.inntektsgrunnlag.inntekter.length > 0;
+
     return (
         <div className={cls.className}>
             <VerticalSpacer rem={1} />
@@ -89,7 +101,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     <div style={{ borderBottom: '1px solid #c6c2bf' }} />
                 </>
             )}
-            {(!props.refusjon.inntektsgrunnlag || props.refusjon.inntektsgrunnlag?.inntekter.length === 0) && (
+            {ingenInntekter && (
                 <>
                     <VerticalSpacer rem={1} />
                     <AlertStripeAdvarsel>
@@ -99,18 +111,37 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={2} />
                 </>
             )}
-            {props.refusjon.inntektsgrunnlag &&
-                props.refusjon.inntektsgrunnlag.inntekter.length > 0 &&
-                antallInntekterSomErMedIGrunnlag === 0 && (
-                    <>
-                        <VerticalSpacer rem={1} />
-                        <AlertStripeAdvarsel>
-                            Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
-                            inntektsopplysningene vises her automatisk.
-                        </AlertStripeAdvarsel>
-                        <VerticalSpacer rem={2} />
-                    </>
-                )}
+            {ingenRefunderbareInntekter && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeAdvarsel>
+                        Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
+                        inntektsopplysningene vises her automatisk.
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer rem={2} />
+                </>
+            )}
+            {harInntekterMenIkkeForHeleTilskuddsperioden && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeAdvarsel>
+                        Vi kan ikke finne inntekter for hele perioden som er avtalt. Dette kan skyldes at det ikke er
+                        rapportert inn inntekter for alle månedene i den avtalte perioden enda.
+                        <p>
+                            <Element>
+                                Du kan kun søke om refusjon for den avtalte perioden{' '}
+                                {formatterPeriode(
+                                    props.refusjon.tilskuddsgrunnlag.tilskuddFom,
+                                    props.refusjon.tilskuddsgrunnlag.tilskuddTom
+                                )}{' '}
+                                én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du
+                                klikker fullfør.
+                            </Element>
+                        </p>
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer rem={2} />
+                </>
+            )}
 
             <Utregningsrad
                 labelIkon={<Stranden />}
